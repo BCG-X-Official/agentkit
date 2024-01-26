@@ -1,0 +1,78 @@
+pr_number,pr_title,pr_state,pr_user,pr_created_at,pr_updated_at,pr_closed_at,pr_merged_at,pr_merged,pr_num_additions,pr_num_deletions,pr_num_changed_files,pr_num_comments,pr_num_review_comments,pr_num_commits,pr_mergeable,pr_mergeable_state
+2,pre commit config,closed,AitBaali-Hamza,05-30-2023 20:15:43,05-31-2023 10:04:14,05-31-2023 10:04:11,05-31-2023 10:04:11,True,127,59,2,2,0,3,False,unknown
+3,Feat/sem ver versioning,closed,AitBaali-Hamza,05-31-2023 10:01:35,06-01-2023 12:41:54,06-01-2023 12:41:21,06-01-2023 12:41:21,True,233,85,2,0,3,33,False,unknown
+4,generate client openai,closed,AitBaali-Hamza,05-31-2023 15:48:18,06-07-2023 12:28:12,06-02-2023 09:33:32,,False,2250,3,70,1,0,1,False,unknown
+5,Arch flow added + initial setup for usage guide (still WIP),closed,vanLangen-Casper,06-01-2023 20:01:22,06-05-2023 09:13:00,06-02-2023 15:21:21,06-02-2023 15:21:21,True,38,3,1,0,0,1,False,unknown
+6,Feat/authentification saving,closed,AitBaali-Hamza,06-02-2023 09:33:08,06-04-2023 19:38:35,06-04-2023 19:38:32,06-04-2023 19:38:32,True,718,315,23,0,12,21,False,unknown
+7,[DRAFT] Chinook simple demo,closed,vanLangen-Casper,06-06-2023 13:47:28,06-08-2023 14:10:49,06-08-2023 14:10:49,06-08-2023 14:10:49,True,35403,615,37,0,5,14,False,unknown
+8,Demo/explain bot,closed,Scheel-Bech-Jacob,06-06-2023 14:25:27,06-06-2023 14:29:35,06-06-2023 14:29:35,06-06-2023 14:29:35,True,244,25,15,0,0,5,False,dirty
+9,[INTEGRATION] Plan AI Supply integration,closed,Fournier-Thomas,06-06-2023 19:43:14,06-08-2023 15:57:49,06-08-2023 15:57:49,,False,547,564,4,0,0,1,False,unknown
+10,Feat/save config,closed,Fournier-Thomas,06-06-2023 21:18:02,06-08-2023 09:46:11,06-08-2023 09:46:11,,False,63,8,5,0,1,2,False,dirty
+11,Custom Login page and API Key (+ validation of the key) + user profile pic,closed,AitBaali-Hamza,06-07-2023 12:16:24,06-08-2023 10:05:10,06-08-2023 10:05:07,06-08-2023 10:05:07,True,1704,44,19,0,4,4,False,unknown
+12,[DEMO] Alpha,closed,Fournier-Thomas,06-07-2023 14:56:36,06-15-2023 11:35:47,06-15-2023 11:35:47,,False,1271,649,20,0,0,7,False,unknown
+13,[DEMO] Alpha with visuals,closed,Fournier-Thomas,06-08-2023 22:20:31,06-21-2023 15:21:22,06-21-2023 15:21:22,,False,3757,1000,66,0,0,36,False,dirty
+14,Chinook fine tuning,closed,vanLangen-Casper,06-09-2023 10:40:51,06-19-2023 16:22:54,06-19-2023 16:22:54,06-19-2023 16:22:54,True,16,11,4,0,0,1,False,unknown
+15,[DEMO] Alpha Sanitized,closed,Fournier-Thomas,06-15-2023 11:35:34,06-20-2023 15:50:17,06-20-2023 15:50:17,,False,341,118,15,0,0,5,False,unknown
+16,[FEATURE] IO Parsing,closed,Fournier-Thomas,06-16-2023 14:07:24,08-11-2023 13:55:42,08-11-2023 13:55:42,,False,236,36,5,6,3,5,False,dirty
+17,Feat/azure model,closed,heyder-jakob,06-19-2023 16:39:29,06-21-2023 07:05:06,06-21-2023 07:05:06,06-21-2023 07:05:06,True,28,29,5,0,3,2,False,unknown
+18,Ft/backend config runopt,closed,AitBaali-Hamza,06-20-2023 09:26:16,06-20-2023 09:27:50,06-20-2023 09:27:50,06-20-2023 09:27:50,True,8801,486,71,0,0,31,False,unknown
+19,Draft contribution guidelines,closed,vanLangen-Casper,06-21-2023 15:24:51,06-27-2023 15:58:19,06-27-2023 15:58:19,06-27-2023 15:58:19,True,46,2,2,1,2,2,False,unknown
+21,Ft/backend config runopt,closed,AitBaali-Hamza,06-22-2023 10:39:47,06-22-2023 10:41:01,06-22-2023 10:41:01,,False,10387,1033,76,0,0,32,False,dirty
+22,Update/develop with last changes,closed,AitBaali-Hamza,06-23-2023 12:35:16,06-23-2023 14:52:46,06-23-2023 14:52:43,06-23-2023 14:52:43,True,836,300,41,0,4,3,False,unknown
+23,Tools documentation,closed,vanLangen-Casper,06-23-2023 14:32:29,06-29-2023 11:03:03,06-29-2023 10:33:24,06-29-2023 10:33:24,True,217,218,9,0,6,11,False,unknown
+25,Ft/clarify tool,closed,Scheel-Bech-Jacob,06-26-2023 14:33:53,08-14-2023 12:56:20,08-14-2023 12:56:20,,False,89,3,4,4,0,9,False,dirty
+27,add evaluation framework,closed,Scheel-Bech-Jacob,06-27-2023 12:16:45,06-30-2023 14:51:02,06-30-2023 14:51:02,06-30-2023 14:51:02,True,1003,1,10,2,0,3,False,unknown
+28,Feat: Update langchain version to support ChatModel caching,closed,heyder-jakob,06-27-2023 16:23:08,07-05-2023 09:25:26,07-05-2023 09:25:26,07-05-2023 09:25:26,True,28,9,2,0,0,1,False,unknown
+29,Readme & .env.example fixes for Chinook set up,closed,vanLangen-Casper,06-27-2023 17:41:11,06-28-2023 12:27:01,06-28-2023 12:27:01,,False,33,23,8,0,0,1,False,unknown
+30,[Do not merge] Comparing files for debugging,closed,vanLangen-Casper,06-28-2023 10:41:03,06-28-2023 12:27:01,06-28-2023 12:27:01,,False,13908,1151,139,0,0,77,False,dirty
+31,Feat/alpha visuals,closed,Fournier-Thomas,06-28-2023 12:16:51,06-28-2023 16:01:44,06-28-2023 16:01:44,,False,9074,6400,206,0,0,60,True,blocked
+32,"Caddy fix, API key default fix, .env.example updates for Chinook",closed,vanLangen-Casper,06-28-2023 12:22:32,07-07-2023 16:35:24,07-07-2023 16:35:22,07-07-2023 16:35:22,True,190,101,16,0,31,12,False,unknown
+38,Rebuild sql info file if set in config,closed,vanLangen-Casper,06-30-2023 17:06:22,07-02-2023 18:19:46,07-02-2023 18:19:46,07-02-2023 18:19:46,True,16,13,5,0,0,1,False,unknown
+39,Fixes for contributor dev environment setup,closed,Connell-Liam,07-05-2023 15:28:34,07-05-2023 21:31:11,07-05-2023 21:30:48,,False,81,39,12,0,0,7,False,dirty
+40,Fix minor issues with local environment setup,closed,Connell-Liam,07-05-2023 21:29:57,08-11-2023 13:36:39,08-11-2023 13:36:39,,False,72,35,11,4,0,2,False,dirty
+41,Feat/image generation,closed,Jia-Valerie,07-11-2023 11:34:37,07-11-2023 12:51:12,07-11-2023 12:45:49,,False,243,44806,139,0,0,7,False,unknown
+42,Feat/image generation,closed,Jia-Valerie,07-11-2023 14:07:31,08-10-2023 10:39:05,08-10-2023 10:39:05,08-10-2023 10:39:05,True,301,1,12,0,0,5,False,unknown
+43,[WIP] cropGPT,closed,Connell-Liam,07-11-2023 18:33:07,07-12-2023 14:50:58,07-12-2023 14:50:58,,False,2649,438,38,0,0,29,False,dirty
+44,Fix/pdf tool flag,closed,Bensaid-Eden,07-21-2023 17:35:37,08-10-2023 10:00:54,08-10-2023 10:00:54,08-10-2023 10:00:54,True,9,6,2,0,0,3,False,unknown
+45,[TO DELETE],closed,Bensaid-Eden,07-25-2023 04:34:08,07-25-2023 04:43:13,07-25-2023 04:36:41,,False,1865,24,20,0,0,13,False,unknown
+46,Feat: Feedback and customisation example integration,closed,heyder-jakob,08-11-2023 13:48:44,08-11-2023 13:51:52,08-11-2023 13:51:52,08-11-2023 13:51:52,True,659,131,39,0,0,2,False,unknown
+47,"Implement BaseLLM Class and Refactor Clarity, Entertainer, and Expert Tools",open,Scheel-Bech-Jacob,08-14-2023 12:55:07,08-14-2023 12:56:44,,,False,44,73,5,0,0,1,False,dirty
+48,Updated env vars for LangSmith,closed,vanLangen-Casper,08-25-2023 11:04:31,09-25-2023 14:40:48,09-25-2023 14:40:48,09-25-2023 14:40:48,True,14,8,3,0,0,1,False,unknown
+49,Documentation simplification,closed,vanLangen-Casper,08-25-2023 11:48:45,09-25-2023 14:41:22,09-25-2023 14:41:22,09-25-2023 14:41:22,True,51,88,1,0,0,1,False,unknown
+51,Docs/access,closed,Howitt-Ben,09-12-2023 13:58:21,09-13-2023 07:53:06,09-12-2023 14:12:41,,False,2461,313,53,0,0,15,False,unknown
+52,Fix self-hosted langsmith (#22),closed,Howitt-Ben,09-22-2023 16:29:54,11-02-2023 17:35:48,10-09-2023 19:00:38,10-09-2023 19:00:38,True,133,31,8,3,0,3,False,unknown
+53,DevEx suggestion to change Readme,closed,Fernandez-Alex,09-24-2023 16:29:53,09-25-2023 14:43:37,09-25-2023 14:43:37,09-25-2023 14:43:37,True,1,1,1,0,0,1,False,unknown
+54,docs: reference nano-agent-x in README,open,Cambiaghi-Luca,09-26-2023 12:37:32,09-28-2023 12:48:14,,,False,19,2,1,0,2,1,False,dirty
+55,Feature/insights tools,closed,Stoehr-Maximilian,10-05-2023 12:49:13,10-05-2023 12:50:54,10-05-2023 12:49:36,,False,2607,19224,21,0,0,3,False,unknown
+56,fix: typos in self-hosted langchain solutions,closed,Howitt-Ben,10-09-2023 19:40:15,10-11-2023 09:37:48,10-11-2023 09:37:48,10-11-2023 09:37:48,True,19,4,3,0,0,2,False,unknown
+58,feature: add and run pre-commit,closed,Howitt-Ben,10-11-2023 21:23:09,10-12-2023 13:20:30,10-12-2023 13:20:21,10-12-2023 13:20:21,True,7875,3774,139,0,1,8,False,unknown
+59,New Readme and structure documentation,closed,vanLangen-Casper,10-14-2023 18:07:11,11-08-2023 09:48:58,11-08-2023 09:48:58,11-08-2023 09:48:58,True,715,1346,49,0,0,19,False,unknown
+60,"[Cleanup] Add Docstrings, Remove dead code, TODOs and out-commented code",closed,Lindberg-Casper,10-15-2023 14:04:43,10-20-2023 14:40:34,10-20-2023 14:40:33,10-20-2023 14:40:33,True,183,398,59,0,0,1,False,unknown
+61,Optimize bundle size of frontend,closed,Halvardsson-Gustaf,10-20-2023 14:42:48,10-23-2023 06:53:05,10-20-2023 16:10:06,10-20-2023 16:10:06,True,1518,4287,4,0,0,2,False,unknown
+62,fix aiter in class AsyncIteratorCallbackHandler,closed,AitBaali-Hamza,10-20-2023 14:54:59,11-06-2023 09:14:38,11-06-2023 09:14:38,,False,3,28,1,0,0,1,False,unknown
+63,Update setup readme,closed,Schwartzenberg-Carel,10-24-2023 09:55:36,10-25-2023 16:28:33,10-25-2023 16:28:15,,False,2,2,1,0,0,2,False,unknown
+64,Refactor/route,closed,Howitt-Ben,10-25-2023 07:45:29,11-02-2023 17:34:18,10-25-2023 08:04:10,,False,30457,548,111,0,0,61,False,dirty
+65,Move to one .env.example backend/frontend + simplify,closed,Schwartzenberg-Carel,10-25-2023 16:14:40,10-31-2023 17:49:28,10-31-2023 17:49:20,10-31-2023 17:49:20,True,406,1052,15,1,4,52,False,unknown
+66,Refactor/cleanup agent yml,closed,Soussi-Sofiane,10-29-2023 18:51:23,11-06-2023 09:25:20,11-06-2023 09:25:20,,False,63,19,15,0,0,3,False,unknown
+67,Simplify and clean up agent & tools config,closed,kennedy-ricardo,10-29-2023 21:14:17,11-13-2023 12:17:58,11-13-2023 10:11:32,11-13-2023 10:11:32,True,92,77,16,1,0,13,False,unknown
+68,"docs, wip: add placeholder docs for optional_features.md",closed,Howitt-Ben,10-30-2023 14:51:44,11-13-2023 10:59:14,11-13-2023 10:59:09,,False,32,5,1,0,0,2,False,dirty
+69,[WIP] Add Behave end-to-end tests for backend,open,Halvardsson-Gustaf,10-31-2023 11:58:15,11-20-2023 23:59:51,,,False,690,374,9,0,0,2,False,dirty
+70,"minimum agent, tools setup",closed,Bensaid-Eden,11-03-2023 01:31:56,11-03-2023 05:54:18,11-03-2023 01:32:18,,False,173,0,4,0,0,1,False,unknown
+71,Fixed AgentFinish bug,closed,vanLangen-Casper,11-03-2023 09:20:18,11-08-2023 09:57:52,11-08-2023 09:57:52,11-08-2023 09:57:52,True,7,4,1,1,0,5,False,unknown
+72,fix streaming issues,closed,Bensaid-Eden,11-03-2023 19:10:59,11-06-2023 16:15:33,11-06-2023 09:29:14,11-06-2023 09:29:14,True,6,4,1,1,0,2,False,unknown
+73,[docs]  configure colors and fonts and callback handling,closed,ElMansouri-Ilyass,11-05-2023 22:45:00,11-06-2023 09:14:14,11-06-2023 09:10:19,11-06-2023 09:10:19,True,82,2,2,0,0,2,False,unknown
+74,Fix: Dark mode table text,closed,vanLangen-Casper,11-06-2023 09:44:44,11-08-2023 09:39:22,11-08-2023 09:39:20,11-08-2023 09:39:20,True,3,3,1,0,0,1,False,unknown
+75,Container Demo to main AgentX repo,open,Schwartzenberg-Carel,11-06-2023 13:33:52,11-07-2023 13:23:24,,,False,14395,19513,50,0,0,83,True,clean
+76,Refactor/add linting tools,closed,Soussi-Sofiane,11-06-2023 20:31:35,11-13-2023 18:21:42,11-13-2023 18:21:42,11-13-2023 18:21:42,True,2519,2067,49,0,3,11,False,unknown
+78,Added documentation of the main backend flow,closed,Schwartzenberg-Carel,11-07-2023 16:45:32,11-13-2023 10:33:52,11-13-2023 10:33:18,11-13-2023 10:33:18,True,148,14,5,0,0,3,False,unknown
+79,Docs/optional,closed,Howitt-Ben,11-13-2023 10:56:42,11-13-2023 12:18:46,11-13-2023 12:18:46,11-13-2023 12:18:46,True,33,9,1,0,0,3,False,unknown
+80,Docs/optional,closed,Howitt-Ben,11-13-2023 12:21:31,11-13-2023 12:25:12,11-13-2023 12:23:12,,False,59,11,1,0,0,4,False,dirty
+81,"docs: add details for tracing, feedback",closed,Howitt-Ben,11-13-2023 12:23:24,11-13-2023 12:25:26,11-13-2023 12:25:26,11-13-2023 12:25:26,True,30,6,1,0,0,1,False,unknown
+82,Refactor: FE & BE cleanup,closed,heyder-jakob,11-13-2023 14:36:50,11-13-2023 14:42:39,11-13-2023 14:42:39,11-13-2023 14:42:39,True,87,321,53,0,0,1,False,unknown
+83,   Feature/chains in tools,open,Howitt-Ben,11-15-2023 14:42:09,11-20-2023 09:12:47,,,False,2005,1466,9,0,0,9,False,dirty
+84,Linting,closed,Soussi-Sofiane,11-17-2023 11:04:09,11-26-2023 15:00:53,11-26-2023 15:00:53,11-26-2023 15:00:53,True,1265,861,43,0,0,19,False,unknown
+85,Fix/small UI bugs,closed,Howitt-Ben,11-17-2023 13:06:28,11-26-2023 20:16:41,11-26-2023 20:16:41,11-26-2023 20:16:41,True,7,4,3,0,0,3,False,unknown
+86,Minor fix: incorrect import,closed,vanLangen-Casper,11-19-2023 21:14:14,11-26-2023 15:01:10,11-26-2023 15:01:10,,False,1,1,1,0,0,1,False,dirty
+87,Feature/simple readme rag,closed,Gupta2-Tanmay,11-21-2023 01:35:39,11-21-2023 01:36:31,11-21-2023 01:36:31,,False,39001,888,421,0,0,95,False,unknown
+88,Added back development set-up with hot reload for ease of use,closed,vanLangen-Casper,11-26-2023 15:22:47,11-26-2023 15:23:52,11-26-2023 15:23:50,11-26-2023 15:23:50,True,171,193,3,0,0,1,False,unknown
+89,WIP refactor,open,Soussi-Sofiane,11-26-2023 21:22:16,11-27-2023 17:53:34,,,False,1765,639,53,0,0,1,True,blocked

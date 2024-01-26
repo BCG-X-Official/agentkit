@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  fastapi_server:
+    container_name: fastapi_server
+    build: ./backend
+    restart: always
+    command: "sh -c 'alembic upgrade head && python app/document_ingestion.py  && uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 9090'"
+    volumes:
+      - ./backend/app:/code
+    expose:
+      - 9090
+    env_file: ".env"
+    depends_on:
+      - database
+
+  nextjs_server:
+    container_name: nextjs_server
+    build: ./frontend
+    restart: always
+    command: "sh -c 'node server.js'"
+    volumes:
+      - ./frontend:/code
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    env_file: "frontend/.env"
+    depends_on:
+      - fastapi_server
+
+  database:
+    image: ankane/pgvector:v0.4.1
+    restart: always
+    container_name: database
+    env_file: ".env"
+    user: root
+    volumes:
+      - ./db_docker:/var/lib/postgresql
+      - ./scripts/create-dbs.sql:/docker-entrypoint-initdb.d/1-create-dbs.sql
+      - ./scripts/sql_db_tool/2-chinook_psql_load.sql:/docker-entrypoint-initdb.d/2-chinook_psql_load.sql
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USERNAME=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DATABASE=${DATABASE_NAME}
+      - POSTGRES_HOST_AUTH_METHOD= "trust"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 15s
+      retries: 5
+
+  redis_server:
+    image: redis:alpine
+    container_name: redis_server
+    restart: always
+    ports:
+      - 6379:6379 # Remove this on production
+    expose:
+      - 6379
+    env_file: ".env"
+
+  caddy_reverse_proxy:
+    container_name: caddy_reverse_proxy
+    image: caddy:alpine
+    restart: always
+    ports:
+      - 80:80
+      - 9090:9090
+      - 3001:3001
+      - 443:443
+    environment:
+      - EXT_ENDPOINT1=${EXT_ENDPOINT1}
+      - LOCAL_1=${LOCAL_1}
+      - LOCAL_2=${LOCAL_2}
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+
+volumes:
+  caddy_data:
+  caddy_config:
+  langchain-db-data:
+  langchain-redis-data:

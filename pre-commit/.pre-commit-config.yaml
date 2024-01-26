@@ -1,0 +1,88 @@
+default_language_version:
+    python: python3.10
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    - id: check-yaml
+      args: [--allow-multiple-documents, --unsafe]
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+    - id: check-added-large-files
+    - id: check-merge-conflict
+    - id: fix-encoding-pragma
+
+-   repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+    -   id: flake8
+        types: [python]
+        args: [--max-line-length=88, "--ignore=E203,W503,E501,E231,E741,E722,F401,E203,W"]
+
+-   repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: isort (python)
+        types: [python]
+        args: [--settings-path, backend/app/pyproject.toml]
+        additional_dependencies: ["toml"]
+
+-   repo: https://github.com/kynan/nbstripout
+    rev: 0.5.0
+    hooks:
+      - id: nbstripout
+        types: [python]
+
+-   repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        name: black (python)
+        types: [python]
+        args: [--config, backend/app/pyproject.toml]
+
+-   repo: https://github.com/pappasam/toml-sort
+    rev: v0.20.0
+    hooks:
+      - id: toml-sort
+        pass_filenames: false
+        always_run: true
+        args: [backend/app/pyproject.toml, --all, --in-place]
+        types: [python]
+
+-   repo: https://github.com/myint/docformatter
+    rev: v1.4
+    hooks:
+      - id: docformatter
+        args: ["--in-place", "--pre-summary-newline", "--wrap-descriptions=88", "--wrap-summaries=88"]
+        types: [python]
+
+-   repo: local
+    hooks:
+    -   id: pylint-local
+        name: pylint
+        entry: backend/app/.venv/bin/python3.10 -m pylint --rcfile=backend/app/.pylintrc --load-plugins=pylint_pydantic backend/app/app
+        language: system
+        types: [python]
+        require_serial: true
+        pass_filenames: false
+
+-   repo: local
+    hooks:
+    -   id: mypy-local
+        name: mypy
+        entry: backend/app/.venv/bin/python3.10 -m mypy --config-file=backend/app/setup.cfg backend/app/app
+        language: system
+        types: [python]
+        require_serial: true
+        pass_filenames: false
+
+-   repo: local
+    hooks:
+    -   id: husky-run-pre-commit
+        name: husky
+        language: system
+        entry: bash frontend/.husky/pre-commit
+        pass_filenames: false
+        always_run: true

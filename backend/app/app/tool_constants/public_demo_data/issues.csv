@@ -1,0 +1,13 @@
+issue_number,issue_title,issue_state,issue_author,issue_created_at,issue_last_updated,issue_num_comments
+1,Generalisation & Sanitisation Todos,open,heyder-jakob,05-30-2023 11:34:10,06-28-2023 15:42:20,4
+20,Feature: Websocket communication,open,heyder-jakob,06-22-2023 10:29:47,06-23-2023 14:40:56,1
+24,Feature: optional caching,closed,vanLangen-Casper,06-26-2023 11:34:18,07-12-2023 11:50:39,5
+26,Feature: voice-to-text input,open,vanLangen-Casper,06-26-2023 16:07:00,06-26-2023 16:07:00,0
+33,Alpha Demo : Diverged too much,closed,Fournier-Thomas,06-28-2023 16:12:27,09-22-2023 16:31:28,0
+34,sql_tool_db_info.json is not automatically re-built when the database is changed,closed,vanLangen-Casper,06-29-2023 13:23:49,07-12-2023 11:51:07,2
+35,Pull latest UI changes (if any left) & API key changes in frontend from vessel scheduling branch into develop branch,closed,vanLangen-Casper,06-29-2023 14:13:00,07-12-2023 11:50:21,0
+36,Application specific tools stored publicly,closed,vanLangen-Casper,06-29-2023 17:00:00,09-22-2023 16:31:55,0
+37,Common errors page,closed,vanLangen-Casper,06-30-2023 14:58:46,09-22-2023 16:31:14,0
+50,Issue building the frontend docker image,closed,Gatto-Francois,09-05-2023 14:24:49,09-05-2023 15:08:41,1
+57,Open sourcing backlog,open,vanLangen-Casper,10-10-2023 08:50:17,11-17-2023 13:09:53,8
+77,"UI Bug: the response overwrites the reasoning, leading to inconsistent output",closed,Bensaid-Eden,11-06-2023 23:36:35,11-07-2023 00:32:17,2

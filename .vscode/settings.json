@@ -1,0 +1,20 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/app/.venv/bin/python",
+  "python.analysis.extraPaths": ["backend/app"],
+  "python.autoComplete.extraPaths": ["backend/app"],
+  "python.analysis.autoImportCompletions": true,
+  "python.languageServer": "Pylance",
+  "pylint.args": [
+    "--rcfile=${workspaceFolder}/backend/app/.pylintrc"
+  ],
+  "pylint.interpreter": ["${workspaceFolder}/backend/app/.venv/bin/python"],
+  "pylint.cwd": "${workspaceFolder}/backend/app/app",
+  "pylint.importStrategy": "fromEnvironment",
+  "eslint.options": {
+      "overrideConfigFile": "${workspaceFolder}/frontend/.eslintrc.json"
+  },
+  "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.fixAll.eslint": "explicit"
+  },
+}
