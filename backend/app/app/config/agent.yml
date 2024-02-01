@@ -1,0 +1,103 @@
+---
+tools_library: !include tools.yml
+common: # settings shared by agent and all tools (can be overwritten by passing explicitly to constructors)
+  llm: 'gpt-4'
+  fast_llm: 'gpt-3.5-turbo'
+  fast_llm_token_limit: 2500
+  max_token_length: 4000
+tools:
+  - expert_tool
+  - clarify_tool
+  - chain_tool
+  - image_generation_tool
+  - pdf_tool
+  - sql_tool
+  - sql_expert_tool
+  - visualizer_tool
+  - code_search_tool
+  - code_expert_tool
+  - generate_config_tool
+  - generate_optim_input_tool
+  - summarize_config_changes_tool
+  - run_optimizer_tool
+  - summarize_kpi_tool
+
+action_plans:
+  '0':
+    name: ''
+    description: Use this plan to answer technical questions about AgentKit - related to setup, code, codebase navigation, or other technical questions.
+    actions:
+      - - memory
+        - pdf_tool
+        - code_search_tool
+      - - code_expert_tool
+  '1':
+    name: ''
+    description: Ask the user to clarify the input question
+    actions:
+      - - memory
+        - clarify_tool
+  '2':
+    name: ''
+    description: |-
+      Use this plan to fetch Github-related information from the repository of AgentKit, such as commits, issues, pull requests.
+      Always use this action plan when asked about issues, pull requests, or commits - unless there is a specific request to make a visualization.
+    actions:
+      - - memory
+        - sql_tool
+      - - sql_expert_tool
+  '3':
+    name: ''
+    description: |-
+      Make a visualization regarding GitHub information of AgentKit, such as PRs, issues, or commits.
+      **ONLY use this action plan if there is a specific request to make a visualization**
+    actions:
+      - - memory
+        - sql_tool
+      - - visualizer_tool
+  '4':
+    name: ''
+    description: |-
+      Use this plan if the user wants to update the technical team resources configuration to create a new optimal schedule.
+      Also use it if the user gives a description of a software project they want a schedule for.
+      ONLY use this action plan in relation to optimization of a software project.
+    actions:
+      - - generate_optim_input_tool
+      - - summarize_config_changes_tool
+  '5':
+    name: ''
+    description: Use this plan if the user only wants to run the optimizer without any change of resources or configuration.
+    actions:
+      - - run_optimizer_tool
+      - - summarize_kpi_tool
+  '6':
+    name: ''
+    description: |-
+      Use this plan if the user gives a description of the software project or provide a number of technical resources AND wants to run the optimization engine.
+      Don't use this plan if the user only wants to run the optimizer without any change of resources.
+    actions:
+      - - generate_optim_input_tool
+      - - summarize_config_changes_tool
+      - - run_optimizer_tool
+      - - summarize_kpi_tool
+
+prompt_message: |-
+  Given the chat history and the user question, what action plan would be best to follow?
+  Remember to only put out the number of the action plan you want to follow.
+
+  User question: {input}
+system_context: |-
+  You are a software development copilot meant to help developers navigate a complex codebase. You are currently helping with
+  the "AgentKit" codebase, an LLM-powered agent with access to several tools.
+
+  Your goal is to select the right action plan for the question of the user in the fastest way possible, given the chat history.
+
+  Consider the following principles:
+  - Always seek to retrieve specific information to answer the user's question
+  - If you are unsure which action plan to select, select "1"
+  - Any ".md" file considered is a documentation file: it cannot be executed and cannot configure the code in any way
+
+  Action plans:
+  {action_plans}
+
+  Only reply with the number of the action plan you want to follow and nothing else. Your answer MUST be a single number, e.g. "0", "1", "2", "3", "4" or "5".

@@ -1,0 +1,32 @@
+name: lint-backend
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  lint-backend:
+    name: lint-backend
+    runs-on: Linux
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Create empty .env file
+        run: touch .env
+
+      - name: Install dependencies
+        run: |
+          make env-create
+
+      - name: Check linting
+        run: |
+          source backend/app/.venv/bin/activate
+          make lint

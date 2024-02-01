@@ -1,0 +1,197 @@
+version: '3.8'
+
+services:
+  fastapi_server:
+    container_name: fastapi_server
+    build: ./backend
+    restart: always
+    command: "sh -c 'alembic upgrade head && python app/document_ingestion.py  && gunicorn -w 3 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:9090 --preload --log-level=debug --timeout 120'"
+    volumes:
+      - ./backend/app:/code
+    expose:
+      - 9090
+    env_file: ".env"
+    depends_on:
+      - database
+
+  nextjs_server:
+    container_name: nextjs_server
+    build: ./frontend
+    restart: always
+    command: "sh -c 'node server.js'"
+    # alternative to enable hot reload
+    # working_dir: /code #
+    # command: "SKIP_ENV_VALIDATION=true yarn run dev"
+    volumes:
+      - ./frontend:/code
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    env_file: "frontend/.env"
+    depends_on:
+      - fastapi_server
+
+  database:
+    image: ankane/pgvector:v0.4.1
+    restart: always
+    container_name: database
+    env_file: ".env"
+    user: root
+    volumes:
+      - ./db_docker:/var/lib/postgresql
+      - ./scripts/create-dbs.sql:/docker-entrypoint-initdb.d/create-dbs.sql
+    ports:
+      - 5732:5432 # Remove this on production, use same port as in .env for fastapi_db
+    expose:
+      - 5732
+    environment:
+      - POSTGRES_USERNAME=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DATABASE=${DATABASE_NAME}
+      - POSTGRES_HOST_AUTH_METHOD= "trust"
+
+  db_sql_tool:  # Remove if not using sql tool
+    image: postgres:11
+    restart: always
+    container_name: db_sql_tool
+    volumes:
+      - ./db_docker:/var/lib/postgresql
+      - ./scripts/db_sql_tool/github_data_psql_load.sql:/docker-entrypoint-initdb.d/github_data_psql_load.sql
+      - ./backend/app/app/tool_constants/public_demo_data/pull_requests.csv:/docker-entrypoint-initdb.d/pull_requests.csv
+      - ./backend/app/app/tool_constants/public_demo_data/commit_history.csv:/docker-entrypoint-initdb.d/commit_history.csv
+      - ./backend/app/app/tool_constants/public_demo_data/issues.csv:/docker-entrypoint-initdb.d/issues.csv
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sqltool
+    ports:
+      - "5632:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 15s
+      retries: 5
+
+  redis_server:
+    image: redis:alpine
+    container_name: redis_server
+    restart: always
+    ports:
+      - 6379:6379 # Remove this on production
+    expose:
+      - 6379
+    env_file: ".env"
+
+  langchain-playground:
+    image: langchain/${_LANGSMITH_IMAGE_PREFIX-}langchainplus-playground@sha256:f61ce9762babcb4a51af3e5b0cc628453ac7087237c5fc8694834de49b56d16e
+
+  langchain-frontend:
+    image: langchain/${_LANGSMITH_IMAGE_PREFIX-}langchainplus-frontend@sha256:e0ab157b2b9cb7f75743d45237f0d8ede75a3811d913f234585484255afe5b5a
+    ports:
+      - 9091:80
+    expose:
+      - 9091
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=http://langchain-backend:1984
+    depends_on:
+      - langchain-backend
+      - langchain-playground
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/default.conf:ro
+
+  langchain-backend:
+    image: langchain/${_LANGSMITH_IMAGE_PREFIX-}langchainplus-backend@sha256:1196c12308b450548195c10927d469963c7d8e62db0e67f8204c83adb91f9031
+    environment:
+      - PORT=1984
+      - LANGCHAIN_ENV=local_docker
+      - LOG_LEVEL=warning
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    ports:
+      - 1984:1984
+    depends_on:
+      - langchain-db
+
+  langchain-db:
+    image: postgres:14.1
+    command:
+      [
+        "postgres",
+        "-c",
+        "log_min_messages=WARNING",
+        "-c",
+        "client_min_messages=WARNING"
+      ]
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - langchain-db-data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+
+  langchain-redis:
+    image: redis:7
+    ports:
+      - 63791:6379
+    volumes:
+      - langchain-redis-data:/data
+
+  langchain-queue:
+    image: langchain/${_LANGSMITH_IMAGE_PREFIX-}langchainplus-backend@sha256:1196c12308b450548195c10927d469963c7d8e62db0e67f8204c83adb91f9031
+    environment:
+      - LANGCHAIN_ENV=local_docker
+      - LOG_LEVEL=warning
+    entrypoint: "rq worker --with-scheduler -u redis://langchain-redis:6379 --serializer lc_database.queue.serializer.ORJSONSerializer --worker-class lc_database.queue.worker.Worker --connection-class lc_database.queue.connection.RedisRetry --job-class lc_database.queue.job.AsyncJob"
+    depends_on:
+      - langchain-redis
+
+  langchain-hub:
+    image: langchain/${_LANGSMITH_IMAGE_PREFIX-}langchainhub-backend@sha256:73b4c2c3e7cd81729e766bb4eece2b28883bebf7c710567a21d1a6c114abff5a
+    environment:
+      - PORT=1985
+      - LANGCHAIN_ENV=local_docker
+      - LOG_LEVEL=warning
+    ports:
+      - 1985:1985
+    depends_on:
+      - langchain-db
+      - langchain-redis
+
+  docusaurus:
+    container_name: docusaurus
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./docs/docusaurus:/app
+    command: sh -c 'npm install && npm start -- --host 0.0.0.0 --port 3001'
+    ports:
+      - 3001:3000
+    expose:
+      - 3001
+
+  caddy_reverse_proxy:
+    container_name: caddy_reverse_proxy
+    image: caddy:alpine
+    restart: always
+    ports:
+      - 80:80
+      - 9090:9090
+      - 443:443
+    environment:
+      - EXT_ENDPOINT1=${EXT_ENDPOINT1}
+      - LOCAL_1=${LOCAL_1}
+      - LOCAL_2=${LOCAL_2}
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      #- ./static:/code/static
+      - caddy_data:/data
+      - caddy_config:/config
+
+
+volumes:
+  caddy_data:
+  caddy_config:
+  langchain-db-data:
+  langchain-redis-data:

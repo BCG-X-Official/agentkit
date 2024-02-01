@@ -1,0 +1,4 @@
+indexing:
+  tokenizer_chunk_size: 2000
+  tokenizer_chunk_overlap: 200
+  pdf_parser: "PyMuPDF"

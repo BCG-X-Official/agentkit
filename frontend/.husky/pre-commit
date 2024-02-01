@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+cd ./frontend
+
+echo 'Running linting and prettier before committing...'
+
+pnpm lint || (
+  pnpm run lint:fix
+  echo 'Linting and prettier fixed some errors. Please commit again.'
+  exit 1
+)
+
+pnpm prettier || (
+  pnpm run prettier:fix
+  echo 'Prettier fixed some errors. Please commit again.'
+  exit 1
+)
+
+echo 'Linting and prettier passed. Committing...'

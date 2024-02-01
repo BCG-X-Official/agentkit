@@ -1,0 +1,18 @@
+.rdt_Pagination {
+  @apply !border-t-0 dark:bg-accent dark:text-gray-500 !text-black;
+}
+
+.rdt_Pagination span {
+  @apply dark:!text-gray-500;
+}
+
+.rdt_Pagination button {
+  @apply dark:bg-accent dark:fill-gray-300 dark:text-gray-500;
+}
+
+.rdt_Table,
+.rdt_TableHead,
+.rdt_TableHeadRow,
+.rdt_TableRow {
+  @apply dark:bg-accent dark:text-gray-500;
+}

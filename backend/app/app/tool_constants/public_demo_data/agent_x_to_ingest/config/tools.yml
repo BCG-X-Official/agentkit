@@ -1,0 +1,225 @@
+library:
+  expert_tool:
+    default_llm: "gpt-4"
+    default_fast_llm: "gpt-3.5-turbo"
+    description: >-
+      Expert tool to answer general questions given information as context.
+      Input is a user question and context information as a long string, output is an answer to the user question.
+      {examples}
+    prompt_message: |-
+      {{question}}
+    system_context: |-
+      [PLACEHOLDER] Use-case specific system context here.
+
+      When answering the questions, make sure to follow the principles:
+      - Use as much context as possible
+      - Do not repeat the information from the preliminary answer (if correct) but instead reference & complement it.
+      - Write your answer in markdown format, make sure it is beautiful and easy to read (e.g. use headings, lists, bold, italic, etc.)
+      Always try to answer the question.
+    prompt_inputs:
+      - name: examples
+        content: |-
+          Example Input: \"User question: Could you find a list of tracks that Daan Peeters has purchased?\"
+          Example Output: \"Daan Peters has purchased a total of X tracks, please see a list below...\"
+  entertainer_tool:
+    default_llm: "gpt-4"
+    default_fast_llm: "gpt-3.5-turbo"
+    description: >-
+      Entertainer tool to write a small concise output from memory while the information is loading.
+      Input is a user question, output are related facts to the user question. Always start your answer with: "This is just a preliminary answer, but"...
+      {examples}
+    prompt_message: |-
+      {{question}}
+    system_context: |-
+      [PLACEHOLDER] Use-case specific system context here.
+
+      Given a user question, please reply following the principles:
+      - Answer as short and concise as possible
+      - Add interesting facts about the query if applicable
+      - Write your answer in markdown format, make sure it is beautiful and easy to read (e.g. use headings, lists, bold, italic, etc.)
+    prompt_inputs:
+      - name: examples
+        content: |-
+  summarizer_tool:
+    default_llm: "gpt-4"
+    default_fast_llm: "gpt-3.5-turbo"
+    description: >-
+      Summarizer tool to reduce the length of a text to a few sentences.
+      Input is a long string, output is a short summary of the input.
+      {examples}
+    prompt_message: |-
+      You are an expert on digital media and music. Given the following user question and provided information:
+      "{{text}}"
+
+      Write a concise summary in markdown format answering the user question.
+      Follow the following principles:
+      - Be concise
+      - Write your answer in markdown format, make sure it is beautiful and easy to read (e.g. use headings, lists, bold, italic, etc.)
+
+      CONCISE SUMMARY:
+    prompt_inputs:
+      - name: examples
+        content: |-
+          Example Input: \"This is a long string that I want to summarize. I want to summarize this long string.\"
+          Example Output: \"This is a summary of the long string.\"
+    max_token_length: 4000
+  visualizer_tool:
+    default_llm: "gpt-4"
+    default_fast_llm: "gpt-3.5-turbo"
+    description: >-
+      Visualisation tool to display data as a graph or chart using JSX code.
+      Input is a user query and information needed to visualize (SQL or API results), output is a string that contains JSX code in markdown format.
+    prompt_message: |-
+      Given the results:
+      {{results}}
+
+      Please write the JSX code for the visualization to answer the user question:
+      {{question}}
+
+      Remember to only reference dataKeys from the SQL or API results.
+    system_context: |-
+      [PLACEHOLDER] Use-case specific system context here.
+
+      Given the information retrieved from the tools (e.g. SQL rows, API results), you need to visualize the data in a way that is easy to understand.
+      If there is no data with clear dataKeys or the user does not ask for a visualisation return "no data".
+
+      For the given user question, please write JSX code.
+      You must follow the principles:
+      - Only output the JSX code
+      - Assume the following variables are defined: ref, width, height, data, getColors, groupAndMerge, getObjectKeys, func
+      - The data variable is an array of JSON objects with the SQL fields OR API result fields as field names
+
+    prompt_inputs:
+      - name: examples
+        content: |-
+  pdf_tool:
+    default_llm: "gpt-4"
+    default_fast_llm: "gpt-3.5-turbo"
+    description: >-
+      Summarization and Q&A tool to answer questions about embedded documents.
+      The tool extracts documents and answers the question in context.
+      Input is a query string, output is a string the answer to the user question.
+      {examples}
+    prompt_message: |-
+      Extracts:
+      {{retrieved_docs}}
+
+      User Question:
+      {{question}}
+    system_context: |-
+      [PLACEHOLDER] Use-case specific system context here.
+    prompt_inputs:
+      - name: examples
+        content: |-
+          Example Input: \"User question: Could you tell me some information about artist X?\"
+          Example Output: \"Artist X is from..\"
+  sql_tool:
+    default_llm: "gpt-4"
+    default_fast_llm: "gpt-3.5-turbo"
+    description: >-
+      "SQL tool to query the connected database."
+      "Input is a question about the data in natural lanaguage, output is a string that contains an SQL query in markdown format, the number of rows the query returns and the first 3 rows."
+    prompt_message: |-
+      Given the database schema:
+      ---
+      {{table_schemas}}
+      ---
+      Please answer the following user questions with an SQL query:
+      {{question}}
+    system_context: |-
+      [PLACEHOLDER] Use-case specific system context here.
+      Follow these rules:
+      1. Set the language to the markdown code block for each code block. For example, \```sql SELECT * FROM public.Artist``` is SQL.
+      2. Use the postgreSQL dialect, i.e. only functions that are supported
+    prompt_inputs:
+      - name: examples
+        content: |-
+      - name: table_definitions
+        content: |-
+          public.db_table | description
+          (database table definitions here in format above)
+
+    prompt_selection: |-
+      Given the following tables:
+      ---
+      {table_definitions}
+      ---
+      Select the tables that can be most useful for answering to the question:
+      {{question}}
+    system_context_selection: |-
+      [PLACEHOLDER] Use-case specific system context here.
+      You define which tables are useful to answer the question of the user.
+    prompt_validation: |-
+      Given the following SQL query:
+      {{query}}
+      and the following results executing the query with a LIMIT 5:
+      {{result}}
+      Does the query answer the following question?
+      {{question}}
+
+    system_context_validation: |-
+      [PLACEHOLDER] Use-case specific system context here.
+      You should validate that the constructed SQL query is answering the question of the user.
+    prompt_refinement: |-
+      Given the database schema:
+      ---
+      {{table_schemas}}
+      ---
+      Given your previous answer and the complaint from the user, please improve the SQL query to answer the question of the user.
+      User question: {{question}}
+      Previous answer: {{previous_answer}}
+      Complaints: {{complaints}}
+    nb_example_rows: 3
+    validate_empty_results: False
+    validate_with_llm: False
+    always_limit_query: False
+  image_generation_tool:
+    default_llm: "gpt-4"
+    default_fast_llm: "gpt-3.5-turbo"
+    description: >-
+      Tool to generate sample images for new products based on the product descriptions. Input is a string of description. Output is an url to the image.
+    prompt_message: |-
+      Here is decription of the item: {{description}}
+    image_description_prompt: |-
+      [PLACEHOLDER] Use-case specific system context here.. Given the full description of the item:
+      "{{text}}"
+      Generate a descriptive prompt message for generating an image of that item
+
+      Follow the following principles:
+      - Keep the prompt message to one paragraph
+      - Be concise
+      - Be as close to the full description as possible
+    system_context: |-
+      You are a specialized in answering questions about generating a sample image based on an input description to an item.
+      Example:
+      input: {input}
+      output: {output}
+    prompt_inputs:
+      - name: input
+        content: |-
+          Can you generate an image according to the description: a sandwich with cheese and ham
+      - name: output
+        content: |-
+          The prompt for generating an image of the item is...
+  image_gen_with_input_tool:
+    default_llm: "gpt-4"
+    default_fast_llm: "gpt-3.5-turbo"
+    description: >-
+      Tool to generate sample images for new products based on the product descriptions input from the user prompt.
+      Input is a string of description. Output is an url to the image.
+    prompt_message: |-
+      Here is decription of the item: {{description}}
+    system_context: |-
+      You are a specialized in answering questions about generating a sample image based on an input description to an item.
+
+      You must follow the principles:
+      - Generate only one description for generating the image
+      - The output should start with "The prompt for generating the image is", then followed by pasting the image description with the quotation marks
+      - The description for generating the image must be as close to the original description given in the prompt as possible
+
+      Example:
+      {example}
+    prompt_inputs:
+      - name: example
+        content: |-
+          enter example here.

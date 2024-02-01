@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "name": "Debug: Attach to FastAPI Docker",
+          "type": "python",
+          "request": "attach",
+          "host": "localhost",
+          "port": 5678,
+          "pathMappings": [
+              {
+                  "localRoot": "${workspaceFolder}/backend/app",
+                  "remoteRoot": "/code"
+              }
+          ],
+      },
+      {
+        "name": "Run current file",
+        "type": "python",
+        "request": "launch",
+        "program": "${file}",
+        "console": "integratedTerminal",
+        "envFile": "${workspaceFolder}/.env"
+    },
+  ]
+}

@@ -1,0 +1,97 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool.black]
+exclude = '''
+(
+  /(
+      \.*.pyc
+    | __pycache__
+  )/
+)
+'''
+line-length = 120
+target-version = [ "py310", "py311" ]
+
+[tool.isort]
+force_grid_wrap = 0
+include_trailing_comma = true
+line_length = 120
+multi_line_output = 3
+profile = "black"
+use_parentheses = true
+
+[tool.poetry]
+authors = ["jheyder <heyder.jakob@bcg.com>"]
+description = "Starter-kit to build constrained agents with Nextjs and FastAPI"
+name = "agent-x"
+packages = [
+    { include = "app" },
+    { include = "tests" },
+]
+version = "1.0.0"
+
+[tool.poetry.dependencies]
+Pillow = "^9.4.0"
+SQLAlchemy = "^2.0.23"
+SQLAlchemy-Utils = "^0.41.1"
+alembic = "^1.13.0"
+asyncpg = "^0.27.0"
+case-converter = "^1.1.0"
+celery = "^5.2.7"
+celery-sqlalchemy-scheduler = "^0.3.0"
+cryptography = "^38.0.3"
+fastapi = "^0.105.0"
+fastapi-async-sqlalchemy = "^0.6.0"
+fastapi-cache2 = {extras = ["redis"], version = "^0.2.1"}
+fastapi-limiter = "^0.1.5"
+fastapi-nextauth-jwt = "^1.1.2"
+fastapi-pagination = {extras = ["sqlalchemy"], version = "^0.12.14"}
+gurobipy = "^10.0.3"
+highspy = "^1.5.3"
+httpx = "^0.23.1"
+langchain = "^0.1.0"
+langchain-community = "^0.0.11"
+langchain-openai = "^0.0.2"
+langsmith = "^0.0.78"
+minio = "^7.1.13"
+openai = "^1.6.1"
+openpyxl = "^3.0.10"
+pandas = "^2.1.4"
+passlib = "^1.7.4"
+pgvector = "^0.1.6"
+plotly = "^5.18.0"
+psycopg2-binary = "^2.9.5"
+pydantic = "^2.5.2"
+pydantic-settings = "^2.1.0"
+pymupdf = "^1.22.3"
+pyomo = "^6.7.0"
+python = ">=3.10,<3.12"
+python-box = "^5.1.1"
+python-jose = "^3.3.0"
+redis = "^4.5.1"
+requests = "^2.29.0"
+setuptools = "^67.7.2"
+sqlmodel = "^0.0.14"
+tiktoken = "^0.5.2"
+watchfiles = "^0.18.1"
+wheel = "^0.40.0"
+mypy = "^1.8.0"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+isort = "^5.12.0"
+mypy = "^1.8.0"
+pycodestyle = "^2.11.1"
+pylint = "^3.0.3"
+pylint-pydantic = "^0.3.2"
+pytest = "7.4.0"
+pytest-asyncio = "0.21.1"
+pytest-env = "1.0.0"
+types-pyyaml = "^6.0.12.12"
+types-redis = "^4.6.0.11"
+pandas-stubs = "^2.1.4.231227"
