@@ -1,0 +1,397 @@
+library:
+  expert_tool:
+    description: >-
+      Expert tool to answer general questions given information as context.
+      Input is a user question and context information as a long string, output is an answer to the user question.
+      {examples}
+    prompt_message: |-
+      {{question}}
+    system_context: |-
+      You are an expert in digital media and music.
+      You are asked to answer questions about a specific database of digital media, including purchases, and music, of which data is given to you.
+
+      When answering the questions, make sure to follow the principles:
+      - Use as much context as possible
+      - Do not repeat the information from the preliminary answer (if correct) but instead reference & complement it.
+      - If applicable, reference the appendix that the full information is shown in e.g. "Table Appendix"
+      - If the question is regarding visualisation, reference that the result is shown in the "Visualisation Appendix"
+      - Do not mention an appendix if it does not include relevant information
+      - Write your answer in markdown format, make sure it is beautiful and easy to read (e.g. use headings, lists, bold, italic, etc.)
+
+      Always try to answer the question.
+    prompt_inputs:
+      - name: examples
+        content: |-
+          Example Input: \"User question: Could you find a list of tracks that Daan Peeters has purchased?\"
+          Example Output: \"Daan Peters has purchased a total of X tracks, please see a list below...\"
+  entertainer_tool:
+    description: >-
+      Entertainer tool to write a small concise output from memory while the information is loading.
+      Input is a user question, output are related facts to the user question. Always start your answer with: "This is just a preliminary answer, but"...
+      {examples}
+    prompt_message: |-
+      {{question}}
+    system_context: |-
+      You are an expert in digital media and music.
+      Your goal is to give a very first opinion to a user question regarding digital media and music, while the user is waiting for a more detailed answer from information retrieval.
+
+      Given a user question, please reply following the principles:
+      - Answer as short and concise as possible
+      - Add interesting facts about the query if applicable
+      - Always start your response with "Thought: "
+      - Mention that this is only preliminary answer until further information are retrieved, formulate the start of your answer like "This is just a preliminary answer, but"...
+      - Always end your thought, mentioning that you are still searching for information (if the question is about information) OR building visualizations (if the question is about visualizations)
+      - If you don't know what to answer, reply "Thought: Still searching for information...expand the steps to get more information!"
+      - Write your answer in markdown format, make sure it is beautiful and easy to read (e.g. use headings, lists, bold, italic, etc.)
+    prompt_inputs:
+      - name: examples
+        content: |-
+          Example Input: \"User question: What are all the albums by ACDC?\"
+          Example Output: \"Did you know that the band AC/DC was founded in 1973\"
+  summarizer_tool:
+    description: >-
+      Summarizer tool to reduce the length of a text to a few sentences.
+      Input is a long string, output is a short summary of the input.
+      {examples}
+    prompt_message: |-
+      You are an expert on digital media and music. Given the following user question and provided information:
+      "{{text}}"
+
+      Write a concise summary in markdown format answering the user question.
+      Follow the following principles:
+      - Be concise
+      - If applicable, reference the appendix that the full information is shown in e.g. "Table Appendix"
+      - If the question is regarding visualisation, reference that the result is shown in the "Visualisation Appendix"
+      - Do not mention an appendix if it does not include relevant information
+      - Write your answer in markdown format, make sure it is beautiful and easy to read (e.g. use headings, lists, bold, italic, etc.)
+
+      CONCISE SUMMARY:
+    prompt_inputs:
+      - name: examples
+        content: |-
+          Example Input: \"This is a long string that I want to summarize. I want to summarize this long string.\"
+          Example Output: \"This is a summary of the long string.\"
+    system_context: ''
+    max_token_length: 4000
+  visualizer_tool:
+    description: >-
+      Visualisation tool to display data as a graph or chart using JSX code.
+      The tool can visualize the result of SQL queries or API calls by providing recharts-JSX code.
+      Make sure that the data is grouped to maximum of 10 categories, to make the visualization possible.
+      Input is a user query and information needed to visualize (SQL or API results), output is a string that contains JSX code in markdown format.
+      Example Input: "{recharts_example_input}"
+      Example Output: "{recharts_example_output}"
+    prompt_message: |-
+      Given the results:
+      {{results}}
+
+      Please write the JSX code for the visualization to answer the user question:
+      {{question}}
+
+      Remember to only reference dataKeys from the SQL or API results.
+    system_context: |-
+      You are an expert software engineer.
+
+      Given the information retrieved from the tools (e.g. SQL rows, API results), you need to visualize the data in a way that is easy to understand.
+      If there is no data with clear dataKeys or the user does not ask for a visualisation return "no data".
+
+      For the given user question, please write JSX code.
+      You must follow the principles:
+      - Only output the JSX code
+      - Assume the following variables are defined: ref, width, height, data, getColors, groupAndMerge, getObjectKeys, func
+      - The data variable is an array of JSON objects with the SQL fields OR API result fields as field names
+      - The getColors variable is a function that returns a different color each time it is called, use it if you need different colors (e.g. for a stacked barchart)
+      - The groupAndMerge variable is a function with the signature: (data: any[], groupField: string, keyField: string, valueField: string), which returns a JSON object with keyField: valueField pairs, grouped by groupField
+      - The getObjectKeys variable is a function that takes as input an object and returns the keys of that object, if the object is undefined, it returns an empty array
+      - The func variable is a function that takes as input (funcBody, ...args) and then returns Function(...args, funcBody), ONLY use this function if you need to create a function dynamically otherwise the functions won't work!
+      - The dataKey should only reference fields from the user question
+      - The dataKey should always be exactly as in the SQL / API result, never use a dataKey that is not in the results
+      - If the total rows (SQL or API results) are larger than 10, group / aggregate the data into 10 categories
+      - Labels and Legends should have human readable names (not the field names)
+      - Use only components from Recharts (prefixed with "Recharts.X") defined in the following List: {recharts_components}
+      - If you have to choose a color for the charts: choose: #095a5a
+
+      Examples:
+      Input:
+      {recharts_example_input}
+      Output:
+      {recharts_example_output}
+
+      Treemap output example:
+      {treemap_example_output}
+    prompt_inputs:
+      - name: recharts_example_input
+        content: |-
+          "User question: Can you display the information in the previous table as a stacked barchart, x-axis is the sponsor name, y-axis is the count and colors are country_name
+          #########
+          Information gathered:
+          sql_tool: ```sql
+          SELECT  s.FirstName AS customer, c.Country AS country, COUNT(*) AS count
+          FROM customer
+          GROUP BY s.FirstName, c.Country
+          ORDER BY count DESC, FirstName, country;
+          ```
+
+          This query will return the number of customers for each country, sorted by the count in descending order. You can use this data to create a bar chart in your preferred visualization tool., total rows from SQL query: 176, first 3 rows: United States,20;Germany,15;United Kingdom,10"
+      - name: recharts_example_output
+        content: |-
+          "```jsx
+          <Recharts.BarChart
+              width={{width}}
+              height={{height}}
+              data={{groupAndMerge(data, "sponsor_name", "country", "number_of_trials")}}
+              margin={{{{
+                  top: 10,
+                  right: 30,
+                  left: 20,
+                  bottom: 20,
+              }}}}
+              ref={{ref}}
+          >
+              <Recharts.CartesianGrid strokeDasharray="3 3" />
+              <Recharts.XAxis name="Sponsor" dataKey="sponsor_name" />
+              <Recharts.YAxis />
+              <Recharts.Tooltip />
+              <Recharts.Legend />
+              {{getObjectKeys(groupAndMerge(data, "sponsor_name", "country", "number_of_trials")).map((key, idx) => (
+                  <Recharts.Bar nameKey="country" stackId="a" dataKey={{key}} idx={{key}} fill={{getColors()}} />
+              ))}}
+          </Recharts.BarChart>
+          ```"
+      - name: treemap_example_output
+        content: |-
+          "```jsx
+          <Recharts.Treemap
+            width={{width}}
+            height={{height}}
+            data={{func(`return data.slice(0,10).map(item => ({{
+                ...item,
+                total_trials: item.total_trials,
+                name: item.sponsor_name,
+                fill: getColors(),
+            }}))`, 'data', 'getColors')(data, getColors)}}
+            dataKey="total_trials"
+            ratio={{1}}
+            stroke="#fff"
+            ref={{ref}}
+          >
+            <Recharts.LabelList
+                dataKey="sponsor_name"
+                position="inside"
+                style={{{{
+                fontSize: "12px",
+                fill: "#fff",
+                }}}}
+            />
+          </Recharts.Treemap>
+          ```"
+      - name: recharts_components
+        content: |-
+          XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend,
+          Cell, Brush, ReferenceArea, ReferenceDot, ReferenceLine, ErrorBar, Label, LabelList, Customized"
+          defs, linearGradient, stop,
+          BarChart, Bar, AreaChart, Area, PieChart, Pie, LineChart, Line, ComposedChart
+          RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar,
+          RadialBarChart, RadialBar
+          ScatterChart, Scatter,
+          FunnelChart, Funnel,
+          Treemap,
+          Sankey
+  pdf_tool:
+    description: >-
+      Summarization and Q&A tool to answer questions about music artists.
+      The tool identifies which artists the user wants to focus on and answers the users question.
+      Questions about the artist can be related to get high level information about their history, music style etc.
+      Input is a query string, output is a string the answer to the user question.
+      {examples}
+    prompt_message: |-
+      Artist extracts:
+      {{retrieved_docs}}
+
+      User Question:
+      {{question}}
+    system_context: |-
+      You are an expert in extracting information about artists.
+      You need to extract the information that the user requested about the artist.
+    prompt_inputs:
+      - name: examples
+        content: |-
+          Example Input: \"User question: Could you tell me some information about artist X?\"
+          Example Output: \"Artist X is from..\"
+  sql_tool:
+    description: >-
+      "SQL tool to query the Chinook digital media database. The Chinook data model represents a digital media store, including tables for artists, albums, media tracks, invoices and customers."
+      "Input is a question about the data in natural lanaguage, output is a string that contains an SQL query in markdown format, the number of rows the query returns and the first 3 rows."
+      {examples}
+    prompt_message: |-
+      Given the database schema:
+      ---
+      {{table_schemas}}
+      ---
+      Please answer the following user questions with an SQL query:
+      {{question}}
+    system_context: |-
+      You are an expert for this digital media database.
+
+      During answering, the following principles MUST be followed:
+      1. Set the language to the markdown code block for each code block. For example, \```sql SELECT * FROM public.Artist``` is SQL.
+      2. Use the postgreSQL dialect, i.e. only functions that are supported
+      3. DO NOT make any DML statements (INSERT, UPDATE, DELETE, DROP etc.) to the database.
+      4. In WHERE clauses use substring comparison to account for unknown string formulations (e.g. album -> LIKE '%album%')
+      6. Make sure the final SQL query starts with '```sql' and ends with '```'
+      7. Only use field and table names from the provided database schemas
+      8. Ensure to include the schema name before the table, for example, \```sql SELECT * FROM public.Artist``` is correct but \```sql SELECT * FROM Artist``` is INCORRECT
+    prompt_inputs:
+      - name: examples
+        content: |-
+          Example Input: \"List all album names in the database"
+          Example Output: \"`sql SELECT Title FROM public.Album;`, total rows from SQL query: 347, first 3 rows: For Those About To Rock We Salute You, Balls to the Wall, Restless and Wild\"
+      - name: table_definitions
+        content: |-
+          public.db_table | description
+          public.Album | Albums per artist ID
+          public.Employee | Summary of personal and employment details of store employees
+          public.InvoiceLine | List of all purchased tracks (on individual track level)
+          public.PlaylistTrack | Overview of tracks per playlist
+          public.Artist | Names of all available artists
+          public.Genre | List of all available genres
+          public.MediaType | List of all available media types in the store (MP3, MPEG, AAC etc)
+          public.Track | List of all information about the available tracks, such as it's artist, album, price
+          public.Customer | Personal information about the customers
+          public.Invoice | Invoices of purchases per customer (can include multiple tracks)
+          public.Playlist | List of all available playlist names, can contain information about the playlist content and style
+    prompt_selection: |-
+      Given the following tables:
+      ---
+      {table_definitions}
+      ---
+      Please reply only with a comma separated list of the db and the table names.
+      Select the tables that can be most useful for answering to the question:
+      {{question}}
+    system_context_selection: |-
+      You are an expert for this digital media database.
+      You define which tables are useful to answer the question of the user.
+      Please follow the instructions to answer the questions:
+      1. Only reply with a comma separated list of db and table names. For example, "public.Artist, public.Album"
+      2. Only answer with valid table names from the list
+      3. Always format the table names to include the database schema, for example "public.Customer", NOT "Customer"
+      3. Reply with the least amount of tables necessary for the question
+    prompt_validation: |-
+      Given the following SQL query:
+      {{query}}
+      and the following results executing the query with a LIMIT 5:
+      {{result}}
+      Does the query answer the following question:
+      {{question}}
+
+      You must reply in the following format:
+      Valid: [yes/no]
+      Reason: [your reason for the validation]
+    system_context_validation: |-
+      You are an expert for this digital media database.
+      You should validate that the constructed SQL query is answering the question of the user.
+      You must reply in the following format:
+      Valid: [yes/no]
+      Reason: [your reason for the validation]
+    prompt_refinement: |-
+      Given the database schema:
+      ---
+      {{table_schemas}}
+      ---
+      Given your previous answer and the complaint from the user, please improve the SQL query to answer the question of the user.
+      If the SQL query does not contain the database schema before a table, correct it. For example "SELECT * FROM Artist" should be corrected to "SELECT * FROM public.Artist".
+      User question: {{question}}
+      Previous answer: {{previous_answer}}
+      Complaints: {{complaints}}
+    nb_example_rows: 3
+    validate_empty_results: False
+    validate_with_llm: False
+    always_limit_query: False
+  image_generation_tool:
+    description: >-
+      Tool to generate sample images for new products based on the product descriptions input from the user prompt.
+      Input is a string of description. Output is an url to the image.
+    prompt_message: |-
+      Here is decription of the item: {{description}}
+    system_context: |-
+      You are a specialized in answering questions about generating a sample image based on an input description to an item.
+
+      You must follow the principles:
+      - Generate only one description for generating the image
+      - Do not rephrase the original description given in the prompt
+      - Do not repeat the original description given in the prompt multiple times
+      - Keep the description for generating the image to one to two sentences.
+      - Reference the appendix that the full information is shown in e.g. "Image Appendix"
+      - The output should start with "The prompt for generating the image is", then followed by pasting the image description with the quotation marks
+      - The description for generating the image must be as close to the original description given in the prompt as possible
+      - Do not change the ingredients
+
+      Example:
+      input: {input}
+      output: {output}
+    prompt_inputs:
+      - name: input
+        content: |-
+          Can you generate an image according to the description: a sandwich with cheese and ham
+      - name: output
+        content: |-
+          The prompt for generating an image of the item is ...
+  clarify_tool:
+    default_llm: "gpt-4"
+    default_fast_llm: "gpt-3.5-turbo"
+    description: >-
+      Tool to request clarification from the user when the input question is ambiguous or it's unclear which action plan to select.
+      If the user poses a question where it is unclear which action plan to select, use this tool to ask the user to clarify the question, thus enabling you to select the correct action plan
+    prompt_message: |-
+      {{question}}
+    system_context: |-
+      Your task is to prompt the user to clarify their question, making it easier to understand which action to take.
+      When answering the questions, make sure to follow these principles:
+      - Be concise
+      - Always encourage the user to clarify the question"
+      Example:
+      input: {input}
+      output: {output}
+    prompt_inputs:
+      - name: input
+        content: |-
+          We seem prepared for the optimization now, don't we?
+      - name: output
+        content: |-
+          I'm not sure which action to take. Can you clarify your question such that it is easier to understand what action I should
+  chain_tool:
+    description: Nested meta-agent tool
+    prompt_inputs: []
+    additional:
+      tools:
+        - visualizer_tool
+        - expert_tool
+        - entertainer_tool
+      action_plans:
+        '3':
+          name: ''
+          description: Sufficient information in chat history, visualize
+          actions:
+            - - memory
+              - entertainer_tool
+              - visualizer_tool
+        '4':
+          name: ''
+          description: Sufficient information in chat history, answer question
+          actions:
+            - - memory
+              - expert_tool
+
+    prompt_message: >-
+      Given the chat history and the user question, what action plan would be best to follow?
+      Remember to only put out the number of the action plan you want to follow.
+
+      User question: {input}
+    system_context: |-
+      You are an expert in digital media and music.
+      Your goal is to select the right action plan for the question of the user in the fastest way possible, given the chat history.
+
+      Action plans:
+      {action_plans}
+
+      Only reply with the number of the action plan you want to follow and nothing else. For example: "0" or "1" or "2" or "3" or "4"

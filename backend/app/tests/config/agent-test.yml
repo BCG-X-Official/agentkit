@@ -1,0 +1,75 @@
+---
+tools_library: !include tools.yml
+common: # settings shared by agent and all tools (can be overwritten by passing explicitly to constructors)
+  llm: 'gpt-4'
+  fast_llm: 'gpt-3.5-turbo'
+  fast_llm_token_limit: 2500
+  max_token_length: 4000
+tools: # list of all tools available for the agent
+  # - sql_tool
+  - visualizer_tool
+  # - summarizer_tool
+  # - expert_tool
+  # - entertainer_tool
+  # - pdf_tool
+  - clarify_tool
+  # - chain_tool
+action_plans: # list of all action plans available for the meta agent
+  '0':
+    name: ''
+    description: Clarification for ambiguous questions
+    actions:
+      - - clarify_tool
+  '1':
+    name: ''
+    description: Sufficient information in chat history, visualize
+    actions:
+      - - memory
+      - - visualizer_tool
+  # '2':
+  #   name: ''
+  #   description: Gather new information, summarize and visualize
+  #   actions: # each sublist is 1 action step, i.e. add tools as subitems if you want to execute in parallel
+  #     - - sql_tool
+  #       - entertainer_tool
+  #     - - expert_tool
+  #       - visualizer_tool
+  # '3':
+  #   name: ''
+  #   description: Sufficient information in chat history, answer question
+  #   actions:
+  #     - - memory
+  #       - expert_tool
+  # '4':
+  #   name: ''
+  #   description: Use information from chat history to gather new information, then summarize
+  #   actions:
+  #     - - memory
+  #       - sql_tool
+  #       - pdf_tool
+  #     - - expert_tool
+  # '5':
+  #   name: 'Nested Chain'
+  #   description: User requests expert advice and asks to consider multiple options
+  #   actions:
+  #     - - chain_tool
+prompt_message: |-
+  Given the chat history and the user question, what action plan would be best to follow?
+  Remember to only put out the number of the action plan you want to follow.
+
+  User question: {input}
+system_context: |-
+  You are an expert in digital media and music.
+  Your goal is to select the right action plan for the question of the user in the fastest way possible, given the chat history.
+
+  The information that can be gathered are from a digital media store database and PDFs with general information about specific artists.
+  The digital media database includes details on tracks, artists and albums, as well as information about the business such as employees, customers and purchases.
+
+  Follow the below guidelines:
+  - Gathering new information takes time, only do it if necessary
+  - Only visualize if the user asks for it
+
+  Action plans:
+  {action_plans}
+
+  Only reply with the number of the action plan you want to follow and nothing else. For example: "0"

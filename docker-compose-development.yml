@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  fastapi_server:
+    container_name: fastapi_server
+    build: ./backend
+    restart: always
+    # Enable debug mode run .vscode/launch.json -> "Debug: Attach to FastAPI Docker"
+    # command: "sh -c 'pip install debugpy -t /tmp && alembic upgrade head && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 9090 --loop asyncio'"
+    # ports:
+    #   - 5678:5678
+    # Disable debug mode if only frontend development
+    command: "sh -c 'alembic upgrade head && python app/document_ingestion.py && uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 9090'"
+    volumes:
+      - ./backend/app:/code
+    expose:
+      - 9090
+    env_file: ".env"
+    depends_on:
+      - database
+
+  database:
+    image: ankane/pgvector:v0.4.1
+    restart: always
+    container_name: database
+    env_file: ".env"
+    user: root
+    volumes:
+      - ./db_docker:/var/lib/postgresql
+      - ./scripts/create-dbs.sql:/docker-entrypoint-initdb.d/create-dbs.sql
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USERNAME=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DATABASE=${DATABASE_NAME}
+      - POSTGRES_HOST_AUTH_METHOD= "trust"
+
+  redis_server:
+    image: redis:alpine
+    container_name: redis_server
+    restart: always
+    ports:
+      - 6379:6379 # Remove this on production
+    expose:
+      - 6379
+    env_file: .env
+
+  caddy_reverse_proxy:
+    container_name: caddy_reverse_proxy
+    image: caddy:alpine
+    restart: always
+    ports:
+      - 80:80
+      - 9090:9090
+      - 443:443
+    environment:
+      - EXT_ENDPOINT1=${EXT_ENDPOINT1}
+      - LOCAL_1=${LOCAL_1}
+      - LOCAL_2=${LOCAL_2}
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+  pre-commit:
+    build: ./pre-commit
+    profiles: ["pre-commit"]
+    entrypoint: "pre-commit run"
+    volumes:
+      - ./backend:/code/backend
+      - ./frontend:/code/frontend
+      - ./.git:/code/.git
+    working_dir: /code
+
+volumes:
+  caddy_data:
+  caddy_config:
+  langchain-db-data:
+  langchain-redis-data:

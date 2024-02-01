@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+cd ./frontend
+
+echo 'Building the frontend before pushing...'
+
+pnpm build || (
+  echo 'Build failed. Please fix the errors and push again.'
+  exit 1
+)
+
+echo 'Build passed. Pushing...'

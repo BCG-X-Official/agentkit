@@ -1,0 +1,41 @@
+
+name: lint-frontend
+
+on:
+  push:
+    branches:
+      - '**'
+
+defaults:
+  run:
+    working-directory: ./frontend
+
+jobs:
+  lint-frontend:
+    name: lint-frontend
+    runs-on: Linux
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "node_version=$(cat .github/nodejs.version)" >> $GITHUB_ENV
+      - name: "use node ${{ env.node_version }}"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "${{ env.node_version }}"
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Install dependencies
+        run: pnpm install
+      - name: Lint check
+        run: pnpm lint
+        env:
+          NEXTAUTH_SECRET: bxgh3SAToI/dvtS8/FPNcJbH2Lq+KKuS3KbKvc0x6v0=
+          NEXTAUTH_URL: http://localhost:3000
+          GITHUB_ID: ${{ secrets.GH_AUTH_ID }}
+          GITHUB_SECRET: ${{ secrets.GH_AUTH_SECRET }}
+          NEXT_PUBLIC_API_URL: http://localhost:3000/api/v1
+      - name: Format check
+        run: pnpm prettier
+      # - name: Unit & Integration tests
+      #   run: pnpm test
