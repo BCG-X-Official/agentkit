@@ -82,7 +82,7 @@ const config = {
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/bcgx-pi-genai/AgentKit', //TODO: change to public repo
+            href: 'https://github.com/BCG-X-Official/agentkit',
             label: 'GitHub',
             position: 'right',
           },
@@ -121,7 +121,7 @@ const config = {
             items: [
               {
                 label: 'Github',
-                href: 'https://github.com/bcgx-pi-genAI/agent-x', //TODO: change to public repo
+                href: 'https://github.com/BCG-X-Official/agentkit',
               },
             ],
           },

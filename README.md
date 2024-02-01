@@ -1,8 +1,8 @@
 <img src="static/agentkit_logo_color.png" alt="AgentKit logo" style="width:500px;"/>
 
-[![Lint-Backend](https://github.com/bcgx-pi-genAI/agent-x/actions/workflows/lint-backend.yml/badge.svg?branch=main)](https://github.com/bcgx-pi-genAI/agent-x/actions/workflows/lint-backend.yml?query=branch%3Amain)
-[![Lint-Frontend](https://github.com/bcgx-pi-genAI/agent-x/actions/workflows/lint-frontend.yml/badge.svg?branch=main)](https://github.com/bcgx-pi-genAI/agent-x/actions/workflows/lint-frontend.yml?query=branch%3Amain)
-[![Tests](https://github.com/bcgx-pi-genAI/agent-x/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/bcgx-pi-genAI/agent-x/actions/workflows/tests.yml?query=branch%3Amain)
+[![Lint-Backend](https://github.com/BCG-X-Official/agentkit/actions/workflows/lint-backend.yml/badge.svg?branch=main)](https://github.com/BCG-X-Official/agentkit/actions/workflows/lint-backend.yml?query=branch%3Amain)
+[![Lint-Frontend](https://github.com/BCG-X-Official/agentkit/actions/workflows/lint-frontend.yml/badge.svg?branch=main)](https://github.com/BCG-X-Official/agentkit/actions/workflows/lint-frontend.yml?query=branch%3Amain)
+[![Tests](https://github.com/BCG-X-Official/agentkit/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/BCG-X-Official/agentkit/actions/workflows/tests.yml?query=branch%3Amain)
 
 # AgentKit: rapidly build high quality Agent apps
 AgentKit is a LangChain-based starter kit developed by BCG X to build Agent apps. Developers can use AgentKit to
@@ -16,7 +16,7 @@ Key advantages of the AgentKit toolkit include:
 - 📈 **Set up to scale**: Set up to scale to MVP with ready made Queue Management, Auth, Caching, Monitoring etc.
 
 
-https://github.com/bcgx-pi-genAI/agent-x/assets/125347044/32bf632e-a7e0-4cbd-a172-4ba014e64db0
+https://github.com/BCG-X-Official/agentkit/assets/125347044/32bf632e-a7e0-4cbd-a172-4ba014e64db0
 
 
 ### Tech stack
