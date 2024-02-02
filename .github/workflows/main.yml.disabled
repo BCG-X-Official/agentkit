@@ -1,5 +1,5 @@
 # Example of CI/CD pushing your images to artifactory.
-# name: agent-x-app
+# name: agentkit-app
 # on:
 #   # Trigger the workflow on push or pull request,
 #   # but only for the master branch
@@ -35,14 +35,14 @@
   #       with:
   #         context: ./backend
   #         push: true
-  #         tags: artifactoryyourdomain.jfrog.io/your-repository/agent-x-app-backend:latest
+  #         tags: artifactoryyourdomain.jfrog.io/your-repository/agentkit-app-backend:latest
 
   #     - name: Build and push Docker image Frontend
   #       uses: docker/build-push-action@v3
   #       with:
   #         context: ./frontend
   #         push: true
-  #         tags: artifactoryyourdomain.jfrog.io/your-repository/agent-x-app-frontend:latest
+  #         tags: artifactoryyourdomain.jfrog.io/your-repository/agentkit-app-frontend:latest
   #         build-args: |
   #           GITHUB_ID=${{ secrets.OAUTH_GITHUB_ID }}
   #           GITHUB_SECRET=${{ secrets.OAUTH_GITHUB_SECRET }}
@@ -75,14 +75,14 @@
   #       with:
   #         context: ./backend
   #         push: true
-  #         tags: artifactoryyourdomain.jfrog.io/your-repository/agent-x-app-backend-staging:latest
+  #         tags: artifactoryyourdomain.jfrog.io/your-repository/agentkit-app-backend-staging:latest
 
   #     - name: Build and push Docker image Frontend Staging
   #       uses: docker/build-push-action@v3
   #       with:
   #         context: ./frontend
   #         push: true
-  #         tags: artifactoryyourdomain.jfrog.io/your-repository/agent-x-app-frontend-staging:latest
+  #         tags: artifactoryyourdomain.jfrog.io/your-repository/agentkit-app-frontend-staging:latest
   #         build-args: |
   #           GITHUB_ID=${{ secrets.OAUTH_GITHUB_ID }}
   #           GITHUB_SECRET=${{ secrets.OAUTH_GITHUB_SECRET }}
