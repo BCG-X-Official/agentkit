@@ -41,7 +41,7 @@ asyncpg = "^0.27.0"
 case-converter = "^1.1.0"
 celery = "^5.2.7"
 celery-sqlalchemy-scheduler = "^0.3.0"
-cryptography = "^38.0.3"
+cryptography = "^41.0.6"
 fastapi = "^0.105.0"
 fastapi-async-sqlalchemy = "^0.6.0"
 fastapi-cache2 = {extras = ["redis"], version = "^0.2.1"}
