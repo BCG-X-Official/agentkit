@@ -20,6 +20,13 @@ jobs:
           persist-credentials: false
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
+        with:
+          semantic_version: 16
+          branches: |
+            [
+              '+([0-9])?(.{+([0-9]),x}).x',
+              'main'
+            ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
