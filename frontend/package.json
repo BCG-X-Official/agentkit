@@ -34,7 +34,7 @@
     "@react-hookz/web": "^24.0.2",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@tailwindcss/typography": "^0.5.10",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "can-ndjson-stream": "^1.0.2",
     "clsx": "^2.1.0",
     "copy-to-clipboard": "^3.3.3",
