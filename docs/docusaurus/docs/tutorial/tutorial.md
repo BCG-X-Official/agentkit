@@ -142,9 +142,6 @@ sql_tool:
       ---
       Please answer the following user questions with an SQL query:
       {{question}}
-      ---
-      Current conversation history:
-      {{chat_history}}
     system_context: |-
       You are an expert on the GitHub repository of AgentKit, an LLM-powered agent. Your main task is to use
       SQL queries to retrieve information from structured tables containing commit history of the repository.

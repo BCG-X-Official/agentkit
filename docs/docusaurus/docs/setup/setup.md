@@ -14,6 +14,7 @@ If this is your first time setting up AgentKit, please follow these steps. If yo
       OPENAI_API_KEY=<your_openai_api_key>
       OPENAI_ORGANIZATION=<your_openai_organization>
       ```
+   - Note, if you do not want to use OpenAI, choose another LLM in `llm.py` or add your own model choice
 3. Copy the `frontend/.env.example` file in the frontend directory and change the name to `.env`.
 
 4. In the terminal, navigate to the root directory of the cloned repository. Build and start the Docker containers using the `docker-compose.yml` configuration file:
