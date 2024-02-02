@@ -1,8 +1,8 @@
-# Tutorial: AgentX Codebase Helper
+# Tutorial: AgentKit Codebase Helper
 
 
 
-Let's run through a full example of how you can rapidly build a high quality Agent application using AgentX.
+Let's run through a full example of how you can rapidly build a high quality Agent application using AgentKit.
 
 We're going to build an Agent which can guide us through a GitHub repository, with access to two sorts of information:
 
@@ -13,12 +13,12 @@ Developers can use this Agent to familiarize themselves with the contents of the
 the documentation and generate a SQL query to retrieve information from the GitHub repository information.
 
 
-In this example, we'll use data from the AgentX repository itself (meta!), but you can do this for any repository.
+In this example, we'll use data from the AgentKit repository itself (meta!), but you can do this for any repository.
 
 All it takes is 3 steps:
 
 ## Step 1: Ingest data
-The first thing we'll do is download all AgentX docs as PDF. We can also do this in native Markdown format, but it's quicker to use PDFs because AgentX has off-the-shelf PDF ingestion and retrieval.
+The first thing we'll do is download all AgentKit docs as PDF. We can also do this in native Markdown format, but it's quicker to use PDFs because AgentKit has off-the-shelf PDF ingestion and retrieval.
 Next, we need a directory to store the PDFs in, for which we can use `backend/app/app/tool_constants/pdf_data` (and we can delete the music-related default PDFs already there). We can also specify any other location
 for the PDFs, as long as we correctly point the `PDF_TOOL_DATA_PATH` parameter in `.env` to it.
 
@@ -72,7 +72,7 @@ This is what it looks like:
 
 ## Step 2: Configure tools
 
-Recall that we want two functionalities: RAG over codebase documentation, and SQL query generation to search commit history. AgentX provides off-the-shelf tools for both of these things.
+Recall that we want two functionalities: RAG over codebase documentation, and SQL query generation to search commit history. AgentKit provides off-the-shelf tools for both of these things.
 
 For RAG, we want to use a combination of `pdf_tool` and `expert_tool`, where `pdf_tool` retrieves documents and `expert_tool` makes an LLM call to generate an answer. The goal, then, is to run them sequentially: `pdf_tool` first and then `expert_tool` after with access to the retrieved docs.
 No change needs to be made to `pdf_tool`, we need to add a few lines of code to the `_arun` method of `expert_tool` and write some prompts.
@@ -147,7 +147,7 @@ Luckily, we don't need to change any code in `sql_tool` for data retrieval from 
 ```yaml
 sql_tool:
     description: >-
-      SQL tool to query structured table containing commit history of the Github repository of AgentX, an LLM powered agent.
+      SQL tool to query structured table containing commit history of the Github repository of AgentKit, an LLM powered agent.
       Input is a question about the data in natural language, output is a string that contains an SQL query in markdown format, the number of rows the query returns and the first 3 rows.
       {examples}
     prompt_message: |-
@@ -165,7 +165,7 @@ sql_tool:
       Current conversation history:
       {{chat_history}}
     system_context: |-
-      You are an expert on the GitHub repository of AgentX, an LLM-powered agent. Your main task is to use
+      You are an expert on the GitHub repository of AgentKit, an LLM-powered agent. Your main task is to use
       SQL queries to retrieve information from structured tables containing commit history of the repository.
       During answering, the following principles MUST be followed:
       1. Set the language to the markdown code block for each code block. For example, \```sql SELECT * FROM public.Artist``` is SQL.
@@ -181,18 +181,18 @@ sql_tool:
     prompt_inputs:
       - name: examples
         content: |-
-          Example Input: \"List all users who have made commits to the AgentX repository"
+          Example Input: \"List all users who have made commits to the AgentKit repository"
           Example Output: \"`sql SELECT DISTINCT commit_user FROM public.COMMITS;`, total rows from SQL query: 8, first 3 rows: Ilyass El Mansouri, Gustaf Halvardsson, Casper Lindberg\"
       - name: table_definitions
         content: |-
           public.db_table | description
-          public.COMMITS | Table with all commits made to the AgentX repository; columns include commit user, commit message, commit timestamp, and file change. Each (commit, file changed) is a single row
+          public.COMMITS | Table with all commits made to the AgentKit repository; columns include commit user, commit message, commit timestamp, and file change. Each (commit, file changed) is a single row
       - name: table_notes
         content: |-
           Table name:
           public.COMMITS
           Table description:
-          Table with all commits made to the AgentX repository.
+          Table with all commits made to the AgentKit repository.
           Columns include commit user, commit message, commit timestamp, and file change.
 
     prompt_selection: |-
@@ -204,8 +204,8 @@ sql_tool:
       Select the tables that can be most useful for answering to the question:
       {{question}}
     system_context_selection: |-
-      You are a software engineering expert on the AgentX codebase, an LLM-powered assistant. You have access to a
-      PostgreSQL database which has tables consisting of the commit history of the AgentX GitHub repository.
+      You are a software engineering expert on the AgentKit codebase, an LLM-powered assistant. You have access to a
+      PostgreSQL database which has tables consisting of the commit history of the AgentKit GitHub repository.
 
       Your task is to define which tables are useful to answer the question of the user.
       Please follow the instructions to answer the questions:
@@ -224,8 +224,8 @@ sql_tool:
       Valid: [yes/no]
       Reason: [your reason for the validation]
     system_context_validation: |-
-      You are a software engineering expert on the AgentX codebase, an LLM-powered assistant. You have access to a
-      PostgreSQL database which has tables consisting of data from the AgentX GitHub repository, including commits,
+      You are a software engineering expert on the AgentKit codebase, an LLM-powered assistant. You have access to a
+      PostgreSQL database which has tables consisting of data from the AgentKit GitHub repository, including commits,
       issues, and pull requests.
       You should validate that the constructed SQL query is answering the question of the user.
       You must reply in the following format:
@@ -264,7 +264,7 @@ This suggests using two action plans in `agent.yml`:
 action_plans:
   '0':
     name: ''
-    description: Use this plan to answer technical questions about AgentX - related to setup, code, codebase navigation, or other technical questions.
+    description: Use this plan to answer technical questions about AgentKit - related to setup, code, codebase navigation, or other technical questions.
     actions:
       - - pdf_tool
       - - expert_tool
@@ -272,7 +272,7 @@ action_plans:
   '1':
     name: ''
     description: |-
-      Use this plan to fetch Github-related information from the repository of AgentX, such as commits, issues, pull requests.
+      Use this plan to fetch Github-related information from the repository of AgentKit, such as commits, issues, pull requests.
     actions:
       - - sql_tool
 ```
