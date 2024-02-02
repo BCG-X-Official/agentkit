@@ -12,9 +12,9 @@ from langchain.vectorstores.pgvector import PGVector
 
 from app.core.config import settings
 from app.schemas.ingestion_schema import LOADER_DICT, IndexingConfig
+from app.schemas.tool_schemas.pdf_tool_schema import MarkdownMetadata
 from app.services.chat_agent.helpers.embedding_models import get_embedding_model
 from app.utils.config_loader import get_ingestion_configs
-from app.schemas.tool_schemas.pdf_tool_schema import MarkdownMetadata
 
 logger = logging.getLogger(__name__)
 

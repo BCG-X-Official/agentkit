@@ -9,6 +9,7 @@ class PdfAppendix(BaseModel):
     page_numbers: List[int]
     reference_text: str
 
+
 class MarkdownMetadata(BaseModel):
     type: str
     source: str
