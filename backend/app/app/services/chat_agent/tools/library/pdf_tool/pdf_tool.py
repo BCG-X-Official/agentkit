@@ -190,6 +190,5 @@ class PDFTool(ExtendedBaseTool):
                 )
             ),
         ]
-        response = await self._agenerate_response(question_messages)
-        logger.info(response)
+        response = await self._agenerate_response(question_messages, discard_fast_llm=True, run_manager=run_manager)
         return response

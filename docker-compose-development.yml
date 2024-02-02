@@ -27,7 +27,7 @@ services:
     user: root
     volumes:
       - ./db_docker:/var/lib/postgresql
-      - ./scripts/create-dbs.sql:/docker-entrypoint-initdb.d/create-dbs.sql
+      - ./scripts/1-create-dbs.sql:/docker-entrypoint-initdb.d/1-create-dbs.sql
     ports:
       - 5432:5432
     expose:
