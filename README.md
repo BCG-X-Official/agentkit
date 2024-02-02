@@ -101,7 +101,7 @@ See [optional feature documentation](docs/docusaurus/docs/advanced/optional_feat
 The project spun of a combination of different templates. One great inspiration is [fastapi-alembic-sqlmodel-async](https://github.com/jonra1993/fastapi-alembic-sqlmodel-async), which provided the foundations for the FastAPI setup. Please check them out!
 
 Great thanks to all the contributors:
-[Placeholder for contributor list]
+@kaikun213 @drivian @ielmansouri @mastersplinter @tanmaygupta9 @sofglide @harticode @edenbd @benhowt @carelschw @gustafvh @casper321 @modvinden1 @valerie-jzr @ispoljari
 
 Please read `CONTRIBUTING.md` for more details on how to contribute.
 PRs are welcome ❤️
