@@ -15,7 +15,6 @@ Key advantages of the AgentKit toolkit include:
 - 🛡️ **Focus on reliability**: Easy to configure routing architecture gives control of possible paths Agent can take, increasing reliability and making it suited for real-life use cases
 - 📈 **Set up to scale**: Set up to scale to MVP with ready made Queue Management, Auth, Caching, Monitoring etc.
 
-
 https://github.com/BCG-X-Official/agentkit/assets/125347044/32bf632e-a7e0-4cbd-a172-4ba014e64db0
 
 
@@ -31,7 +30,7 @@ The starter pack is based on the latest technologies for optimal performance, se
 * 🖍 Linting, tests and pre-commit hooks pre-configured
 
 ## Quickstart
-For a quick setup of AgentKit, use the steps below, where both the backend app and frontend app are run inside a Docker container. More elaborate setup instructions can be found at [setup.md](docs/setup.md).
+For a quick setup of AgentKit, use the steps below, where both the backend app and frontend app are run inside a Docker container. More elaborate setup instructions can be found at [setup.md](docs/docusaurus/docs/setup.md).
 
 ### Prerequisites
 - Docker: https://www.docker.com/get-started
@@ -49,9 +48,11 @@ For a quick setup of AgentKit, use the steps below, where both the backend app a
    Wait for the containers to build and start, which may take a few minutes depending on your system. Once the containers are up and running, you can access the apps in your browser at [http://localhost](http://localhost/).
 
 ## Chinook music database demo
-- Ensure you are on the `develop` branch
+- If docker containers are running, run `docker-compose down --volumes`
 - Follow the installation instructions above and swap `docker-compose.yml` with `docker-compose-demo.yml` to run the app
 - Try the prompt "How many artists and songs are there in the database?" to see AgentKit in action!
+
+Check out a more advanced [demo](https://agentkit.infra.x.bcg.com) build following the [tutorial](docs/docusaurus/docs/tutorial/tutorial.md).
 
 ## Set up your own app
 - Configure your Agent and Tools [link](docs/docusaurus/docs/configuration/configure_agent_and_tools.md)
@@ -59,6 +60,8 @@ For a quick setup of AgentKit, use the steps below, where both the backend app a
 - (Optional) Set up evaluation with LangSmith [link](docs/docusaurus/docs/advanced/evaluation.md)
 
 ## Documentation
+Find the [hosted documentation here](https://agentkit.infra.x.bcg.com/docs/introduction).
+
 - [Installation instructions for running frontend or entire app outside Docker](docs/docusaurus/docs/setup/setup_development.md)
 - [Key concepts](docs/docusaurus/docs/how_it_works/key_concepts.md)
 - [Agent and Tools configuration](docs/docusaurus/docs/configuration/configure_agent_and_tools.md)

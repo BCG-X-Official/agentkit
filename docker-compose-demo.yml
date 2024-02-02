@@ -37,8 +37,8 @@ services:
     user: root
     volumes:
       - ./db_docker:/var/lib/postgresql
-      - ./scripts/create-dbs.sql:/docker-entrypoint-initdb.d/1-create-dbs.sql
-      - ./scripts/sql_db_tool/2-chinook_psql_load.sql:/docker-entrypoint-initdb.d/2-chinook_psql_load.sql
+      - ./scripts/create-dbs.sql:/docker-entrypoint-initdb.d/create-dbs.sql
+      - ./scripts/sql_db_tool/chinook_psql_load.sql:/docker-entrypoint-initdb.d/chinook_psql_load.sql
     ports:
       - 5432:5432
     expose:

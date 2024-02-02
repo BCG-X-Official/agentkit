@@ -28,7 +28,7 @@ For a quick setup of AgentKit, use the steps below, where both the backend app a
    Wait for the containers to build and start, which may take a few minutes depending on your system. Once the containers are up and running, you can access the apps in your browser at [http://localhost](http://localhost/).
 
 ## Chinook music database demo
-- Ensure you are on the `develop` branch
+- If docker containers are running, run `docker-compose down --volumes`
 - Follow the installation instructions above and swap `docker-compose.yml` with `docker-compose-demo.yml` to run the app
 - Try the prompt "When was AC/DC founded?" to see AgentKit in action!
 

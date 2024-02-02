@@ -16,7 +16,7 @@ As an example, try the AgentKit codebase helper [demo](https://agentkit.infra.x.
 
 ## Chinook music database demo
 For a quick start to test some of the functionality, you can use the dummy Chinook example:
-- Ensure you are on the `develop` branch
+- If docker containers are running, run `docker-compose down --volumes`
 - Follow the [installation instructions](docs/setup/setup.md) and swap `docker-compose.yml` with `docker-compose-demo.yml` to run the app
 - Try the prompt "How many artists and songs are there in the database?" to see AgentKit in action!
 
