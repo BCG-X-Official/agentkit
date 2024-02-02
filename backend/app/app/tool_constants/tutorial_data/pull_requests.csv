@@ -1,0 +1,67 @@
+pr_number,pr_title,pr_state,pr_user,pr_created_at,pr_updated_at,pr_closed_at,pr_merged_at,pr_merged,pr_num_additions,pr_num_deletions,pr_num_changed_files,pr_num_comments,pr_num_review_comments,pr_num_commits,pr_mergeable,pr_mergeable_state
+1,Optimize AI model performance,merged,drivian,10/01/2023 18:08,23/01/2023 18:08,23/01/2023 02:02,,FALSE,451,89,20,59,35,6,TRUE,clean
+2,Refactor decision-making algorithm,closed,kaikun213,09/09/2023 17:55,04/10/2023 17:55,10/09/2023 16:53,,FALSE,62,237,4,88,77,4,TRUE,dirty
+3,Add new preprocessing method for data,merged,kaikun213,06/02/2022 08:37,07/03/2022 08:37,,,FALSE,1,382,10,4,30,8,TRUE,dirty
+4,Improve model training pipeline,open,drivian,17/04/2022 23:55,17/04/2022 23:55,,,FALSE,118,284,2,38,11,9,TRUE,clean
+5,Fix bug in prediction accuracy calculation,open,kaikun213,29/11/2022 06:11,24/12/2022 06:11,01/12/2022 00:01,01/12/2022 00:01,TRUE,333,419,6,41,59,2,FALSE,clean
+6,Update AI model documentation,closed,kaikun213,29/03/2022 17:21,22/04/2022 17:21,11/04/2022 21:11,,FALSE,214,315,19,72,70,4,FALSE,dirty
+7,Enhance model with additional generative layers,open,drivian,22/04/2023 10:34,09/05/2023 10:34,,,FALSE,90,252,16,47,78,2,TRUE,dirty
+8,Implement parallel processing for model training,merged,ielmansouri,20/09/2022 16:21,24/09/2022 16:21,,,FALSE,444,321,20,99,38,6,FALSE,dirty
+9,Correct data normalization process,merged,ielmansouri,04/10/2022 09:15,18/10/2022 09:15,04/10/2022 19:32,04/10/2022 19:32,TRUE,106,114,15,51,55,8,TRUE,unknown
+10,Add endpoint for model predictions,closed,drivian,03/06/2022 16:12,28/06/2022 16:12,,,FALSE,292,82,4,46,55,3,TRUE,dirty
+11,Implement caching for faster inference,closed,kaikun213,03/04/2023 21:30,09/04/2023 21:30,,,FALSE,52,92,5,98,8,10,TRUE,unknown
+12,Revise model evaluation metrics,merged,kaikun213,30/05/2023 18:15,09/06/2023 18:15,,,FALSE,268,93,1,62,80,4,TRUE,unknown
+13,Enhance security measures for data processing,open,drivian,28/08/2023 08:07,23/09/2023 08:07,04/09/2023 17:07,04/09/2023 17:07,TRUE,416,321,15,2,98,9,TRUE,clean
+14,Integrate third-party data validation tools,open,drivian,31/12/2022 19:41,06/01/2023 19:41,,,FALSE,441,37,9,83,3,7,TRUE,dirty
+15,Optimize database queries for model training data,open,ielmansouri,14/06/2022 16:04,03/07/2022 16:04,,,FALSE,223,11,9,1,13,6,FALSE,clean
+16,Add Docker support for deployment,open,ielmansouri,01/12/2023 11:55,07/12/2023 11:55,07/12/2023 06:35,,FALSE,442,483,14,56,56,9,TRUE,unknown
+17,Implement CI/CD pipeline for model deployment,open,ielmansouri,07/11/2023 00:59,30/11/2023 00:59,,,FALSE,183,270,7,97,15,1,FALSE,unknown
+18,Introduce automated testing for model accuracy,closed,drivian,12/06/2023 02:39,23/06/2023 02:39,16/06/2023 20:02,16/06/2023 20:02,TRUE,113,169,4,34,15,5,FALSE,clean
+19,Expand dataset for model training,closed,drivian,01/11/2022 23:05,11/11/2022 23:05,,,FALSE,455,169,11,63,23,6,TRUE,dirty
+20,Update project README with latest changes,closed,drivian,01/06/2022 16:52,06/06/2022 16:52,05/06/2022 11:50,05/06/2022 11:50,TRUE,272,258,8,44,56,4,TRUE,clean
+21,Refactor project structure for better modularity,closed,ielmansouri,30/09/2023 02:55,23/10/2023 02:55,,,FALSE,161,495,16,11,40,2,TRUE,unknown
+22,Enhance logging for model training sessions,closed,kaikun213,16/01/2023 09:25,03/02/2023 09:25,,,FALSE,116,381,9,23,51,7,TRUE,clean
+23,Add feature flags for experimental features,merged,drivian,27/06/2023 00:44,23/07/2023 00:44,13/07/2023 14:35,,FALSE,408,409,2,79,59,4,FALSE,clean
+24,Improve error handling in data pipeline,merged,drivian,08/04/2023 09:44,19/04/2023 09:44,,,FALSE,129,306,10,87,90,8,FALSE,dirty
+25,Document new model training approach,closed,ielmansouri,06/02/2023 20:48,22/02/2023 20:48,12/02/2023 19:01,12/02/2023 19:01,TRUE,206,270,5,40,28,2,FALSE,unknown
+26,Standardize data input formats,closed,ielmansouri,12/04/2023 21:39,27/04/2023 21:39,23/04/2023 17:54,,FALSE,117,301,11,60,85,1,TRUE,dirty
+27,Optimize memory usage in data processing,closed,drivian,27/03/2023 03:13,29/03/2023 03:13,27/03/2023 07:04,27/03/2023 07:04,TRUE,189,268,11,80,40,6,FALSE,dirty
+28,Integrate model with real-time data streams,merged,kaikun213,01/05/2023 03:34,31/05/2023 03:34,,,FALSE,472,164,2,7,88,7,TRUE,dirty
+29,Revamp model saving and loading mechanisms,merged,drivian,06/11/2022 11:43,10/11/2022 11:43,,,FALSE,335,404,11,41,47,10,TRUE,clean
+30,Add multi-language support for model interface,open,ielmansouri,19/01/2022 12:07,15/02/2022 12:07,,,FALSE,197,417,14,78,34,9,TRUE,unknown
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
