@@ -87,7 +87,7 @@ pre-commit:
 # CREATING THE ENVIRONMENT                                                                   #
 ##############################################################################################
 PYTHON = python3.10
-PROJECT_NAME = Agent-X
+PROJECT_NAME = AgentKit
 APP_FOLDER = backend/app
 SOURCE_FOLDER = app
 

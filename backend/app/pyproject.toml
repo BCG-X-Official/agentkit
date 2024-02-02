@@ -25,7 +25,7 @@ use_parentheses = true
 [tool.poetry]
 authors = ["jheyder <heyder.jakob@bcg.com>"]
 description = "Starter-kit to build constrained agents with Nextjs and FastAPI"
-name = "agent-x"
+name = "agentkit"
 packages = [
     { include = "app" },
     { include = "tests" },
