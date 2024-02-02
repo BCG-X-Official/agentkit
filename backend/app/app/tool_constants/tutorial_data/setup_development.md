@@ -71,25 +71,6 @@ Before you begin, make sure you have the following installed on your machine:
             - POSTGRES_DATABASE=${DATABASE_NAME}
             - POSTGRES_HOST_AUTH_METHOD= "trust"
 
-        db_sql_tool: # Remove if not using sql tool
-          image: postgres:11
-          restart: always
-          container_name: db_sql_tool
-          volumes:
-            - ./db_docker:/var/lib/postgresql
-            - ./scripts/db_sql_tool/chinook_psql_load.sql:/docker-entrypoint-initdb.d/chinook_psql_load.sql
-          environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-            - POSTGRES_DB=sqltool
-          ports:
-            - "5632:5432"
-          healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres"]
-            interval: 10s
-            timeout: 15s
-            retries: 5
-
         redis_server:
           image: redis:alpine
           container_name: redis_server

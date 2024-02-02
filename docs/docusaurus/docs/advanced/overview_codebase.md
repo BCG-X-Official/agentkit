@@ -88,5 +88,5 @@ Link to API documentation: https://agentkit.infra.x.bcg.com/api/v1/docs#/
     └── pre-commit.git
 [scripts] // sql scripts to create and load databases, add script for a custom database
     ├── create-dbs.sql
-    └── [db_sql_tool]
+    └── [sql_db_tool]
 ```

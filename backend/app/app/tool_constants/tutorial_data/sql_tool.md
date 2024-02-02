@@ -10,7 +10,7 @@ The SQL tool currently consists of the following steps:
 4) `_aimprove_query`: If the SQL query does not answer the question sufficiently, prompt the LLM to improve it
 5) Return the SQL query and the results
 
-To add your own database, you can add your sql script in `scripts`, and modify the sql scripts in the docker-compose for `db_sql_tool` to create your database upon starting the docker.
+To add your own database, you can add your sql script in `scripts`, and modify the sql scripts in the docker-compose for `database` to create your database upon starting the docker (see for example `docker-compose-demo.yml`).
 
 ## Prompt engineering tips
 
