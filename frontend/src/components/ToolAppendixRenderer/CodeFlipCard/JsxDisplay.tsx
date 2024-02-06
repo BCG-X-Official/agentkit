@@ -40,7 +40,7 @@ const JsxDisplay = (props: Props) => {
   const { code, data, graph_ref } = props
 
   let visData = data
-  // TODO: Current safeguard for rendering performance issues
+  // Current safeguard for rendering performance issues
   if (visData.length > 10000) {
     console.warn("Data too large, only rendering first 10000 rows")
     visData = visData.slice(0, 10000)

@@ -25,7 +25,6 @@ const ToolAppendixRenderer = (props: Props) => {
   })
 
   switch (data.language) {
-    // TODO: Separate library/application-specific (e.g. CLINGOV_URL) from generic (e.g. SQL, JSX) syntax languages in renderings
     case SUPPORTED_SYNTAX_LANGUAGES.SQL:
     case SUPPORTED_SYNTAX_LANGUAGES.JSX:
     case SUPPORTED_SYNTAX_LANGUAGES.CLINGOV_URL:

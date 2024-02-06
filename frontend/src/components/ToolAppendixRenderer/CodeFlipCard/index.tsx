@@ -123,8 +123,6 @@ const CodeFlipCard = (props: Props) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            // TODO: Add authorisation header (JWT)
-            // "Authorization": `Bearer ${API_KEY}`,
           },
         }
       )
