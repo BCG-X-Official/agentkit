@@ -9,7 +9,7 @@ We want to make contributing to this project as easy and transparent as possible
 We use Github to host code, to track issues and feature requests, as well as accept pull requests.
 
 We actively welcome your pull requests:
-1. Fork the repo and create your branch from `develop`.
+1. Fork the repo and create your branch from `main`.
 2. If you've changed key features (tools, APIs etc), update the documentation.
 3. Ensure the code is clean: passes the set of tests, lints etc.
 5. Issue a pull request to the main repo
