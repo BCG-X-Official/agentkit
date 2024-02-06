@@ -1,5 +1,5 @@
-# Quick setup
-If this is your first time setting up AgentKit, please follow these steps. If you are planning to develop, we recommend to setup hot-reload as described in the [development setup modes](docs/setup/setup_development.md). We will run the backend app as well as the frontend app inside a Docker container.
+# Setup
+If this is your first time setting up AgentKit, please use the recommended installation method ([development setup modes](docs/setup_development.md) if hot-reload is required). We will run the backend app as well as the frontend app inside a Docker container.
 
 ### Prerequisites
 - Docker: https://www.docker.com/get-started
@@ -14,7 +14,6 @@ If this is your first time setting up AgentKit, please follow these steps. If yo
       OPENAI_API_KEY=<your_openai_api_key>
       OPENAI_ORGANIZATION=<your_openai_organization>
       ```
-   - Note, if you do not want to use OpenAI, choose another LLM in `llm.py` or add your own model choice
 3. Copy the `frontend/.env.example` file in the frontend directory and change the name to `.env`.
 
 4. In the terminal, navigate to the root directory of the cloned repository. Build and start the Docker containers using the `docker-compose.yml` configuration file:
@@ -31,3 +30,16 @@ If this is your first time setting up AgentKit, please follow these steps. If yo
 ## (Optional) Langchain tracing (Langsmith)
 
 See https://docs.smith.langchain.com/ on how to set up LangSmith. Once you have set up LangSmith and the .env variables, you will be able to see the AgentKit traces in LangSmith.
+
+## (Optional) Pre-commit
+
+We are using pre-commit to automatically run some hygiene checks. Install this by running `make install-pre-commit`
+
+There is also a dockerized service that can be run using `docker-compose run pre-commit`
+
+To link this from a local python installation, run:
+```sh
+pip install pre-commit
+cp pre-commit/.pre-commit-config.yaml .
+pre-commit install
+```
