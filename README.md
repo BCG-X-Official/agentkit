@@ -15,7 +15,8 @@ Key advantages of the AgentKit toolkit include:
 - 🛡️ **Focus on reliability**: Easy to configure routing architecture gives control of possible paths Agent can take, increasing reliability and making it suited for real-life use cases
 - 📈 **Set up to scale**: Set up to scale to MVP with ready made Queue Management, Auth, Caching, Monitoring etc.
 
-https://github.com/BCG-X-Official/agentkit/assets/125347044/32bf632e-a7e0-4cbd-a172-4ba014e64db0
+
+https://github.com/BCG-X-Official/agentkit/assets/103188952/8e86fd0e-24a5-4335-8dba-06f1cefa8dd9
 
 
 ### Tech stack
