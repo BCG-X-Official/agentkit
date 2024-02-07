@@ -56,7 +56,7 @@ const actions = {
   },
   pdf_tool: {
     icon: () => <Icon.BiFile className="text-bcg-green-light mb-1 mr-2 h-auto w-6" />,
-    text: () => "Seaching in PDF documents...",
+    text: () => "Searching in PDF documents...",
   },
   filter_docs: {
     icon: () => <Icon.BiListCheck className="text-bcg-green-light mb-1 mr-2 h-auto w-6" />,

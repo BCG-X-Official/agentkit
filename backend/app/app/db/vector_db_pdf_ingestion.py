@@ -12,6 +12,7 @@ from langchain.vectorstores.pgvector import PGVector
 
 from app.core.config import settings
 from app.schemas.ingestion_schema import LOADER_DICT, IndexingConfig
+from app.schemas.tool_schemas.pdf_tool_schema import MarkdownMetadata
 from app.services.chat_agent.helpers.embedding_models import get_embedding_model
 from app.utils.config_loader import get_ingestion_configs
 
@@ -60,9 +61,9 @@ class PDFExtractionPipeline:
             return self._load_documents(folder_path=folder_path, collection_name=collection_name)
         raise ValueError("folder_path must be provided if load_index is False")
 
-    def _pdf_to_docs(
+    def _load_docs(
         self,
-        pdf_dir_path: str,
+        dir_path: str,
     ) -> List[Document]:
         """
         Using specified PDF miner to convert PDF documents to raw text chunks.
@@ -70,11 +71,12 @@ class PDFExtractionPipeline:
         Fallback: PyPDF
         """
         documents = []
-        for file_name in os.listdir(pdf_dir_path):
+        for file_name in os.listdir(dir_path):
             file_extension = os.path.splitext(file_name)[1].lower()
+            # Load PDF files
             if file_extension == ".pdf":
                 logger.info(f"Loading {file_name} into vectorstore")
-                file_path = f"{pdf_dir_path}/{file_name}"
+                file_path = f"{dir_path}/{file_name}"
                 try:
                     loader: Any = self.pdf_loader(file_path)  # type: ignore
                     file_docs = loader.load()
@@ -84,6 +86,35 @@ class PDFExtractionPipeline:
                     logger.error(
                         f"Could not extract text from PDF {file_name} with {self.pipeline_config.pdf_parser}: {repr(e)}"
                     )
+            # Load Markdown files
+            elif file_extension == ".md":
+                logger.info(f"Loading data from {file_name} as Document...")
+                file_path = f"{dir_path}/{file_name}"
+                try:
+                    # Load md files as single document
+                    with open(file_path, "r", encoding="utf-8") as f:
+                        md_file = f.read()
+
+                    md_doc = Document(
+                        page_content=md_file,
+                        metadata=MarkdownMetadata.parse_obj({"source": file_name, "type": "text"}).dict(),
+                    )
+
+                    # Further split at token-level, when splits are above chunk_size configuration (rare)
+                    text_splitter = TokenTextSplitter(
+                        chunk_size=self.pipeline_config.tokenizer_chunk_size,
+                        chunk_overlap=self.pipeline_config.tokenizer_chunk_overlap,
+                    )
+                    file_docs = text_splitter.split_documents([md_doc])
+
+                    documents.extend(file_docs)
+                    if len(file_docs) > 1:
+                        logger.info(
+                            f"Split {file_name} to {len(file_docs)} documents due to "
+                            f"chunk_size: ({self.pipeline_config.tokenizer_chunk_size})"
+                        )
+                except Exception as e:
+                    logger.error(f"Could not load MD file {file_name}: {repr(e)}")
 
         return documents
 
@@ -93,7 +124,7 @@ class PDFExtractionPipeline:
         collection_name: str,
     ) -> PGVector:
         """Load documents into vectorstore."""
-        text_documents = self._pdf_to_docs(folder_path)
+        text_documents = self._load_docs(folder_path)
         text_splitter = TokenTextSplitter(
             chunk_size=self.pipeline_config.tokenizer_chunk_size,
             chunk_overlap=self.pipeline_config.tokenizer_chunk_overlap,
