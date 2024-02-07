@@ -28,6 +28,7 @@ For a quick start to test some of the functionality, you can use the dummy Chino
 ## Advanced users: Prepare your app for production
 - [Tech stack and code structure](docs/advanced/overview_codebase.md)
 - [Set up evaluation with LangSmith](docs/advanced/evaluation.md)
+- [Run linting and tests for the application](docs/advanced/linting_and_tests.md)
 - [Set up and run acceptance tests with cypress](docs/advanced/aat_guidelines.md)
 - [Add additional features, such as auth, feedback and user settings](docs/advanced/optional_features.md)
 - [Deploy your app] TODO: deployment documentation link

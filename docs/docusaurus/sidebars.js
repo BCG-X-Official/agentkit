@@ -51,7 +51,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Advanced',
-      items: ['advanced/memory', 'advanced/optional_features', 'advanced/evaluation', 'advanced/aat_guidelines'],
+      items: ['advanced/memory', 'advanced/optional_features', 'advanced/evaluation', 'advanced/linting_and_tests', 'advanced/aat_guidelines'],
     },
   ],
 };
