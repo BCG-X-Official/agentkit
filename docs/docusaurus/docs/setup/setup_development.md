@@ -27,6 +27,7 @@ Before you begin, make sure you have the following installed on your machine:
    If needed, change the following variable (not required for a succesfull demo installation):
    - `NEXT_PUBLIC_USE_AUTH`: Set to `true` if you would like to add an identity layer using Next Auth.
    - `NEXTAUTH_SECRET`: Generate a secret key and replace `# TODO: Generate a secret and add it here` with the secret key.
+   - `NEXTAUTH_URL` and `NEXTAUTH_URL_INTERNAL`: Set to `http://localhost:3000`
    - `GITHUB_ID` and `GITHUB_SECRET`: If you want to enable GitHub authentication, replace the corresponding values with your GitHub app credentials.
    - `DB_USER`, `DB_PASSWORD`, `DB_HOST`,`DB_USER`,`DB_PORT` and `DB_NAME`: If you want to customize the database connection settings, update these values accordingly.
 
