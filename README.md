@@ -31,7 +31,7 @@ The starter pack is based on the latest technologies for optimal performance, se
 * 🖍 Linting, tests and pre-commit hooks pre-configured
 
 ## Quickstart
-For a quick setup of AgentKit, use the steps below, where both the backend app and frontend app are run inside a Docker container. More elaborate setup instructions can be found at [setup.md](docs/docusaurus/docs/setup.md).
+For a quick setup of AgentKit, use the steps below, where both the backend app and frontend app are run inside a Docker container. More elaborate setup instructions can be found in the [documentation](https://agentkit.infra.x.bcg.com/docs/introduction).
 
 ### Prerequisites
 - Docker: https://www.docker.com/get-started
@@ -53,7 +53,7 @@ For a quick setup of AgentKit, use the steps below, where both the backend app a
 - Follow the installation instructions above and swap `docker-compose.yml` with `docker-compose-demo.yml` to run the app
 - Try the prompt "How many artists and songs are there in the database?" to see AgentKit in action!
 
-Check out a more advanced [demo](https://agentkit.infra.x.bcg.com) build following the [tutorial](docs/docusaurus/docs/tutorial/tutorial.md).
+Check out a more advanced [demo](https://agentkit.infra.x.bcg.com) build following the [tutorial](https://agentkit.infra.x.bcg.com/docs/tutorial/).
 
 ## Set up your own app
 - Configure your Agent and Tools [link](docs/docusaurus/docs/configuration/configure_agent_and_tools.md)
@@ -63,12 +63,12 @@ Check out a more advanced [demo](https://agentkit.infra.x.bcg.com) build followi
 ## Documentation
 Find the [hosted documentation here](https://agentkit.infra.x.bcg.com/docs/introduction).
 
-- [Installation instructions for running frontend or entire app outside Docker](docs/docusaurus/docs/setup/setup_development.md)
-- [Key concepts](docs/docusaurus/docs/how_it_works/key_concepts.md)
-- [Agent and Tools configuration](docs/docusaurus/docs/configuration/configure_agent_and_tools.md)
-- [UI configuration](docs/docusaurus/docs/configuration/configure_ui.md)
-- [Optional features](docs/docusaurus/docs/advanced/optional_features.md)
-- [Tool library](docs/docusaurus/docs/tool_library/)
+- [Installation instructions for running frontend or entire app outside Docker](https://agentkit.infra.x.bcg.com/docs/setup/setup_development)
+- [Key concepts](https://agentkit.infra.x.bcg.com/docs/how_it_works/key_concepts)
+- [Agent and Tools configuration](https://agentkit.infra.x.bcg.com/docs/configuration/configure_agent_and_tools)
+- [UI configuration](https://agentkit.infra.x.bcg.com/docs/configuration/configure_ui)
+- [Optional features](https://agentkit.infra.x.bcg.com/docs/advanced/optional_features)
+- [Tool library](https://agentkit.infra.x.bcg.com/docs/tool_library/)
 
 ## How it works
 
