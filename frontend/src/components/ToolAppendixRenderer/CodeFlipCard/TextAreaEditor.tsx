@@ -9,7 +9,7 @@ const TextAreaEditor = (props: Props) => {
   const [value, setValue] = useState(code)
   // submit code to backend
   const handleSubmit = () => {
-    //TODO - submit code to backend 
+    //TODO - submit code to backend
   }
   return (
     <>
