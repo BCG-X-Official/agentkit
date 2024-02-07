@@ -33,7 +33,7 @@ packages = [
 version = "1.0.0"
 
 [tool.poetry.dependencies]
-Pillow = "^9.4.0"
+Pillow = "^10.2.0"
 SQLAlchemy = "^2.0.23"
 SQLAlchemy-Utils = "^0.41.1"
 alembic = "^1.13.0"
