@@ -1,0 +1,17 @@
+pr_number,pr_title,pr_state,pr_user,pr_created_at,pr_updated_at,pr_closed_at,pr_merged_at,pr_merged,pr_num_additions,pr_num_deletions,pr_num_changed_files,pr_num_comments,pr_num_review_comments,pr_num_commits,pr_mergeable,pr_mergeable_state
+1,Bump cryptography from 38.0.4 to 41.0.6 in /backend/app,closed,dependabot[bot],01-26-2024 20:00:57,02-06-2024 01:39:07,02-06-2024 01:39:06,,False,49,166,2,1,0,1,False,unknown
+2,Bump pillow from 9.5.0 to 10.2.0 in /backend/app,closed,dependabot[bot],01-26-2024 20:00:58,02-07-2024 13:03:10,02-07-2024 13:03:09,,False,76,70,2,1,0,1,False,dirty
+3,Bump axios from 1.4.0 to 1.6.0 in /frontend,closed,dependabot[bot],01-26-2024 20:01:04,02-07-2024 13:03:03,02-07-2024 13:03:02,,False,16,6,2,1,0,1,False,dirty
+4,Bump zod from 3.21.4 to 3.22.3 in /frontend,closed,dependabot[bot],01-26-2024 20:01:05,02-07-2024 13:03:04,02-07-2024 13:03:03,,False,22,12,2,1,0,1,False,dirty
+5,Bump follow-redirects from 1.15.2 to 1.15.5 in /frontend,closed,dependabot[bot],01-26-2024 20:02:06,02-07-2024 13:03:07,02-07-2024 13:03:05,,False,14,4,1,1,0,1,True,blocked
+6,Bump aiohttp from 3.9.1 to 3.9.2 in /backend/app,closed,dependabot[bot],01-30-2024 00:37:42,02-07-2024 13:03:14,02-07-2024 13:03:13,,False,78,77,1,1,0,1,False,dirty
+7,Bump pycryptodome from 3.19.0 to 3.19.1 in /backend/app,closed,dependabot[bot],02-01-2024 20:25:44,02-07-2024 13:04:24,02-07-2024 13:04:22,,False,33,33,1,1,0,1,False,dirty
+8,"chore: update docs, public repository",closed,kaikun213,02-01-2024 21:19:16,02-01-2024 21:47:33,02-01-2024 21:47:33,02-01-2024 21:47:33,True,8,6,3,0,0,2,False,unknown
+9,chore: update codeowners,closed,kaikun213,02-01-2024 22:14:43,02-01-2024 22:16:06,02-01-2024 22:16:06,02-01-2024 22:16:06,True,1,0,1,0,0,1,False,unknown
+10,chore: update docs,closed,kaikun213,02-02-2024 09:33:35,02-02-2024 09:35:54,02-02-2024 09:35:54,02-02-2024 09:35:53,True,31,23,6,0,0,1,False,unknown
+11,Fix: naming AgentKit,closed,drivian,02-02-2024 10:08:42,02-02-2024 10:13:09,02-02-2024 10:13:09,02-02-2024 10:13:09,True,9,9,5,0,0,1,False,unknown
+12,Feat: Tutorial updates,closed,drivian,02-02-2024 16:07:20,02-06-2024 09:32:55,02-06-2024 09:32:52,02-06-2024 09:32:52,True,978,130,33,0,0,9,False,unknown
+13,chore(deps): bump fastapi from 0.105.0 to 0.109.1 in /backend/app,closed,dependabot[bot],02-05-2024 17:33:45,02-07-2024 10:34:24,02-07-2024 10:34:21,02-07-2024 10:34:21,True,27,144,2,0,0,2,False,unknown
+14,chore(deps): bump cryptography from 38.0.4 to 42.0.0 in /backend/app,closed,dependabot[bot],02-06-2024 01:39:04,02-07-2024 13:03:15,02-07-2024 13:03:14,,False,47,39,2,1,0,1,False,dirty
+15,Cleanup: Documentation links & example .envs,closed,drivian,02-06-2024 14:32:59,02-07-2024 11:20:12,02-07-2024 11:20:12,02-07-2024 11:20:12,True,20,20,7,0,2,7,False,unknown
+16,fix: dependency upgrades and linting docs,closed,kaikun213,02-07-2024 12:37:16,02-07-2024 13:02:25,02-07-2024 13:02:25,02-07-2024 13:02:25,True,421,268,9,0,0,2,False,unknown

@@ -1,0 +1,55 @@
+{
+  email heyder.jakob@bcg.com
+}
+
+# Enable in prod
+# {$EXT_ENDPOINT1} {
+#    tls /config/certificate.pem /config/privateKey.pem
+# }
+
+
+# {$EXT_ENDPOINT1}:443 {
+#   reverse_proxy nextjs_server:3000
+#   reverse_proxy /api/v1/* fastapi_server:9090
+# }
+
+{$EXT_ENDPOINT1}:80, {$LOCAL_1}:80, {$LOCAL_2}:80, :80 {
+  reverse_proxy nextjs_server:3000
+  reverse_proxy /api/v1/* fastapi_server:9090
+  reverse_proxy /docs/* docusaurus:3001
+}
+
+fastapi.{$EXT_ENDPOINT1}:80, fastapi.{$LOCAL_1}:80, fastapi.{$LOCAL_2}:80 {
+  reverse_proxy fastapi_server:9090
+}
+
+storage.{$EXT_ENDPOINT1}:80, storage.{$LOCAL_1}:80, storage.{$LOCAL_2}:80 {
+  reverse_proxy minio_server:9000
+}
+
+stash.{$EXT_ENDPOINT1}:80, stash.{$LOCAL_1}:80, stash.{$LOCAL_2}:80 {
+  reverse_proxy minio_server:9090
+}
+
+static.{$EXT_ENDPOINT1}:80, static.{$LOCAL_1}:80, static.{$LOCAL_2}:80 {
+  root * /code/static
+  file_server browse
+}
+
+## Uncomment this to automatic ssl
+# fastapi.{$EXT_ENDPOINT1}, fastapi.{$LOCAL_1}, fastapi.{$LOCAL_2} {
+#   reverse_proxy fastapi_server:9090
+# }
+
+# storage.{$EXT_ENDPOINT1}, storage.{$LOCAL_1}, storage.{$LOCAL_2} {
+#   reverse_proxy minio_server:9000
+# }
+
+# stash.{$EXT_ENDPOINT1}, stash.{$LOCAL_1}, stash.{$LOCAL_2} {
+#   reverse_proxy minio_server:9090
+# }
+
+# static.{$EXT_ENDPOINT1}, static.{$LOCAL_1}, static.{$LOCAL_2} {
+#   root * /code/static
+#   file_server browse
+# }

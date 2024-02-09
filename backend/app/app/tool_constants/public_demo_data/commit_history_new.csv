@@ -1,0 +1,255 @@
+commit_hash,commit_timestamp,commit_user,commit_message,file_changed
+d1cfd65be99f0ba79c437ac1a80a5428e21ec319,02-01-2024 21:17:41,Jakob Heyder,"chore: update docs, public repository",README.md
+d1cfd65be99f0ba79c437ac1a80a5428e21ec319,02-01-2024 21:17:41,Jakob Heyder,"chore: update docs, public repository",docs/docusaurus/docusaurus.config.js
+427cfc412d295a2b6ba78a5f02fe042de0fe5415,02-01-2024 21:22:31,Jakob Heyder,chore: update codeowners,CODEOWNERS
+bb5ff7b8146558e939b8f186cf5a42130c8ad970,02-01-2024 22:14:16,Jakob Heyder,chore: update codeowners,CODEOWNERS
+2456279d5b81b4acca050548e2989fad9a0bac7c,02-01-2024 21:47:32,GitHub,"Merge pull request #8 from BCG-X-Official/github-com/develop
+
+chore: update docs, public repository",CODEOWNERS
+2456279d5b81b4acca050548e2989fad9a0bac7c,02-01-2024 21:47:32,GitHub,"Merge pull request #8 from BCG-X-Official/github-com/develop
+
+chore: update docs, public repository",README.md
+2456279d5b81b4acca050548e2989fad9a0bac7c,02-01-2024 21:47:32,GitHub,"Merge pull request #8 from BCG-X-Official/github-com/develop
+
+chore: update docs, public repository",docs/docusaurus/docusaurus.config.js
+600f2fd3ba204c3cf7e18f5b6c37e5a64542033e,02-01-2024 22:16:06,GitHub,"Merge pull request #9 from BCG-X-Official/github-com/develop
+
+chore: update codeowners",CODEOWNERS
+e4af244b5bea610e1c0acf10b793cab91d73fafd,02-02-2024 10:08:09,Casper van Langen,fix: naming agentkit,.env.example
+e4af244b5bea610e1c0acf10b793cab91d73fafd,02-02-2024 10:08:09,Casper van Langen,fix: naming agentkit,.github/workflows/main.yml.disabled
+e4af244b5bea610e1c0acf10b793cab91d73fafd,02-02-2024 10:08:09,Casper van Langen,fix: naming agentkit,Makefile
+e4af244b5bea610e1c0acf10b793cab91d73fafd,02-02-2024 10:08:09,Casper van Langen,fix: naming agentkit,backend/app/pyproject.toml
+e4af244b5bea610e1c0acf10b793cab91d73fafd,02-02-2024 10:08:09,Casper van Langen,fix: naming agentkit,frontend/package.json
+c474a4ab272bac5651b5b1ea8d9855b421ee1490,02-02-2024 09:33:09,Jakob Heyder,chore: update docs,README.md
+c474a4ab272bac5651b5b1ea8d9855b421ee1490,02-02-2024 09:33:09,Jakob Heyder,chore: update docs,docker-compose-demo.yml
+c474a4ab272bac5651b5b1ea8d9855b421ee1490,02-02-2024 09:33:09,Jakob Heyder,chore: update docs,docs/docusaurus/README.md
+c474a4ab272bac5651b5b1ea8d9855b421ee1490,02-02-2024 09:33:09,Jakob Heyder,chore: update docs,docs/docusaurus/docs/introduction.md
+c474a4ab272bac5651b5b1ea8d9855b421ee1490,02-02-2024 09:33:09,Jakob Heyder,chore: update docs,docs/docusaurus/docs/tutorial/tutorial.md
+c474a4ab272bac5651b5b1ea8d9855b421ee1490,02-02-2024 09:33:09,Jakob Heyder,chore: update docs,docs/docusaurus/sidebars.js
+5a567b5f89d7f1debe8397dbbc3d9c16bd8765e8,02-02-2024 09:35:53,GitHub,"Merge pull request #10 from BCG-X-Official/chore/docs
+
+chore: update docs",README.md
+5a567b5f89d7f1debe8397dbbc3d9c16bd8765e8,02-02-2024 09:35:53,GitHub,"Merge pull request #10 from BCG-X-Official/chore/docs
+
+chore: update docs",docker-compose-demo.yml
+5a567b5f89d7f1debe8397dbbc3d9c16bd8765e8,02-02-2024 09:35:53,GitHub,"Merge pull request #10 from BCG-X-Official/chore/docs
+
+chore: update docs",docs/docusaurus/README.md
+5a567b5f89d7f1debe8397dbbc3d9c16bd8765e8,02-02-2024 09:35:53,GitHub,"Merge pull request #10 from BCG-X-Official/chore/docs
+
+chore: update docs",docs/docusaurus/docs/introduction.md
+5a567b5f89d7f1debe8397dbbc3d9c16bd8765e8,02-02-2024 09:35:53,GitHub,"Merge pull request #10 from BCG-X-Official/chore/docs
+
+chore: update docs",docs/docusaurus/docs/tutorial/tutorial.md
+5a567b5f89d7f1debe8397dbbc3d9c16bd8765e8,02-02-2024 09:35:53,GitHub,"Merge pull request #10 from BCG-X-Official/chore/docs
+
+chore: update docs",docs/docusaurus/sidebars.js
+b7dfcf238cbdb6198c0754dd057b055193921971,02-02-2024 09:40:49,Jakob Heyder,chore: release github action branches,.github/workflows/release.yml
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/CONTRIBUTING.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/README.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/backend_flow.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/commit_history.csv
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/configure_agent_and_tools.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/configure_ui.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/entertainer_expert_tools.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/evaluation.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/image_generation_tool.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/issues.csv
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/key_concepts.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/memory.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/optional_features.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/pdf_tool.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/pull_requests.csv
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/setup.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/setup_development.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/sql_tool.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/summarizer_tool.md
+75d18c835feefaf656d104fec4477df697bbdc38,02-02-2024 10:54:13,Casper van Langen,feat: add tutorial data and dummy commit history,backend/app/app/tool_constants/tutorial_data/visualizer_tool.md
+c3e3920054a6df7e849b45edde709669f00a9d6c,02-02-2024 10:13:09,GitHub,"Merge pull request #11 from BCG-X-Official/fix/naming
+
+Fix: naming AgentKit",.env.example
+c3e3920054a6df7e849b45edde709669f00a9d6c,02-02-2024 10:13:09,GitHub,"Merge pull request #11 from BCG-X-Official/fix/naming
+
+Fix: naming AgentKit",.github/workflows/main.yml.disabled
+c3e3920054a6df7e849b45edde709669f00a9d6c,02-02-2024 10:13:09,GitHub,"Merge pull request #11 from BCG-X-Official/fix/naming
+
+Fix: naming AgentKit",Makefile
+c3e3920054a6df7e849b45edde709669f00a9d6c,02-02-2024 10:13:09,GitHub,"Merge pull request #11 from BCG-X-Official/fix/naming
+
+Fix: naming AgentKit",backend/app/pyproject.toml
+c3e3920054a6df7e849b45edde709669f00a9d6c,02-02-2024 10:13:09,GitHub,"Merge pull request #11 from BCG-X-Official/fix/naming
+
+Fix: naming AgentKit",frontend/package.json
+b38ad2604564095d7e88e3ad13bb868bafbde3b3,02-02-2024 11:20:38,Casper van Langen,fix: remove unneeded tutorial data,backend/app/app/tool_constants/tutorial_data/issues.csv
+b38ad2604564095d7e88e3ad13bb868bafbde3b3,02-02-2024 11:20:38,Casper van Langen,fix: remove unneeded tutorial data,backend/app/app/tool_constants/tutorial_data/pull_requests.csv
+29b0f30c24cffc730a920b87b05fb505118ffc0f,02-02-2024 11:31:24,Casper van Langen,cleanup: .env.example comments,.env.example
+68282a594bedfd02613b59470b675d2e9f77f4d5,02-02-2024 16:36:42,GitHub,Update README.md video,README.md
+ea99786753f669fbcb6570608ad73e2c2ef43d77,02-02-2024 10:53:03,Jakob Heyder,fix: contributors placeholder,README.md
+ea99786753f669fbcb6570608ad73e2c2ef43d77,02-02-2024 10:53:03,Jakob Heyder,fix: contributors placeholder,frontend/src/styles/globals.css
+5a41eff347ea2fac4b70ef58ad689c4a491a483d,02-02-2024 10:56:44,Jakob Heyder,fix: contributors placeholder,README.md
+779310772827c535c5f55a354055d5cd280f9aeb,02-02-2024 15:59:25,Casper van Langen,"feat: include streaming of answer in pdf_tool, order sql load scripts",backend/app/app/services/chat_agent/tools/library/pdf_tool/pdf_tool.py
+779310772827c535c5f55a354055d5cd280f9aeb,02-02-2024 15:59:25,Casper van Langen,"feat: include streaming of answer in pdf_tool, order sql load scripts",docker-compose-demo.yml
+779310772827c535c5f55a354055d5cd280f9aeb,02-02-2024 15:59:25,Casper van Langen,"feat: include streaming of answer in pdf_tool, order sql load scripts",docker-compose-development.yml
+779310772827c535c5f55a354055d5cd280f9aeb,02-02-2024 15:59:25,Casper van Langen,"feat: include streaming of answer in pdf_tool, order sql load scripts",docker-compose.yml
+779310772827c535c5f55a354055d5cd280f9aeb,02-02-2024 15:59:25,Casper van Langen,"feat: include streaming of answer in pdf_tool, order sql load scripts",scripts/create-dbs.sql
+779310772827c535c5f55a354055d5cd280f9aeb,02-02-2024 15:59:25,Casper van Langen,"feat: include streaming of answer in pdf_tool, order sql load scripts",scripts/sql_db_tool/2-load_commits.sql
+779310772827c535c5f55a354055d5cd280f9aeb,02-02-2024 15:59:25,Casper van Langen,"feat: include streaming of answer in pdf_tool, order sql load scripts",scripts/sql_db_tool/chinook_psql_load.sql
+2cc5f3595c995a1562d59486d5eb58ea5df56c18,02-02-2024 16:04:54,Casper van Langen,"feat: add md ingestion pipeline, cleanup",.env.example
+2cc5f3595c995a1562d59486d5eb58ea5df56c18,02-02-2024 16:04:54,Casper van Langen,"feat: add md ingestion pipeline, cleanup",backend/app/app/db/vector_db_pdf_ingestion.py
+2cc5f3595c995a1562d59486d5eb58ea5df56c18,02-02-2024 16:04:54,Casper van Langen,"feat: add md ingestion pipeline, cleanup",backend/app/app/schemas/tool_schemas/pdf_tool_schema.py
+2cc5f3595c995a1562d59486d5eb58ea5df56c18,02-02-2024 16:04:54,Casper van Langen,"feat: add md ingestion pipeline, cleanup",backend/app/app/tool_constants/tutorial_data/commit_history.csv
+2cc5f3595c995a1562d59486d5eb58ea5df56c18,02-02-2024 16:04:54,Casper van Langen,"feat: add md ingestion pipeline, cleanup",backend/app/app/tool_constants/tutorial_data/setup_development.md
+2cc5f3595c995a1562d59486d5eb58ea5df56c18,02-02-2024 16:04:54,Casper van Langen,"feat: add md ingestion pipeline, cleanup",backend/app/app/tool_constants/tutorial_data/sql_tool.md
+2cc5f3595c995a1562d59486d5eb58ea5df56c18,02-02-2024 16:04:54,Casper van Langen,"feat: add md ingestion pipeline, cleanup",docs/docusaurus/docs/advanced/overview_codebase.md
+2cc5f3595c995a1562d59486d5eb58ea5df56c18,02-02-2024 16:04:54,Casper van Langen,"feat: add md ingestion pipeline, cleanup",docs/docusaurus/docs/tutorial/tutorial.md
+2cc5f3595c995a1562d59486d5eb58ea5df56c18,02-02-2024 16:04:54,Casper van Langen,"feat: add md ingestion pipeline, cleanup",frontend/.env.example
+2cc5f3595c995a1562d59486d5eb58ea5df56c18,02-02-2024 16:04:54,Casper van Langen,"feat: add md ingestion pipeline, cleanup",frontend/src/components/ToolActionRenderer/actions.tsx
+10f991ea8048d333af9fad5c270969a143c21f79,02-02-2024 16:11:16,Casper van Langen,chore: linting,backend/app/app/db/vector_db_pdf_ingestion.py
+10f991ea8048d333af9fad5c270969a143c21f79,02-02-2024 16:11:16,Casper van Langen,chore: linting,backend/app/app/schemas/tool_schemas/pdf_tool_schema.py
+371b7238690f9c2252743e32796f7f0eff96764b,02-02-2024 16:24:55,Casper van Langen,fix: sql tool example fix,docs/docusaurus/docs/setup/setup.md
+371b7238690f9c2252743e32796f7f0eff96764b,02-02-2024 16:24:55,Casper van Langen,fix: sql tool example fix,docs/docusaurus/docs/tutorial/tutorial.md
+40a21ae6b159b9439a97005e981ef3d2ad0fc55b,02-02-2024 16:25:24,Casper van Langen,Merge branch 'main' into feat/tutorial_data,README.md
+09ff4459d023d1776a4437446df9db5dc37ec9a6,02-02-2024 16:54:31,GitHub,Merge branch 'main' into feat/tutorial_data,README.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",.env.example
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/db/vector_db_pdf_ingestion.py
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/schemas/tool_schemas/pdf_tool_schema.py
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/services/chat_agent/tools/library/pdf_tool/pdf_tool.py
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/CONTRIBUTING.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/README.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/backend_flow.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/commit_history.csv
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/configure_agent_and_tools.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/configure_ui.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/entertainer_expert_tools.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/evaluation.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/image_generation_tool.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/key_concepts.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/memory.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/optional_features.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/pdf_tool.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/setup.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/setup_development.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/sql_tool.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/summarizer_tool.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",backend/app/app/tool_constants/tutorial_data/visualizer_tool.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",docker-compose-demo.yml
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",docker-compose-development.yml
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",docker-compose.yml
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",docs/docusaurus/docs/advanced/overview_codebase.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",docs/docusaurus/docs/setup/setup.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",docs/docusaurus/docs/tutorial/tutorial.md
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",frontend/.env.example
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",frontend/src/components/ToolActionRenderer/actions.tsx
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",scripts/create-dbs.sql
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",scripts/sql_db_tool/2-load_commits.sql
+f91373528137b5df9bf3ebb0a6ded4a6702ff9cb,02-06-2024 09:32:52,GitHub,"Merge pull request #12 from BCG-X-Official/feat/tutorial_data
+
+Feat: Tutorial updates",scripts/sql_db_tool/chinook_psql_load.sql
+f057b39f1babcc42e1115db76027a1aabdfe0346,02-06-2024 14:16:27,Casper van Langen,fix: update readme links to deployed docs,README.md
+1c3d1840678d6be65f05fd790b9da3fced9fb158,02-06-2024 14:23:37,Casper van Langen,cleanup: .env.example comments,.env.example
+1c3d1840678d6be65f05fd790b9da3fced9fb158,02-06-2024 14:23:37,Casper van Langen,cleanup: .env.example comments,frontend/.env.example
+583d8890a61473988f58536c43d18727c4613807,02-06-2024 14:28:30,Casper van Langen,cleanup: remove todos,frontend/src/components/ToolAppendixRenderer/CodeFlipCard/JsxDisplay.tsx
+583d8890a61473988f58536c43d18727c4613807,02-06-2024 14:28:30,Casper van Langen,cleanup: remove todos,frontend/src/components/ToolAppendixRenderer/CodeFlipCard/TextAreaEditor.tsx
+583d8890a61473988f58536c43d18727c4613807,02-06-2024 14:28:30,Casper van Langen,cleanup: remove todos,frontend/src/components/ToolAppendixRenderer/CodeFlipCard/index.tsx
+583d8890a61473988f58536c43d18727c4613807,02-06-2024 14:28:30,Casper van Langen,cleanup: remove todos,frontend/src/components/ToolAppendixRenderer/index.tsx
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,.env.example
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,README.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/db/vector_db_pdf_ingestion.py
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/schemas/tool_schemas/pdf_tool_schema.py
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/services/chat_agent/tools/library/pdf_tool/pdf_tool.py
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/CONTRIBUTING.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/README.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/backend_flow.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/commit_history.csv
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/configure_agent_and_tools.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/configure_ui.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/entertainer_expert_tools.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/evaluation.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/image_generation_tool.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/key_concepts.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/memory.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/optional_features.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/pdf_tool.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/setup.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/setup_development.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/sql_tool.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/summarizer_tool.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,backend/app/app/tool_constants/tutorial_data/visualizer_tool.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,docker-compose-demo.yml
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,docker-compose-development.yml
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,docker-compose.yml
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,docs/docusaurus/docs/advanced/overview_codebase.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,docs/docusaurus/docs/setup/setup.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,docs/docusaurus/docs/tutorial/tutorial.md
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,frontend/.env.example
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,frontend/src/components/ToolActionRenderer/actions.tsx
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,scripts/create-dbs.sql
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,scripts/sql_db_tool/2-load_commits.sql
+6f5c7152ee0d2441c47da0f50e3d098cf9e644ed,02-06-2024 21:25:38,Casper van Langen,chore: merge conflicts,scripts/sql_db_tool/chinook_psql_load.sql
+afc3a360ef6eed1bdb2691eb7f0d4fad8adea834,02-06-2024 21:53:00,Casper van Langen,fix: master branch is now main,CONTRIBUTING.md
+ffa73f160fa00cdb4028cf4935745d67f763739d,02-07-2024 09:51:50,Casper van Langen,chore: prettier,frontend/src/components/ToolAppendixRenderer/CodeFlipCard/TextAreaEditor.tsx
+5dcd0964166f6b1f2fdd64910d90b0599534732d,02-07-2024 11:09:15,Casper van Langen,fix: remove unneeded change of ports in dev setup,docs/docusaurus/docs/setup/setup_development.md

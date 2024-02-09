@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+div#__next,
+div#__next {
+  @apply h-full w-full;
+  @apply m-0;
+  font-size: 16px;
+}
+
+html,
+body,
+[data-theme="light"] html,
+[data-theme="light"] body {
+  @apply !bg-neutral;
+  @apply !text-base-200;
+}
+
+[data-theme="dark"] html,
+[data-theme="dark"] body {
+  @apply !bg-base-200;
+  @apply !text-neutral;
+}
+
+[data-theme="light"] a,
+[data-theme="light"] textarea,
+[data-theme="light"] input,
+[data-theme="light"] option,
+[data-theme="light"] p,
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] span,
+[data-theme="light"] ol,
+[data-theme="light"] ul,
+[data-theme="light"] li,
+[data-theme="light"] td,
+[data-theme="light"] th,
+[data-theme="light"] strong {
+  @apply text-base-300;
+}
+
+[data-theme="light"] .ContentEditable__root {
+  @apply !text-base-300;
+}
+
+[data-theme="dark"] a,
+[data-theme="dark"] textarea,
+[data-theme="dark"] input,
+[data-theme="dark"] option,
+[data-theme="dark"] p,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] span,
+[data-theme="dark"] ol,
+[data-theme="dark"] ul,
+[data-theme="dark"] li,
+[data-theme="dark"] td,
+[data-theme="dark"] th,
+[data-theme="dark"] strong,
+[data-theme="dark"] .light-text {
+  @apply text-neutral;
+}
+
+[data-theme="dark"] .dropdown span.text {
+  @apply !text-base-300;
+}
+
+.ReactCollapse--collapse {
+  transition: height 500ms;
+}
+
+[class^="language-"] span {
+  @apply text-neutral;
+}
+
+@font-face {
+  font-family: "BCG Sans";
+  src: url("/fonts/sans/BCGHenSansRegular.ttf") format("ttf");
+}
+@font-face {
+  font-family: "BCG Sans";
+  src: url("/fonts/sans/BCGHenSansBold.ttf") format("ttf");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "BCG Sans";
+  src: url("/fonts/sans/BCGHenSansItalic.ttf") format("ttf");
+  font-style: italic;
+}
+@font-face {
+  font-family: "BCG Sans";
+  src: url("/fonts/sans/BCGHenSansBoldIta.ttf") format("ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: "BCG Serif";
+  src: url("/fonts/sans/BCGHenSerifRegular.ttf") format("ttf");
+}
+@font-face {
+  font-family: "BCG Serif";
+  src: url("/fonts/sans/BCGHenSerifBold.ttf") format("ttf");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "BCG Serif";
+  src: url("/fonts/sans/BCGHenSerifItalic.ttf") format("ttf");
+  font-style: italic;
+}
+@font-face {
+  font-family: "BCG Serif";
+  src: url("/fonts/sans/BCGHenSerifBoldIta.ttf") format("ttf");
+  font-weight: bold;
+  font-style: italic;
+}
