@@ -7,12 +7,14 @@ import Icon from "~/components/CustomIcons/Icon"
 
 import { authOptions } from "~/server/auth"
 import { Theme } from "~/styles/themes"
+import { useTheme } from "next-themes"
 import { APPLICATION_TITLE, getMainLogoSrc } from "~/utils"
 import { AUTH_SELECTORS } from "~/utils/signin.selectors"
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next"
 
 export default function SignIn({ providers }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [mounted, setMounted] = useState(false)
+  const { resolvedTheme } = useTheme()
 
   const fixedInputClass =
     "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
@@ -53,7 +55,7 @@ export default function SignIn({ providers }: InferGetServerSidePropsType<typeof
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       {mounted ? (
         <div className="flex flex-row items-center justify-center py-2">
-          <Image src={getMainLogoSrc(Theme.Light)} alt={APPLICATION_TITLE} width={400} height={400} priority />
+          <Image src={getMainLogoSrc(resolvedTheme)} alt={APPLICATION_TITLE} width={400} height={400} priority />
         </div>
       ) : null}
       <h1 className="mt-2 text-4xl font-bold text-gray-800">Welcome back</h1>

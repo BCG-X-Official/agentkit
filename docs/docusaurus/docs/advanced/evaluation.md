@@ -9,4 +9,4 @@ Evaluating an AgentKit app can be done on multiple levels:
 
 AgentKit natively integrates with LangSmith, which is a useful tool for tracing and tracking the performance of your app. https://docs.smith.langchain.com/
 
-See [Optional Features](docs/advanced/optional_features.md) for instructions to set up LangSmith.
+See [Optional Features](optional_features.md) for instructions to set up LangSmith.

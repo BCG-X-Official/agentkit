@@ -41,9 +41,9 @@ const EmptyView = (props: Props) => {
         </div>
         <div className="mb-4 w-full px-4 py-3">
           <div className="text-md font-medium">
-            {" "}
+            <p>{" "}
             I&apos;m an AgentKit codebase helper. I can answer questions about the documentation, codebase, Github
-            repository, and more.
+            repository, and more.</p>
           </div>
           <div className="mt-2 text-sm leading-loose text-gray-500 dark:text-gray-500">
             <p>Here are some examples:</p>
@@ -54,9 +54,9 @@ const EmptyView = (props: Props) => {
             </ol>
           </div>
           <div className="text-md font-medium">
-            {" "}
+            <p>{" "}
             I can also help you schedule your team&apos;s AgentKit project. Define your backlog, and I will create a
-            schedule for you.
+            schedule for you.</p>
           </div>
           <div className="mt-2 text-sm leading-loose text-gray-500 dark:text-gray-500">
             <p>Here is an example:</p>

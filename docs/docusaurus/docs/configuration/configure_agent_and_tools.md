@@ -35,6 +35,7 @@ Check out the library of commonly used tools in `services/chat_agent/tools/libra
 
 1) Add your own tool folder to `services/chat_agent/tools` with a new file `yourtool.py`
 2) Implement your tool. See `template_tool.py` for a template tool, or look at the other library tools for inspiration
+    - Make sure you parse the `query` object into a string, see [memory](memory.md) or [template_tool.md](template_tool.md)
 3) In `tools.py`, add the tool in `all_tool_classes` and import it
 4) Add the tool in `tools` in `agent.yml` and add the tool to the applicable action plans
 5) Add your tool and configure the tool and prompts in `tools.yml`

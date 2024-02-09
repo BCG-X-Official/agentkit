@@ -42,9 +42,15 @@ class ReadMeTool(ExtendedBaseTool):
 
         raise NotImplementedError("ReadMeTool does not support sync")
 
-    async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
+    async def _arun(self, *args: Any, run_manager: Optional[AsyncCallbackManagerForToolRun] = None, **kwargs: Any,) -> str
         """Use the tool asynchronously."""
         try:
+            # get the `query` object from kwargs
+            query = kwargs.get("query", args[0])
+
+            # parse the `query` object to get the chat_history or latest_human_message
+            query = ToolInputSchema.parse_raw(query).latest_human_message
+            
             # if you want to stream the action signal to the frontend (appears in 'Steps')
             if run_manager is not None:
                 await run_manager.on_text(
@@ -65,10 +71,20 @@ class ReadMeTool(ExtendedBaseTool):
                 SystemMessage(content=self.system_context),
                 HumanMessage(content=self.prompt_message.format(question=query)),
             ]
+
+            # if run_manager is given to _agenerate_response, the output is streamed to the UI
             response = await self._agenerate_response(messages, discard_fast_llm=True, run_manager=run_manager)
 
-            # if you want to stream the response to an Appendix
+            # if you want to stream the response to an Appendix, or to the main text field
             if run_manager is not None:
+                # text 1
+                await run_manager.on_text(
+                    response,
+                    data_type=StreamingDataTypeEnum.TEXT,
+                    tool=self.name,
+                    step=1,
+                )
+                
                 # appendix 1
                 await run_manager.on_text(
                     response,
