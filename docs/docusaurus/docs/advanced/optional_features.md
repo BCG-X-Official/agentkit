@@ -146,7 +146,7 @@ openssl rand -base64 32
 For more information, check the [NextAuth documentation](https://next-auth.js.org/configuration/options#secret).
 Additionally, if you want to enable GitHub authentication, the `GITHUB_ID` and `GITHUB_SECRET` in `frontend/.env` should be filled with the corresponding values from your GitHub app credentials.
 
-<img src="/docs/img/auth_feature.png" alt="Feedback" style="width:500px;"/>
+<img src="/docs/img/auth_feature.png" alt="Feedback" width="500" />
 
 ## User settings
 The user can configure custom settings in the UI in the 'Settings' modal, providing an option for the user to configure settings which can affect the prompts. The configured setting can be accessed in the `query` object:
