@@ -97,6 +97,10 @@ For a high level overview of the routing flow and connection the UI, please see 
 
 See [optional feature documentation](docs/docusaurus/docs/advanced/optional_features.md) for more detailed info.
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=BCG-X-Official/agentkit&type=Timeline)](https://star-history.com/#BCG-X-Official/agentkit&Timeline)
+
 ## Support and Maintenance
 
 The project spun of a combination of different templates. One great inspiration is [fastapi-alembic-sqlmodel-async](https://github.com/jonra1993/fastapi-alembic-sqlmodel-async), which provided the foundations for the FastAPI setup. Please check them out!
