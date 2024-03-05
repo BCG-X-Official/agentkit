@@ -111,9 +111,10 @@ const ConversationView = () => {
     let formatedMessageList = []
     for (let i = messageList.length - 1; i >= 0; i--) {
       const message = messageList[i] as Message
+      const llmEvents = message.events.filter((event) => event.data_type === "llm")
       formatedMessageList.unshift({
         role: message.creatorRole,
-        content: `${message.content}`,
+        content: `${message.content}${llmEvents.map((event) => event.data).join("/n")}`,
       })
     }
 
