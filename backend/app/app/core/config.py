@@ -210,7 +210,9 @@ class Settings(BaseSettings):
         raise ValueError(v)
 
     PDF_TOOL_ENABLED: bool
-    PDF_TOOL_DATA_PATH: str
+    PDF_TOOL_LOG_QUERY: bool
+    PDF_TOOL_LOG_QUERY_PATH: str
+    PDF_TOOL_DATA_PATH: str    
     PDF_TOOL_DATABASE: str
 
     class Config:
