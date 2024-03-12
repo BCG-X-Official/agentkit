@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 import os
+import csv
+import psycopg2
 from typing import Any, List
 
 from dotenv import load_dotenv
@@ -41,6 +43,14 @@ class PDFExtractionPipeline:
             user=settings.DATABASE_USER,
             password=settings.DATABASE_PASSWORD,
         )
+        self.db_connection = psycopg2.connect(
+            dbname=db_name,
+            user=settings.DATABASE_USER,
+            password=settings.DATABASE_PASSWORD,
+            host=settings.DATABASE_HOST,
+            port=settings.DATABASE_PORT
+        )
+        self.db_cursor = self.db_connection.cursor()
 
     def run(
         self,
@@ -61,60 +71,109 @@ class PDFExtractionPipeline:
             return self._load_documents(folder_path=folder_path, collection_name=collection_name)
         raise ValueError("folder_path must be provided if load_index is False")
 
+    def _file_already_loaded(self, file_path: str, collection_name: str) -> bool:
+        """Check if file is already loaded based on its path using direct SQL query."""
+        try:
+            query = """
+            SELECT EXISTS(
+                SELECT 1 
+                FROM langchain_pg_embedding e
+                JOIN langchain_pg_collection c on c.uuid = e.collection_id
+                WHERE c.name = %s AND e.cmetadata->>'source' = %s
+            );
+            """
+            self.db_cursor.execute(query, (collection_name, file_path))
+            return self.db_cursor.fetchone()[0]
+        except Exception as e:
+            logger.error(f"Error checking if file is already loaded.")            
+            return False
+
     def _load_docs(
         self,
         dir_path: str,
+        collection_name: str,
     ) -> List[Document]:
         """
-        Using specified PDF miner to convert PDF documents to raw text chunks.
+        Using specified PDF miner to convert PDF documents into raw text chunks.
+        Also supports loading .txt (plain text) files and loads files from subfolders.
+        Only loads files not already in the database.
 
         Fallback: PyPDF
         """
         documents = []
-        for file_name in os.listdir(dir_path):
-            file_extension = os.path.splitext(file_name)[1].lower()
-            # Load PDF files
-            if file_extension == ".pdf":
-                logger.info(f"Loading {file_name} into vectorstore")
-                file_path = f"{dir_path}/{file_name}"
-                try:
-                    loader: Any = self.pdf_loader(file_path)  # type: ignore
-                    file_docs = loader.load()
-                    documents.extend(file_docs)
-                    logger.info(f"{file_name} loaded successfully")
-                except Exception as e:
-                    logger.error(
-                        f"Could not extract text from PDF {file_name} with {self.pipeline_config.pdf_parser}: {repr(e)}"
-                    )
-            # Load Markdown files
-            elif file_extension == ".md":
-                logger.info(f"Loading data from {file_name} as Document...")
-                file_path = f"{dir_path}/{file_name}"
-                try:
-                    # Load md files as single document
-                    with open(file_path, "r", encoding="utf-8") as f:
-                        md_file = f.read()
+        for root, _, files in os.walk(dir_path):
+            for file_name in files:
+                file_extension = os.path.splitext(file_name)[1].lower()
+                file_path = os.path.join(root, file_name)
 
-                    md_doc = Document(
-                        page_content=md_file,
-                        metadata=MarkdownMetadata.parse_obj({"source": file_name, "type": "text"}).dict(),
-                    )
+                if not self._file_already_loaded(file_path, collection_name):
+                    # Load PDF files
+                    if file_extension == ".pdf":
+                        logger.info(f"Loading {file_name} into vectorstore")
+                        try:
+                            loader: Any = self.pdf_loader(file_path)  # type: ignore
+                            file_docs = loader.load()
+                            documents.extend(file_docs)
+                            logger.info(f"{file_name} loaded successfully")
+                        except Exception as e:
+                            logger.error(f"Could not extract text from PDF {file_name} with {self.pipeline_config.pdf_parser}: {repr(e)}")
+                    
+                    # Load Markdown or Plain Text files
+                    elif file_extension == ".md" or file_extension == ".txt":
+                        file_type = "markdown" if file_extension == ".md" else "plain text"
+                        logger.info(f"Loading data from {file_name} as Document ({file_type})...")
+                        try:
+                            with open(file_path, "r", encoding="utf-8") as f:
+                                file_content = f.read()
 
-                    # Further split at token-level, when splits are above chunk_size configuration (rare)
-                    text_splitter = TokenTextSplitter(
-                        chunk_size=self.pipeline_config.tokenizer_chunk_size,
-                        chunk_overlap=self.pipeline_config.tokenizer_chunk_overlap,
-                    )
-                    file_docs = text_splitter.split_documents([md_doc])
+                            file_doc = Document(
+                                page_content=file_content,
+                                metadata={"source": file_path, "type": file_type},
+                            )
 
-                    documents.extend(file_docs)
-                    if len(file_docs) > 1:
-                        logger.info(
-                            f"Split {file_name} to {len(file_docs)} documents due to "
-                            f"chunk_size: ({self.pipeline_config.tokenizer_chunk_size})"
-                        )
-                except Exception as e:
-                    logger.error(f"Could not load MD file {file_name}: {repr(e)}")
+                            text_splitter = TokenTextSplitter(
+                                chunk_size=self.pipeline_config.tokenizer_chunk_size,
+                                chunk_overlap=self.pipeline_config.tokenizer_chunk_overlap,
+                            )
+                            file_docs = text_splitter.split_documents([file_doc])
+
+                            documents.extend(file_docs)
+                            if len(file_docs) > 1:
+                                logger.info(f"Split {file_name} into {len(file_docs)} documents due to chunk size: ({self.pipeline_config.tokenizer_chunk_size})")
+                        except Exception as e:
+                            logger.error(f"Could not load {file_type} file {file_name}: {repr(e)}")
+
+                    # Load CSV files
+                    elif file_extension == ".csv":
+                        logger.info(f"Loading data from {file_name} as CSV Document...")
+                        try:
+                            with open(file_path, "r", encoding="utf-8") as f:
+                                csv_reader = csv.DictReader(f)
+                                for row in csv_reader:
+                                    text = row['text'] 
+                                    metadata = {key: value for key, value in row.items() if key != 'text'}
+                                    metadata["source"] = file_path
+                                    metadata["type"] = "csv"
+
+                                    file_doc = Document(
+                                        page_content=text,
+                                        metadata=metadata,
+                                    )
+
+                                    text_splitter = TokenTextSplitter(
+                                        chunk_size=self.pipeline_config.tokenizer_chunk_size,
+                                        chunk_overlap=self.pipeline_config.tokenizer_chunk_overlap,
+                                    )
+                                    file_docs = text_splitter.split_documents([file_doc])
+
+                                    documents.extend(file_docs)
+                                    if len(file_docs) > 1:
+                                        logger.info(f"Split {file_name} into {len(file_docs)} documents due to chunk size: ({self.pipeline_config.tokenizer_chunk_size})")
+                        except Exception as e:
+                            logger.error(f"Could not load CSV file {file_name}: {repr(e)}")
+
+                else:
+                    logger.info(f"File {file_name} already loaded, skipping.")
 
         return documents
 
@@ -124,7 +183,7 @@ class PDFExtractionPipeline:
         collection_name: str,
     ) -> PGVector:
         """Load documents into vectorstore."""
-        text_documents = self._load_docs(folder_path)
+        text_documents = self._load_docs(folder_path, collection_name)
         text_splitter = TokenTextSplitter(
             chunk_size=self.pipeline_config.tokenizer_chunk_size,
             chunk_overlap=self.pipeline_config.tokenizer_chunk_overlap,
@@ -143,7 +202,7 @@ class PDFExtractionPipeline:
             documents=docs,
             collection_name=collection_name,
             connection_string=self.connection_str,
-            pre_delete_collection=True,
+            pre_delete_collection=False,
         )
 
 
