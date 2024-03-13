@@ -109,18 +109,18 @@ class PDFTool(ExtendedBaseTool):
         aggregated_urls = []
         for doc in docs:
             source = doc.metadata.get('source', 'Not Available')
-            index = doc.metadata.get('index', '')  # Pega o index se existir
-            if index:  # Se 'index' não estiver vazio, concatena com o 'source'
+            index = doc.metadata.get('index', '') 
+            if index:  # If 'index' is not empty, concat with 'source'
                 source_with_index = f"{source} (Index: {index})"
             else:
                 source_with_index = source
             aggregated_sources.append(source_with_index)
         
-            # Agrega URLs se existirem
+            # Add URL if exists
             if 'url' in doc.metadata:
                 aggregated_urls.append(doc.metadata['url'])
         
-        # Unindo os valores com quebra de linha para colocar em uma única célula
+        # Joining values to save in an unique cell
         sources = "\n".join(aggregated_sources)
         urls = "\n".join(aggregated_urls)
         
@@ -130,7 +130,7 @@ class PDFTool(ExtendedBaseTool):
                 writer.writerow(["data_hora", "pergunta", "resposta", "metadata_source", "metadata_url"])
 
             data_hora = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            # A resposta agora vem do parâmetro 'result'
+            
             writer.writerow([data_hora, query, result, sources, urls])
 
     async def _arun(
