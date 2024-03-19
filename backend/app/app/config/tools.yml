@@ -24,8 +24,6 @@ library:
         content: |-
           Example Input: \"User question: Could you find a list of tracks that Daan Peeters has purchased?\"
           Example Output: \"Daan Peters has purchased a total of X tracks, please see a list below...\"
-    additional:
-      human_message_only: false
   entertainer_tool:
     description: >-
       Entertainer tool to write a small concise output from memory while the information is loading.

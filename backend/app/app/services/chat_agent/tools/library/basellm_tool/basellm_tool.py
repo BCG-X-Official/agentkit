@@ -72,7 +72,7 @@ class BaseLLM(ExtendedBaseTool):
             args[0],
         )
 
-        if self.additional.get("human_message_only", False):
+        if self.additional is not None and self.additional.get("human_message_only", False):
             # Only use the latest human message
             query = ToolInputSchema.parse_raw(query).latest_human_message
 
