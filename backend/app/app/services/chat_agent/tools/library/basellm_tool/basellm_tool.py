@@ -47,6 +47,7 @@ class BaseLLM(ExtendedBaseTool):
             prompt_message=config.prompt_message.format(**{e.name: e.content for e in config.prompt_inputs}),
             system_context=config.system_context.format(**{e.name: e.content for e in config.prompt_inputs}),
             name=kwargs.get("name", "basellm_tool"),
+            additional=config.additional,
         )
 
     def _run(
@@ -70,8 +71,10 @@ class BaseLLM(ExtendedBaseTool):
             "query",
             args[0],
         )
-        # Only use the latest human message
-        query = ToolInputSchema.parse_raw(query).latest_human_message
+
+        if self.additional.get("human_message_only", False):
+            # Only use the latest human message
+            query = ToolInputSchema.parse_raw(query).latest_human_message
 
         try:
             messages = [
