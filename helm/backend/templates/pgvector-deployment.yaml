@@ -1,0 +1,53 @@
+{{- if .Values.pgvector.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "backend.fullname" . }}-pgvector
+  labels:
+    {{- include "backend.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.pgvector.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "backend.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "backend.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: pgvector
+          image: "{{ .Values.pgvector.image.repository }}:{{ .Values.pgvector.image.tag }}"
+          imagePullPolicy: {{ .Values.pgvector.image.pullPolicy }}
+          ports:
+            - name: pgvector
+              containerPort: 5432
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.pgvector.resources | nindent 12 }}
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-password
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-database
+            - name: POSTGRES_HOST_AUTH_METHOD
+              value: "trust" #  no password required. Use at risk
+          volumeMounts:
+            - name: pgvector-data
+              mountPath: /var/lib/pgvector
+      volumes:
+        - name: pgvector-data
+          persistentVolumeClaim:
+            claimName: {{ include "backend.fullname" . }}-pgvector
+{{- end }}

@@ -15,18 +15,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Declare all build args are env vars for build
-#ARG GITHUB_ID
-#ENV GITHUB_ID ${GITHUB_ID}
-#ARG GITHUB_SECRET
-#ENV GITHUB_SECRET ${GITHUB_SECRET}
-#ARG NEXTAUTH_SECRET
-#ENV NEXTAUTH_SECRET ${NEXTAUTH_SECRET}
-#ARG NEXTAUTH_URL
-#ENV NEXTAUTH_URL ${NEXTAUTH_URL}
-#ARG NEXT_PUBLIC_API_URL
-#ENV NEXT_PUBLIC_API_URL ${NEXT_PUBLIC_API_URL}
-
 RUN yarn run prisma:generate
 RUN yarn run build
 
