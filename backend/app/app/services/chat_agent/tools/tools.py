@@ -1,29 +1,30 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=cyclic-import
+import copy
 from typing import List, Tuple, Type
 
+from app.services.chat_agent.tools.library.basellm_tool.basellm_tool import BaseLLM
 from langchain.tools import BaseTool
 
 from app.services.chat_agent.tools.ExtendedBaseTool import ExtendedBaseTool
-from app.services.chat_agent.tools.library.basellm_tool.basellm_tool import BaseLLM
-from app.services.chat_agent.tools.library.image_generation_tool.image_generation_tool import ImageGenerationTool
-from app.services.chat_agent.tools.library.pdf_tool.pdf_tool import PDFTool
-from app.services.chat_agent.tools.library.sql_tool.sql_tool import SQLTool
-from app.services.chat_agent.tools.library.summarizer_tool.summarizer_tool import SummarizerTool
-from app.services.chat_agent.tools.library.visualizer_tool.visualizer_tool import JsxVisualizerTool
 from app.utils.config_loader import get_agent_config
 
+import importlib
 
-def get_nested_classes() -> List[Tuple[str, Type[ExtendedBaseTool]]]:
-    """separated to avoid circular imports."""
-    from app.services.chat_agent.tools.library.chain_tool.nested_meta_agent_tool import (  # pylint: disable=import-outside-toplevel  # noqa:E501
-        ChainTool,
-    )
+import logging
+logger = logging.getLogger(__name__)
 
-    nested_classes = [
-        ("chain_tool", ChainTool),
-    ]
-    return nested_classes  # type: ignore
+
+STATIC_SET_OF_TOOLS = {
+    "sql_tool": ["app.services.chat_agent.tools.library.sql_tool.sql_tool", "SQLTool"],
+    "visualizer_tool": ["app.services.chat_agent.tools.library.visualizer_tool.visualizer_tool", "JsxVisualizerTool"],
+    "summarizer_tool": ["app.services.chat_agent.tools.library.summarizer_tool.summarizer_tool", "SummarizerTool"],
+    "pdf_tool": ["app.services.chat_agent.tools.library.pdf_tool.pdf_tool", "PDFTool"],
+    "image_generation_tool": ["app.services.chat_agent.tools.library.image_generation_tool.image_generation_tool", "ImageGenerationTool"],
+    "clarify_tool": ["app.services.chat_agent.tools.library.basellm_tool.basellm_tool", "BaseLLM"],
+    "expert_tool": ["app.services.chat_agent.tools.library.basellm_tool.basellm_tool", "BaseLLM"],
+    "entertainer_tool": ["app.services.chat_agent.tools.library.basellm_tool.basellm_tool", "BaseLLM"],
+}
 
 
 def get_tools(tools: List[str], load_nested: bool = True) -> List[BaseTool]:
@@ -46,48 +47,42 @@ def get_tools(tools: List[str], load_nested: bool = True) -> List[BaseTool]:
         ValueError: If any tool name in the input list is not in the list of all tools.
     """
     agent_config = get_agent_config()
-    all_tool_classes = [
-        (
-            "sql_tool",
-            SQLTool,
-        ),
-        (
-            "visualizer_tool",
-            JsxVisualizerTool,
-        ),
-        (
-            "summarizer_tool",
-            SummarizerTool,
-        ),
-        (
-            "pdf_tool",
-            PDFTool,
-        ),
-        (
-            "image_generation_tool",
-            ImageGenerationTool,
-        ),
-        ("clarify_tool", BaseLLM),
-        ("expert_tool", BaseLLM),
-        ("entertainer_tool", BaseLLM),
-    ]
+    static_set_of_tools = copy.deepcopy(STATIC_SET_OF_TOOLS)
+
     if load_nested:
-        all_tool_classes.extend(get_nested_classes())
-    all_tools: list[ExtendedBaseTool] = [
-        c.from_config(  # type: ignore
-            config=agent_config.tools_library.library[name],
-            common_config=agent_config.common,
-            **({"name": name} if issubclass(c, BaseLLM) else {}),
-        )
-        for (
-            name,
-            c,
-        ) in all_tool_classes
-        if name in agent_config.tools
-    ]
-    tools_map = {tool.name: tool for tool in all_tools}
+        static_set_of_tools["chain_tool"] = ["app.services.chat_agent.tools.library.chain_tool.nested_meta_agent_tool", "ChainTool"]
 
-    if any(tool_name not in tools_map for tool_name in tools):
-        raise ValueError(f"Invalid tool name(s): {[tool_name for tool_name in tools if tool_name not in tools_map]}")
+    # first consolidate all tools classes.
+    all_tool_classes = {}
+    for tool_name in tools:
+        # if the tool has a class_name definition I pick it, client comes first :) 
+        if configured_classname := agent_config.tools_library.library[tool_name].class_name:
+            module_name ,class_name = configured_classname.split(":")
+            logger.debug("Loading CustomTool %s from module %s with class %s", tool_name, module_name, class_name)
 
-    return [tools_map[tool_name] for tool_name in tools]
+        else:
+            # otherwise I pick it from the static set of tools. 
+            module_name ,class_name = static_set_of_tools[tool_name]
+            logger.debug("Loading AgentKit tool class %s from module %s with class %s", tool_name, module_name, class_name)
+        
+        # import the module and hook the class
+
+        module = importlib.import_module(f"{module_name}") 
+        tool_class = getattr(module, class_name)
+
+        # keep the class in a corner
+        all_tool_classes[tool_name] = tool_class
+
+    # then create the tools object by instanciating the classes
+    all_tools: list[ExtendedBaseTool] = []
+    for name, tool_class in all_tool_classes.items():
+        if name in agent_config.tools:
+            tool_instance = tool_class.from_config(  # type: ignore
+                config=agent_config.tools_library.library[name],
+                common_config=agent_config.common,
+                **({"name": name} if issubclass(tool_class, BaseLLM) else {}),
+            )
+            logger.debug("Tool %s loaded, type: %s", name, type(tool_instance))
+            all_tools.append(tool_instance)
+
+    return all_tools
