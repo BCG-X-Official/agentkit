@@ -2,7 +2,7 @@
 name: lint-frontend
 
 on:
-  push:
+  pull_request:
     branches:
       - '**'
 
