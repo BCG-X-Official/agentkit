@@ -2,7 +2,7 @@
 
 Here is how you can extend Agentkit Tools with your own custom tool. 
 
-## Option1: Use an existing tools
+## Option 1: Use an existing tools
 
 AgentKit already provide a set of existing Tool implementations. 
 If your need it to simply adjust the prompts and options of an existing tools without changing the logic, you can do so by adjusting the `tools.yaml` configuration file.
@@ -89,7 +89,7 @@ class EchoTool(ExtendedBaseTool):
     name = "echo_tool"
 
     async def _arun(self, query: str, run_manager: Optional[AsyncCallbackManagerForToolRun] = None) -> str:
-        # very simple tool that just Echoes the input back.
+        # very simple tool that just Echoes the input back. See bellow for more complex example
         return query 
 ```
 
@@ -98,14 +98,52 @@ Then reference your class in the `tools.yaml` configuration file :
 ```yaml
 library:
   echo_tool: 
-    class_name: "my_tools.echo:EchoTool"
+    class_name: "my_tools.echo:EchoTool" # package_name:class_name
     description: "A dummy tool for testing"
     prompt_message: "This is a dummy tool. You will see this message: {question}"
     system_context: "You are using the dummy tool."
 ```
 
+The final step is to make sure agent kit can load your package. 
 
-Below is an example of a template tool to configure for your use case.
+
+### For docker users
+
+The docker that runs the backend agent is actually "Guaranted" to have the `/code` folder in the python path. So you can just volume mount your folder in the `/code` folder and it will be importable. 
+
+```yaml
+
+# somewhere in the docker-compose-xxxx.yml you are using
+services:
+  fastapi_server:
+    ... # some options about the server
+    volumes:
+      ... # probeably existing mounts
+      - ./mytools:/code/my_tools # Here, add this at the bottom of the list
+```
+
+Finally you need to down & up (restart might not be enough for a such a change) the docker container with `docker compose -f <your compose file>  down` and `docker compose -f <your compose file> up -d`.
+
+
+
+### For "on my machine" developpers
+
+You might already run the back end with hand like with `uvicorn app.main:app` and the current folder is usually considered as part of the python path. 
+
+If not, then trouble shoot by listing the python path with `python -c "import sys; print(sys.path)"` and make sure your package is in one of the listed folders.
+
+Adjust the PYTHONPATH environment variable with
+* Linux `export PYTHONPATH=$PYTHONPATH:/path/to/your/folder`
+* Windows `set PYTHONPATH=%PYTHONPATH%;C:\path\to\your\folder`
+
+If still not, just consider using docker. 
+
+
+
+### Example of a more complex tool
+
+The following tool is a more complex example of a tool that uses a LLM model to generate extra messages and return them as an appendix DataType. 
+
 
 ```python
 from typing import Optional, List, Tuple
@@ -120,6 +158,8 @@ from app.schemas.streaming_schema import StreamingDataTypeEnum
 from app.schemas.tool_schema import ToolConfig
 from app.services.chat_agent.helpers.llm import get_llm
 from app.services.chat_agent.tools.ExtendedBaseTool import ExtendedBaseTool
+
+
 
 
 class ReadMeTool(ExtendedBaseTool):
