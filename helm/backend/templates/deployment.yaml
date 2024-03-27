@@ -1,0 +1,275 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "backend.fullname" . }}
+  labels:
+    {{- include "backend.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "backend.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "backend.selectorLabels" . | nindent 8 }}
+    spec:
+      initContainers:
+        - name: db-init
+          image: "{{ .Values.dbInit.image.repository }}:{{ .Values.dbInit.image.tag }}"
+          imagePullPolicy: {{ .Values.dbInit.image.pullPolicy }}
+          command: ['sh']
+          args: ['-c', "/usr/bin/psql -h $DATABASE_HOST -U $DATABASE_USER -d $DATABASE_NAME -a -f /scripts/create-dbs.sql"]
+          env:
+            - name: DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: DATABASE_HOST
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-username
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-password
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-database
+        - name: db-alembic
+          image: "{{ .Values.dbInit.image.repository }}:{{ .Values.dbInit.image.tag }}"
+          imagePullPolicy: {{ .Values.dbInit.image.pullPolicy }}
+          command: ["alembic"]
+          args: ["upgrade", "head"]
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: OPENAI_API_KEY
+            - name: OPENAI_ORGANIZATION
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: OPENAI_ORGANIZATION
+            - name: ENABLE_LLM_CACHE
+              value: "{{ .Values.env.ENABLE_LLM_CACHE }}"
+            - name: ENABLE_AUTH
+              value: "{{ .Values.env.ENABLE_AUTH }}"
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: NEXTAUTH_SECRET
+            - name: NEXTAUTH_URL
+              value: "{{ .Values.env.NEXTAUTH_URL }}"
+            - name: PROJECT_NAME
+              value: "{{ .Values.env.PROJECT_NAME }}"
+            - name: ENCRYPT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: ENCRYPT_KEY
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: SECRET_KEY
+            - name: BACKEND_CORS_ORIGINS
+              value: "{{ .Values.env.BACKEND_CORS_ORIGINS }}"
+            - name: DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: DATABASE_HOST
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-password
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-database
+            - name: DATABASE_CELERY_NAME
+              value: "{{ .Values.env.DATABASE_CELERY_NAME }}"
+            - name: DATABASE_PORT
+              value: "{{ .Values.env.DATABASE_PORT }}"
+            - name: REDIS_HOST
+              value: "{{ .Values.env.REDIS_HOST }}"
+            - name: REDIS_PORT
+              value: "{{ .Values.env.REDIS_PORT }}"
+            - name: MINIO_URL
+              value: "{{ .Values.env.MINIO_URL }}"
+            - name: MINIO_BUCKET
+              value: "{{ .Values.env.MINIO_BUCKET }}"
+            - name: MINIO_ROOT_USER
+              value: "{{ .Values.env.MINIO_ROOT_USER }}"
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: MINIO_ROOT_PASSWORD
+            - name: SQL_TOOL_DB_ENABLED
+              value: "{{ .Values.env.SQL_TOOL_DB_ENABLED }}"
+            - name: SQL_TOOL_DB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: SQL_TOOL_DB_URI
+            - name: SQL_TOOL_DB_SCHEMAS
+              value: "{{ .Values.env.SQL_TOOL_DB_SCHEMAS }}"
+            - name: SQL_TOOL_DB_INFO_PATH
+              value: "{{ .Values.env.SQL_TOOL_DB_INFO_PATH }}"
+            - name: SQL_TOOL_DB_OVERWRITE_ON_START
+              value: "{{ .Values.env.SQL_TOOL_DB_OVERWRITE_ON_START }}"
+            - name: EXTRACTION_CONFIG_PATH
+              value: "{{ .Values.env.EXTRACTION_CONFIG_PATH }}"
+            - name: AGENT_CONFIG_PATH
+              value: "{{ .Values.env.AGENT_CONFIG_PATH }}"
+            - name: PDF_TOOL_ENABLED
+              value: "{{ .Values.env.PDF_TOOL_ENABLED }}"
+            - name: PDF_TOOL_DATA_PATH
+              value: "{{ .Values.env.PDF_TOOL_DATA_PATH }}"
+            - name: PDF_TOOL_DATABASE
+              value: "{{ .Values.env.PDF_TOOL_DATABASE }}"
+            - name: PDF_TOOL_EXTRACTION_CONFIG_PATH
+              value: "{{ .Values.env.PDF_TOOL_EXTRACTION_CONFIG_PATH }}"
+
+      containers:
+        - name: backend
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          # command: ["sleep"]
+          # args: ["infinity"]
+          command: ["uvicorn"]
+          args: {{ .Values.image.args }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: OPENAI_API_KEY
+            - name: OPENAI_ORGANIZATION
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: OPENAI_ORGANIZATION
+            - name: ENABLE_LLM_CACHE
+              value: "{{ .Values.env.ENABLE_LLM_CACHE }}"
+            - name: ENABLE_AUTH
+              value: "{{ .Values.env.ENABLE_AUTH }}"
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: NEXTAUTH_SECRET
+            - name: NEXTAUTH_URL
+              value: "{{ .Values.env.NEXTAUTH_URL }}"
+            - name: PROJECT_NAME
+              value: "{{ .Values.env.PROJECT_NAME }}"
+            - name: ENCRYPT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: ENCRYPT_KEY
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: SECRET_KEY
+            - name: BACKEND_CORS_ORIGINS
+              value: "{{ .Values.env.BACKEND_CORS_ORIGINS }}"
+            - name: DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: DATABASE_HOST
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-password
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}-pgvector
+                  key: postgres-database
+            - name: DATABASE_CELERY_NAME
+              value: "{{ .Values.env.DATABASE_CELERY_NAME }}"
+            - name: DATABASE_PORT
+              value: "{{ .Values.env.DATABASE_PORT }}"
+            - name: REDIS_HOST
+              value: "{{ .Values.env.REDIS_HOST }}"
+            - name: REDIS_PORT
+              value: "{{ .Values.env.REDIS_PORT }}"
+            - name: MINIO_URL
+              value: "{{ .Values.env.MINIO_URL }}"
+            - name: MINIO_BUCKET
+              value: "{{ .Values.env.MINIO_BUCKET }}"
+            - name: MINIO_ROOT_USER
+              value: "{{ .Values.env.MINIO_ROOT_USER }}"
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: MINIO_ROOT_PASSWORD
+            - name: SQL_TOOL_DB_ENABLED
+              value: "{{ .Values.env.SQL_TOOL_DB_ENABLED }}"
+            - name: SQL_TOOL_DB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "backend.fullname" . }}
+                  key: SQL_TOOL_DB_URI
+            - name: SQL_TOOL_DB_SCHEMAS
+              value: "{{ .Values.env.SQL_TOOL_DB_SCHEMAS }}"
+            - name: SQL_TOOL_DB_INFO_PATH
+              value: "{{ .Values.env.SQL_TOOL_DB_INFO_PATH }}"
+            - name: SQL_TOOL_DB_OVERWRITE_ON_START
+              value: "{{ .Values.env.SQL_TOOL_DB_OVERWRITE_ON_START }}"
+            - name: EXTRACTION_CONFIG_PATH
+              value: "{{ .Values.env.EXTRACTION_CONFIG_PATH }}"
+            - name: AGENT_CONFIG_PATH
+              value: "{{ .Values.env.AGENT_CONFIG_PATH }}"
+            - name: PDF_TOOL_ENABLED
+              value: "{{ .Values.env.PDF_TOOL_ENABLED }}"
+            - name: PDF_TOOL_DATA_PATH
+              value: "{{ .Values.env.PDF_TOOL_DATA_PATH }}"
+            - name: PDF_TOOL_DATABASE
+              value: "{{ .Values.env.PDF_TOOL_DATABASE }}"
+            - name: PDF_TOOL_EXTRACTION_CONFIG_PATH
+              value: "{{ .Values.env.PDF_TOOL_EXTRACTION_CONFIG_PATH }}"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

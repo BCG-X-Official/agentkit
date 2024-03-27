@@ -48,6 +48,23 @@ For a quick setup of AgentKit, use the steps below, where both the backend app a
    ```
    Wait for the containers to build and start, which may take a few minutes depending on your system. Once the containers are up and running, you can access the apps in your browser at [http://localhost](http://localhost/).
 
+4. (optional) Setup some alias for easier docker compose command: 
+
+On Windows PowerShell you can run for the demo :
+
+```powershell
+function ddf { docker compose -f .\docker-compose-demo.yml @args }; New-Alias dd ddf
+```
+
+Then you can simply use the shortcuts: 
+* `dd build` : rebuild the necessary docker images
+* `dd up -d` : spin-up the set of docker images and detach from execution (-d means background mode) 
+* `dd logs -f` : attatch to log streaming for all containers
+* `dd logs <containername> -f` : attatch to log streaming for a particular container
+* `dd down` : spin-down the set of docker images, add a `-v` to auto remove volumes & network
+
+
+
 ## Chinook music database demo
 - If docker containers are running, run `docker-compose down --volumes`
 - Follow the installation instructions above and swap `docker-compose.yml` with `docker-compose-demo.yml` to run the app
