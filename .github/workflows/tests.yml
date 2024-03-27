@@ -1,7 +1,7 @@
 name: tests-backend
 
 on:
-  push:
+  pull_request:
     branches:
       - '**'
 
