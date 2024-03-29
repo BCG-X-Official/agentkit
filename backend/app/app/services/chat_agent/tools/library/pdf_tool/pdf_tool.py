@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import annotations
 
+import csv
+import datetime
 import logging
+import os
 from typing import Any, List, Optional
 
 from langchain.callbacks.manager import AsyncCallbackManagerForToolRun, CallbackManagerForToolRun
@@ -96,6 +99,41 @@ class PDFTool(ExtendedBaseTool):
     ) -> str:
         raise NotImplementedError("Tool does not support sync")
 
+    @staticmethod
+    def _save_to_csv(query: str, docs: list, result: str) -> None:
+        logger.info("Saving data to log file..")
+        os.makedirs(settings.PDF_TOOL_LOG_QUERY_PATH, exist_ok=True)
+        file_name = datetime.datetime.now().strftime(f"{settings.PDF_TOOL_LOG_QUERY_PATH}/%Y-%m-%d.csv")
+        file_exists = os.path.isfile(file_name)
+
+        aggregated_sources = []
+        aggregated_urls = []
+        for doc in docs:
+            source = doc.metadata.get("source", "Not Available")
+            index = doc.metadata.get("index", "")
+            if index:  # If 'index' is not empty, concat with 'source'
+                source_with_index = f"{source} (Index: {index})"
+            else:
+                source_with_index = source
+            aggregated_sources.append(source_with_index)
+
+            # Add URL if exists
+            if "url" in doc.metadata:
+                aggregated_urls.append(doc.metadata["url"])
+
+        # Joining values to save in an unique cell
+        sources = "\n".join(aggregated_sources)
+        urls = "\n".join(aggregated_urls)
+
+        with open(file_name, mode="a", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            if not file_exists:
+                writer.writerow(["data_hora", "pergunta", "resposta", "metadata_source", "metadata_url"])
+
+            data_hora = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            writer.writerow([data_hora, query, result, sources, urls])
+
     async def _arun(
         self,
         *args: Any,
@@ -126,6 +164,12 @@ class PDFTool(ExtendedBaseTool):
                 retrieved_docs,
                 run_manager,
             )
+
+            last_query = query.split(": ")[1]
+            print("\nQuery: ", last_query)
+
+            if settings.PDF_TOOL_LOG_QUERY:
+                self._save_to_csv(last_query, docs, result)
 
             if run_manager is not None:
                 await run_manager.on_text(

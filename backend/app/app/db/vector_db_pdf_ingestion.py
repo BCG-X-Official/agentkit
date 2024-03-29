@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+import csv
 import logging
 import os
-import csv
-import psycopg2
 from typing import Any, List
 
+import psycopg2
 from dotenv import load_dotenv
 from langchain.document_loaders.base import BaseLoader
 from langchain.embeddings import CacheBackedEmbeddings
@@ -14,7 +14,6 @@ from langchain.vectorstores.pgvector import PGVector
 
 from app.core.config import settings
 from app.schemas.ingestion_schema import LOADER_DICT, IndexingConfig
-from app.schemas.tool_schemas.pdf_tool_schema import MarkdownMetadata
 from app.services.chat_agent.helpers.embedding_models import get_embedding_model
 from app.utils.config_loader import get_ingestion_configs
 
@@ -48,7 +47,7 @@ class PDFExtractionPipeline:
             user=settings.DATABASE_USER,
             password=settings.DATABASE_PASSWORD,
             host=settings.DATABASE_HOST,
-            port=settings.DATABASE_PORT
+            port=settings.DATABASE_PORT,
         )
         self.db_cursor = self.db_connection.cursor()
 
@@ -76,7 +75,7 @@ class PDFExtractionPipeline:
         try:
             query = """
             SELECT EXISTS(
-                SELECT 1 
+                SELECT 1
                 FROM langchain_pg_embedding e
                 JOIN langchain_pg_collection c on c.uuid = e.collection_id
                 WHERE c.name = %s AND e.cmetadata->>'source' = %s
@@ -85,7 +84,8 @@ class PDFExtractionPipeline:
             self.db_cursor.execute(query, (collection_name, file_path))
             return self.db_cursor.fetchone()[0]
         except Exception as e:
-            logger.error(f"Error checking if file is already loaded.")            
+            logger.error("Error checking if file is already loaded.")
+            logger.error(repr(e))
             return False
 
     def _load_docs(
@@ -116,10 +116,12 @@ class PDFExtractionPipeline:
                             documents.extend(file_docs)
                             logger.info(f"{file_name} loaded successfully")
                         except Exception as e:
-                            logger.error(f"Could not extract text from PDF {file_name} with {self.pipeline_config.pdf_parser}: {repr(e)}")
-                    
+                            logger.error(
+                                f"Could not extract text from PDF {file_name} with {self.pipeline_config.pdf_parser}: {repr(e)}"  # noqa: E501
+                            )
+
                     # Load Markdown or Plain Text files
-                    elif file_extension == ".md" or file_extension == ".txt":
+                    elif file_extension in (".md", ".txt"):
                         file_type = "markdown" if file_extension == ".md" else "plain text"
                         logger.info(f"Loading data from {file_name} as Document ({file_type})...")
                         try:
@@ -139,7 +141,9 @@ class PDFExtractionPipeline:
 
                             documents.extend(file_docs)
                             if len(file_docs) > 1:
-                                logger.info(f"Split {file_name} into {len(file_docs)} documents due to chunk size: ({self.pipeline_config.tokenizer_chunk_size})")
+                                logger.info(
+                                    f"Split {file_name} into {len(file_docs)} documents due to chunk size: ({self.pipeline_config.tokenizer_chunk_size})"  # noqa: E501
+                                )
                         except Exception as e:
                             logger.error(f"Could not load {file_type} file {file_name}: {repr(e)}")
 
@@ -150,8 +154,8 @@ class PDFExtractionPipeline:
                             with open(file_path, "r", encoding="utf-8") as f:
                                 csv_reader = csv.DictReader(f)
                                 for row in csv_reader:
-                                    text = row['text'] 
-                                    metadata = {key: value for key, value in row.items() if key != 'text'}
+                                    text = row["text"]
+                                    metadata = {key: value for key, value in row.items() if key != "text"}
                                     metadata["source"] = file_path
                                     metadata["type"] = "csv"
 
@@ -168,7 +172,9 @@ class PDFExtractionPipeline:
 
                                     documents.extend(file_docs)
                                     if len(file_docs) > 1:
-                                        logger.info(f"Split {file_name} into {len(file_docs)} documents due to chunk size: ({self.pipeline_config.tokenizer_chunk_size})")
+                                        logger.info(
+                                            f"Split {file_name} into {len(file_docs)} documents due to chunk size: ({self.pipeline_config.tokenizer_chunk_size})"  # noqa: E501
+                                        )
                         except Exception as e:
                             logger.error(f"Could not load CSV file {file_name}: {repr(e)}")
 
