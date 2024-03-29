@@ -3,7 +3,7 @@
 import copy
 import importlib
 import logging
-from typing import List, Tuple, Type
+from typing import List
 
 from langchain.tools import BaseTool
 
@@ -84,7 +84,7 @@ def get_tools(tools: List[str], load_nested: bool = True) -> List[BaseTool]:
     all_tools: list[ExtendedBaseTool] = []
     for name, tool_class in all_tool_classes.items():
         if name in agent_config.tools:
-            tool_instance = tool_class.from_config(  # type: ignore
+            tool_instance = tool_class.from_config(
                 config=agent_config.tools_library.library[name],
                 common_config=agent_config.common,
                 **({"name": name} if issubclass(tool_class, BaseLLM) else {}),
@@ -92,4 +92,4 @@ def get_tools(tools: List[str], load_nested: bool = True) -> List[BaseTool]:
             logger.debug("Tool %s loaded, type: %s", name, type(tool_instance))
             all_tools.append(tool_instance)
 
-    return all_tools
+    return all_tools  # type: ignore
