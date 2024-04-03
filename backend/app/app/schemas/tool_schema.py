@@ -10,6 +10,8 @@ LLMType = Literal[
     "gpt-3.5-turbo",
     "azure-4-32k",
     "azure-3.5",
+    "claude-3-opus",
+    "gemini-1.0-pro",
 ]
 
 

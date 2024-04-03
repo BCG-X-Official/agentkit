@@ -8,6 +8,12 @@ from typing import Optional
 import tiktoken
 from langchain.base_language import BaseLanguageModel
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
+from langchain_anthropic import ChatAnthropic
+from langchain_google_genai import (
+    ChatGoogleGenerativeAI,
+    HarmBlockThreshold,
+    HarmCategory,
+)
 
 from app.core.config import settings
 from app.schemas.tool_schema import LLMType
@@ -58,13 +64,25 @@ def get_llm(
                 openai_api_key=api_key if api_key is not None else settings.OPENAI_API_KEY,
                 streaming=True,
             )
-        # If an exact match is not confirmed, this last case will be used if provided
-        case _:
-            logger.warning(f"LLM {llm} not found, using default LLM")
-            return ChatOpenAI(
+        case "claude-3-opus":
+            return ChatAnthropic(
                 temperature=0,
-                model_name="gpt-4",
-                openai_organization=settings.OPENAI_ORGANIZATION,
-                openai_api_key=settings.OPENAI_API_KEY,
+                model_name="claude-3-opus-20240229",
+                anthropic_api_key=settings.ANTHROPIC_API_KEY,
                 streaming=True,
             )
+        case "gemini-1.0-pro":
+            return ChatGoogleGenerativeAI(
+                temperature=0,
+                model="gemini-1.0-pro-latest",
+                google_api_key=settings.GOOGLE_API_KEY,
+                streaming=True,
+                convert_system_message_to_human=True,
+                safety_settings={
+                    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+                },
+            )
+
