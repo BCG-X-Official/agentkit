@@ -85,4 +85,14 @@ def get_llm(
                     HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
                 },
             )
+        # If an exact match is not confirmed, this last case will be used if provided
+        case _:
+            logger.warning(f"LLM {llm} not found, using default LLM")
+            return ChatOpenAI(
+                temperature=0,
+                model_name="gpt-4",
+                openai_organization=settings.OPENAI_ORGANIZATION,
+                openai_api_key=settings.OPENAI_API_KEY,
+                streaming=True,
+            )
 
