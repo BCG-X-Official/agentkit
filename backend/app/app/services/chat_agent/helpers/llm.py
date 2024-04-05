@@ -71,6 +71,20 @@ def get_llm(
                 anthropic_api_key=settings.ANTHROPIC_API_KEY,
                 streaming=True,
             )
+        case "claude-3-sonnet":
+            return ChatAnthropic(
+                temperature=0,
+                model_name="claude-3-sonnet-20240229",
+                anthropic_api_key=settings.ANTHROPIC_API_KEY,
+                streaming=True,
+            )
+        case "claude-3-haiku":
+            return ChatAnthropic(
+                temperature=0,
+                model_name="claude-3-haiku-20240307",
+                anthropic_api_key=settings.ANTHROPIC_API_KEY,
+                streaming=True,
+            )
         case "gemini-1.0-pro":
             return ChatGoogleGenerativeAI(
                 temperature=0,
