@@ -34,8 +34,10 @@ def get_conv_token_buffer_memory(
         ConversationTokenBufferMemory: The ConversationTokenBufferMemory object.
     """
     agent_config = get_agent_config()
+
+    # We use gpt-4 in ConversationTokenBufferMemory to standardize tokenization
     llm = get_llm(
-        agent_config.common.llm,
+        'gpt-4',
         api_key=api_key,
     )
     chat_history = ChatMessageHistory()
