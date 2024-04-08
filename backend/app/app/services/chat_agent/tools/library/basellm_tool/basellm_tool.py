@@ -67,12 +67,12 @@ class BaseLLM(ExtendedBaseTool):
         **kwargs: Any,
     ) -> str:
         """Use the tool asynchronously."""
-        tool_input = kwargs.get(
+        tool_input_str = kwargs.get(
             "query",
             args[0],
         )
 
-        query = standard_query_format(tool_input)
+        query = standard_query_format(ToolInputSchema.parse_raw(tool_input_str))
 
         try:
             messages = [
