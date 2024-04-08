@@ -210,6 +210,8 @@ class Settings(BaseSettings):
         raise ValueError(v)
 
     PDF_TOOL_ENABLED: bool
+    PDF_TOOL_LOG_QUERY: bool = False
+    PDF_TOOL_LOG_QUERY_PATH: str = "app/tool_constants/query_log"
     PDF_TOOL_DATA_PATH: str
     PDF_TOOL_DATABASE: str
 
