@@ -10,6 +10,7 @@ from langchain.schema import HumanMessage, SystemMessage
 from app.schemas.agent_schema import AgentAndToolsConfig
 from app.schemas.tool_schema import ToolConfig, ToolInputSchema
 from app.services.chat_agent.helpers.llm import get_llm
+from app.services.chat_agent.helpers.query_formatting import standard_query_format
 from app.services.chat_agent.tools.ExtendedBaseTool import ExtendedBaseTool
 
 logger = logging.getLogger(__name__)
@@ -47,7 +48,6 @@ class BaseLLM(ExtendedBaseTool):
             prompt_message=config.prompt_message.format(**{e.name: e.content for e in config.prompt_inputs}),
             system_context=config.system_context.format(**{e.name: e.content for e in config.prompt_inputs}),
             name=kwargs.get("name", "basellm_tool"),
-            additional=config.additional,
         )
 
     def _run(
@@ -67,14 +67,12 @@ class BaseLLM(ExtendedBaseTool):
         **kwargs: Any,
     ) -> str:
         """Use the tool asynchronously."""
-        query = kwargs.get(
+        tool_input = kwargs.get(
             "query",
             args[0],
         )
 
-        if self.additional is not None and self.additional.get("human_message_only", False):
-            # Only use the latest human message
-            query = ToolInputSchema.parse_raw(query).latest_human_message
+        query = standard_query_format(tool_input)
 
         try:
             messages = [

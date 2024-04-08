@@ -48,8 +48,6 @@ library:
         content: |-
           Example Input: \"User question: What are all the albums by ACDC?\"
           Example Output: \"Did you know that the band AC/DC was founded in 1973\"
-    additional:
-      human_message_only: true
   summarizer_tool:
     description: >-
       Summarizer tool to reduce the length of a text to a few sentences.
@@ -361,8 +359,6 @@ library:
       - name: output
         content: |-
           I'm not sure which action to take. Can you clarify your question such that it is easier to understand what action I should
-    additional:
-      human_message_only: false
   chain_tool:
     description: Nested meta-agent tool
     prompt_inputs: []
