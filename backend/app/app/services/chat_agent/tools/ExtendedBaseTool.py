@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any, List, Optional
 
+from box import Box
 from langchain.base_language import BaseLanguageModel
 from langchain.callbacks.manager import AsyncCallbackManagerForToolRun, CallbackManagerForToolRun
 from langchain.schema import BaseMessage
@@ -36,6 +37,8 @@ class ExtendedBaseTool(BaseTool):
     system_context_refinement: Optional[str] = None
 
     image_description_prompt: Optional[str] = None
+
+    additional: Optional[Box] = None
 
     @classmethod
     def from_config(
