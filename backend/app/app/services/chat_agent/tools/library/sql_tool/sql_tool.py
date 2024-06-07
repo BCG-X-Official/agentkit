@@ -382,10 +382,7 @@ class SQLTool(ExtendedBaseTool):
         query: str,
         filtered_tables: List[str],
         run_manager: Optional[AsyncCallbackManagerForToolRun] = None,
-    ) -> Tuple[
-        str,
-        str,
-    ]:
+    ) -> Tuple[str, str,]:
         """Query with schemas."""
         if run_manager is not None:
             await run_manager.on_text(
@@ -425,11 +422,7 @@ class SQLTool(ExtendedBaseTool):
     @staticmethod
     async def _parse_validation(
         response: str,
-    ) -> Tuple[
-        bool,
-        str,
-        str,
-    ]:
+    ) -> Tuple[bool, str, str,]:
         """Parse the validation from the response."""
         pattern = r"^Valid:\s*(?P<valid>yes|no)\s*Reason:\s*(?P<reason>.*)$"
         match = re.search(
