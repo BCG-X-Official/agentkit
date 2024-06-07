@@ -133,7 +133,12 @@ class SQLTool(ExtendedBaseTool):
     ) -> str:
         """Use the tool asynchronously.
 
-        DISCLAIMER: Building Q&A systems of SQL databases requires executing model-generated SQL queries. There are inherent risks in doing this. Make sure that your database connection permissions are always scoped as narrowly as possible for your chain/agent's needs. This will mitigate though not eliminate the risks of building a model-driven system. For more on general security best practices, see https://python.langchain.com/v0.1/docs/security/
+        DISCLAIMER: Building Q&A systems of SQL databases requires executing model-
+        generated SQL queries. There are inherent risks in doing this. Make sure
+        that your database connection permissions are always scoped as narrowly
+        as possible for your chain/agent's needs. This will mitigate though not
+        eliminate the risks of building a model-driven system. For more on general
+        security best practices, see https://python.langchain.com/v0.1/docs/security/
         """
         SQLTool.check_init(warning=False)
 
