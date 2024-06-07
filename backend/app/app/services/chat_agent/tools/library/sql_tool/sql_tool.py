@@ -62,25 +62,31 @@ class SQLTool(ExtendedBaseTool):
             description=config.description.format(**{e.name: e.content for e in config.prompt_inputs}),
             prompt_message=config.prompt_message.format(**{e.name: e.content for e in config.prompt_inputs}),
             system_context=config.system_context.format(**{e.name: e.content for e in config.prompt_inputs}),
-            prompt_selection=config.prompt_selection.format(**{e.name: e.content for e in config.prompt_inputs})
-            if config.prompt_selection
-            else None,
-            system_context_selection=config.system_context_selection.format(
-                **{e.name: e.content for e in config.prompt_inputs}
-            )
-            if config.system_context_selection
-            else None,
-            prompt_validation=config.prompt_validation.format(**{e.name: e.content for e in config.prompt_inputs})
-            if config.prompt_validation
-            else None,
-            system_context_validation=config.system_context_validation.format(
-                **{e.name: e.content for e in config.prompt_inputs}
-            )
-            if config.system_context_validation
-            else None,
-            prompt_refinement=config.prompt_refinement.format(**{e.name: e.content for e in config.prompt_inputs})
-            if config.prompt_refinement
-            else None,
+            prompt_selection=(
+                config.prompt_selection.format(**{e.name: e.content for e in config.prompt_inputs})
+                if config.prompt_selection
+                else None
+            ),
+            system_context_selection=(
+                config.system_context_selection.format(**{e.name: e.content for e in config.prompt_inputs})
+                if config.system_context_selection
+                else None
+            ),
+            prompt_validation=(
+                config.prompt_validation.format(**{e.name: e.content for e in config.prompt_inputs})
+                if config.prompt_validation
+                else None
+            ),
+            system_context_validation=(
+                config.system_context_validation.format(**{e.name: e.content for e in config.prompt_inputs})
+                if config.system_context_validation
+                else None
+            ),
+            prompt_refinement=(
+                config.prompt_refinement.format(**{e.name: e.content for e in config.prompt_inputs})
+                if config.prompt_refinement
+                else None
+            ),
             nb_example_rows=config.nb_example_rows,
             validate_empty_results=config.validate_empty_results,
             validate_with_llm=config.validate_with_llm,
@@ -125,7 +131,10 @@ class SQLTool(ExtendedBaseTool):
         run_manager: Optional[AsyncCallbackManagerForToolRun] = None,
         **kwargs: Any,
     ) -> str:
-        """Use the tool asynchronously."""
+        """Use the tool asynchronously.
+
+        DISCLAIMER: Building Q&A systems of SQL databases requires executing model-generated SQL queries. There are inherent risks in doing this. Make sure that your database connection permissions are always scoped as narrowly as possible for your chain/agent's needs. This will mitigate though not eliminate the risks of building a model-driven system. For more on general security best practices, see https://python.langchain.com/v0.1/docs/security/
+        """
         SQLTool.check_init(warning=False)
 
         query = kwargs.get(
@@ -262,13 +271,15 @@ class SQLTool(ExtendedBaseTool):
                     validation_messages = [
                         SystemMessage(content=self.system_context_validation or ""),
                         HumanMessage(
-                            content=self.prompt_validation.format(
-                                query=response,
-                                result=results_str,
-                                question=question,
+                            content=(
+                                self.prompt_validation.format(
+                                    query=response,
+                                    result=results_str,
+                                    question=question,
+                                )
+                                if self.prompt_validation
+                                else ""
                             )
-                            if self.prompt_validation
-                            else ""
                         ),
                     ]
                     response = await self._agenerate_response(validation_messages)
@@ -321,14 +332,16 @@ class SQLTool(ExtendedBaseTool):
         improvement_messages = [
             SystemMessage(content=self.system_context),
             HumanMessage(
-                content=self.prompt_refinement.format(
-                    previous_answer=response,
-                    complaints=complaints,
-                    table_schemas=schemas,
-                    question=query,
+                content=(
+                    self.prompt_refinement.format(
+                        previous_answer=response,
+                        complaints=complaints,
+                        table_schemas=schemas,
+                        question=query,
+                    )
+                    if self.prompt_refinement
+                    else ""
                 )
-                if self.prompt_refinement
-                else ""
             ),
         ]
         response = await self._agenerate_response(improvement_messages)
@@ -364,7 +377,10 @@ class SQLTool(ExtendedBaseTool):
         query: str,
         filtered_tables: List[str],
         run_manager: Optional[AsyncCallbackManagerForToolRun] = None,
-    ) -> Tuple[str, str,]:
+    ) -> Tuple[
+        str,
+        str,
+    ]:
         """Query with schemas."""
         if run_manager is not None:
             await run_manager.on_text(
@@ -404,7 +420,11 @@ class SQLTool(ExtendedBaseTool):
     @staticmethod
     async def _parse_validation(
         response: str,
-    ) -> Tuple[bool, str, str,]:
+    ) -> Tuple[
+        bool,
+        str,
+        str,
+    ]:
         """Parse the validation from the response."""
         pattern = r"^Valid:\s*(?P<valid>yes|no)\s*Reason:\s*(?P<reason>.*)$"
         match = re.search(
