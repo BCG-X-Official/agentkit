@@ -30,6 +30,8 @@ The starter pack is based on the latest technologies for optimal performance, se
 * ⬆️ Docker-compose for simple deployments and DX
 * 🖍 Linting, tests and pre-commit hooks pre-configured
 
+Note: this is a starter kit - for production deployments, we recommend adding enterprise-grade security functionalities. Especially when using LLMs, be aware of known risks like prompt injection ([read more](https://www.ibm.com/topics/prompt-injection)).
+
 ## Quickstart
 For a quick setup of AgentKit, use the steps below, where both the backend app and frontend app are run inside a Docker container. More elaborate setup instructions can be found in the [documentation](https://agentkit.infra.x.bcg.com/docs/introduction).
 
