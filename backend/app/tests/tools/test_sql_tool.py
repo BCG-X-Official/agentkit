@@ -64,8 +64,13 @@ async def test_sql_query_generation_no_tables(sql_tool: SQLTool):
 
 @pytest.mark.asyncio
 async def test_sql_tool_run(sql_tool: SQLTool, tool_input: str):
-    with patch(
-        "app.services.chat_agent.tools.library.sql_tool.sql_tool.SQLTool._alist_sql_tables", return_value=["fake_table"]
-    ), patch("app.services.chat_agent.tools.library.sql_tool.sql_tool.SQLTool._parse_query", return_value="query"):
+    with (
+        patch(
+            "app.services.chat_agent.tools.library.sql_tool.sql_tool.SQLTool._alist_sql_tables",
+            return_value=["fake_table"],
+        ),
+        patch("app.services.chat_agent.tools.library.sql_tool.sql_tool.SQLTool._parse_query", return_value="query"),
+        patch("app.services.chat_agent.tools.library.sql_tool.sql_tool.is_sql_query_safe", return_value=True),
+    ):
         response = await sql_tool._arun(tool_input)
     assert response == "0"
