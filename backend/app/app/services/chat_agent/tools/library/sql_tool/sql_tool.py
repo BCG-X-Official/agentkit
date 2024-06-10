@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import logging
-from operator import is_
 import re
+from operator import is_
 from typing import Any, List, Optional, Tuple
 
 from langchain.callbacks.manager import AsyncCallbackManagerForToolRun, CallbackManagerForToolRun
@@ -135,7 +135,12 @@ class SQLTool(ExtendedBaseTool):
     ) -> str:
         """Use the tool asynchronously.
 
-        DISCLAIMER: Building Q&A systems of SQL databases requires executing model-generated SQL queries. There are inherent risks in doing this. Make sure that your database connection permissions are always scoped as narrowly as possible for your chain/agent's needs. This will mitigate though not eliminate the risks of building a model-driven system. For more on general security best practices, see https://python.langchain.com/v0.1/docs/security/
+        DISCLAIMER: Building Q&A systems of SQL databases requires executing model-generated
+        SQL queries. There are inherent risks in doing this. Make sure that your database
+        connection permissions are always scoped as narrowly as possible for your
+        chain/agent's needs. This will mitigate though not eliminate the risks of building
+        a model-driven system. For more on general security best practices,
+        see https://python.langchain.com/v0.1/docs/security/
         """
         SQLTool.check_init(warning=False)
 
@@ -385,10 +390,7 @@ class SQLTool(ExtendedBaseTool):
         query: str,
         filtered_tables: List[str],
         run_manager: Optional[AsyncCallbackManagerForToolRun] = None,
-    ) -> Tuple[
-        str,
-        str,
-    ]:
+    ) -> Tuple[str, str,]:
         """Query with schemas."""
         if run_manager is not None:
             await run_manager.on_text(
@@ -428,11 +430,7 @@ class SQLTool(ExtendedBaseTool):
     @staticmethod
     async def _parse_validation(
         response: str,
-    ) -> Tuple[
-        bool,
-        str,
-        str,
-    ]:
+    ) -> Tuple[bool, str, str,]:
         """Parse the validation from the response."""
         pattern = r"^Valid:\s*(?P<valid>yes|no)\s*Reason:\s*(?P<reason>.*)$"
         match = re.search(
