@@ -7,6 +7,7 @@ from pydantic.v1 import BaseModel  # TODO: Remove this line when langchain upgra
 
 LLMType = Literal[
     "gpt-4",
+    "gpt-4o",
     "gpt-3.5-turbo",
     "azure-4-32k",
     "azure-3.5",

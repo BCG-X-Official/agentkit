@@ -82,6 +82,10 @@ body,
   @apply text-neutral;
 }
 
+[data-theme="dark"] code {
+  @apply !text-neutral;
+}
+
 @font-face {
   font-family: "BCG Sans";
   src: url("/fonts/sans/BCGHenSansRegular.ttf") format("ttf");

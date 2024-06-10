@@ -17,6 +17,7 @@
   reverse_proxy nextjs_server:3000
   reverse_proxy /api/v1/* fastapi_server:9090
   reverse_proxy /docs/* docusaurus:3001
+  reverse_proxy /docs docusaurus:3001
 }
 
 fastapi.{$EXT_ENDPOINT1}:80, fastapi.{$LOCAL_1}:80, fastapi.{$LOCAL_2}:80 {

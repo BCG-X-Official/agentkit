@@ -5,7 +5,7 @@ services:
     container_name: fastapi_server
     build: ./backend
     restart: always
-    command: "sh -c 'alembic upgrade head && python app/document_ingestion.py  && uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 9090'"
+    command: "sh -c 'alembic upgrade head && python app/document_ingestion.py  && uvicorn app.main:app --reload --workers 5 --host 0.0.0.0 --port 9090'"
     volumes:
       - ./backend/app:/code
     expose:
@@ -48,27 +48,27 @@ services:
       - POSTGRES_DATABASE=${DATABASE_NAME}
       - POSTGRES_HOST_AUTH_METHOD= "trust"
 
-  db_sql_tool:  # Remove if not using sql tool
-    image: postgres:11
-    restart: always
-    container_name: db_sql_tool
-    volumes:
-      - ./db_docker:/var/lib/postgresql
-      - ./scripts/db_sql_tool/github_data_psql_load.sql:/docker-entrypoint-initdb.d/github_data_psql_load.sql
-      - ./backend/app/app/tool_constants/public_demo_data/pull_requests.csv:/docker-entrypoint-initdb.d/pull_requests.csv
-      - ./backend/app/app/tool_constants/public_demo_data/commit_history.csv:/docker-entrypoint-initdb.d/commit_history.csv
-      - ./backend/app/app/tool_constants/public_demo_data/issues.csv:/docker-entrypoint-initdb.d/issues.csv
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=sqltool
-    ports:
-      - "5632:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 15s
-      retries: 5
+  # db_sql_tool:  # Remove if not using sql tool
+  #   image: postgres:11
+  #   restart: always
+  #   container_name: db_sql_tool
+  #   volumes:
+  #     - ./db_docker:/var/lib/postgresql
+  #     - ./scripts/db_sql_tool/github_data_psql_load.sql:/docker-entrypoint-initdb.d/github_data_psql_load.sql
+  #     - ./backend/app/app/tool_constants/public_demo_data/pull_requests.csv:/docker-entrypoint-initdb.d/pull_requests.csv
+  #     - ./backend/app/app/tool_constants/public_demo_data/commit_history.csv:/docker-entrypoint-initdb.d/commit_history.csv
+  #     - ./backend/app/app/tool_constants/public_demo_data/issues.csv:/docker-entrypoint-initdb.d/issues.csv
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=sqltool
+  #   ports:
+  #     - "5632:5432"
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 10s
+  #     timeout: 15s
+  #     retries: 5
 
   redis_server:
     image: redis:alpine

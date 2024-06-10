@@ -10,9 +10,7 @@ Key advantages of AgentKit include:
 - 💻 **Flexible, reactive UI/UX designed for Agents**: React/Nextjs chat-based UI that is easy to configure, with features such as streaming, rendering of tables/visualizations/code, status of Agent actions and more
 - 🛡️ **Focus on reliability**: Easy to configure routing architecture gives control of possible paths Agent can take, increasing reliability and making it suited for real-life use cases
 
-As an example, try the AgentKit codebase helper [demo](https://agentkit.infra.x.bcg.com/)
-<!-- TODO: add video -->
-
+As an example, try the AgentKit codebase helper [demo](https://agentkit.infra.x.bcg.com/) build following the [tutorial](docs/tutorial/tutorial.md)
 
 ## Chinook music database demo
 For a quick start to test some of the functionality, you can use the dummy Chinook example:

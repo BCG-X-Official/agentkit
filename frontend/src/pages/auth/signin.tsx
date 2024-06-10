@@ -1,13 +1,12 @@
 import Image from "next/image"
 import { getServerSession } from "next-auth/next"
 import { getCsrfToken, getProviders, signIn, useSession } from "next-auth/react"
+import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 
 import Icon from "~/components/CustomIcons/Icon"
 
 import { authOptions } from "~/server/auth"
-import { Theme } from "~/styles/themes"
-import { useTheme } from "next-themes"
 import { APPLICATION_TITLE, getMainLogoSrc } from "~/utils"
 import { AUTH_SELECTORS } from "~/utils/signin.selectors"
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next"

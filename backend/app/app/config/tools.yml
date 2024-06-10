@@ -30,8 +30,8 @@ library:
         content: |-
           The prompt for generating an image of the item is ...
   clarify_tool:
-    default_llm: "gpt-4"
-    default_fast_llm: "gpt-3.5-turbo-1106"
+    default_llm: "gpt-4o"
+    default_fast_llm: "gpt-3.5-turbo"
     description: >-
       Tool to engage the user for additional input when the initial question lacks enough detail to determine the appropriate action plan.
       Utilize this tool to solicit clarifications from the user, enabling a more informed action plan selection within the AgentKit codebase environment.
@@ -189,8 +189,8 @@ library:
     max_rows_in_output: 30
 
   expert_tool:
-    default_llm: "gpt-4"
-    default_fast_llm: "gpt-3.5-turbo-1106"
+    default_llm: "gpt-4o"
+    default_fast_llm: "gpt-3.5-turbo"
     description: >-
       Tool to answer the user question based on the documents retrieved by the pdf_tool. It analyzes the documents to provide reliable, helpful answers to specific technical queries related to the codebase, such as setup procedures or tool additions.
       {examples}
@@ -230,7 +230,7 @@ library:
     max_token_length: 8000
 
   sql_expert_tool:
-    default_llm: "gpt-4"
+    default_llm: "gpt-4o"
     default_fast_llm: "gpt-3.5-turbo"
     description: >-
       Tool to answer the user question based on the structured data retrieved by the sql_tool. This data has been retrieved
@@ -433,8 +433,8 @@ library:
     prompt_message: ""
 
   code_expert_tool:
-    default_llm: "gpt-4"
-    default_fast_llm: "gpt-3.5-turbo-1106"
+    default_llm: "gpt-4o"
+    default_fast_llm: "gpt-3.5-turbo"
     description: >-
       Tool to answer the user question based on the python source code and codebase documentation.
       It analyzes the context to provide reliable, helpful answers to specific technical queries related to the codebase, such as setup procedures or tool additions.
@@ -576,7 +576,7 @@ library:
     fast_llm_token_threshold: 7800
 
   generate_config_tool:
-    default_llm: "gpt-4"
+    default_llm: "gpt-4o"
     default_fast_llm: "gpt-3.5-turbo"
     description: >-
       Generation of a new parameter configuration as input into a optimization problem.
@@ -632,7 +632,7 @@ library:
           - Software_Engineer: Number of resources available for Software_Engineer speciality
 
   generate_optim_input_tool:
-    default_llm: "gpt-4"
+    default_llm: "gpt-4o"
     default_fast_llm: "gpt-3.5-turbo"
     description: >-
       Generation of a new configuration as input into a optimization problem.
@@ -724,7 +724,7 @@ library:
           - resource_req is the number of resources required for the feature (standard 1)
 
   run_optimizer_tool:
-    default_llm: "gpt-4"
+    default_llm: "gpt-4o"
     default_fast_llm: "gpt-3.5-turbo"
     description: >-
       Execution of the product development backlog optimization algorithm.
@@ -737,7 +737,7 @@ library:
           placeholder
 
   summarize_config_changes_tool:
-    default_llm: "gpt-4"
+    default_llm: "gpt-4o"
     default_fast_llm: "gpt-3.5-turbo"
     description: >-
       Summarizes the changes between two parameter configuration.
@@ -825,7 +825,7 @@ library:
           - New feature 'Introduce_New_Tool' was added with the following parameters: 'Data_Scientist' and 'Software_Engineer'
 
   summarize_kpi_tool:
-    default_llm: "gpt-4"
+    default_llm: "gpt-4o"
     default_fast_llm: "gpt-3.5-turbo"
     description: >-
       Optimizer output summarization.

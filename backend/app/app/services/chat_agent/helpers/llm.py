@@ -66,6 +66,14 @@ def get_llm(
                 openai_api_key=api_key if api_key is not None else settings.OPENAI_API_KEY,
                 streaming=True,
             )
+        case "gpt-4o":
+            return ChatOpenAI(
+                temperature=0,
+                model_name="gpt-4o",
+                openai_organization=settings.OPENAI_ORGANIZATION,
+                openai_api_key=api_key if api_key is not None else settings.OPENAI_API_KEY,
+                streaming=True,
+            )
         # If an exact match is not confirmed, this last case will be used if provided
         case _:
             logger.warning(f"LLM {llm} not found, using default LLM")

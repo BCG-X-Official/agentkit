@@ -8,7 +8,6 @@ import { CONVERSATION_VIEW_SELECTORS } from "./ConversationView.selectors"
 const rag_examples = [
   'Get started with AgentKit: "What is the quickest way to get started and run the code?"',
   'Ask questions about the code: "How do I create a new tool?"',
-  'Explore the Github repo: "Visualize the number of commits per month this year"',
 ]
 
 const opt_examples = [
@@ -41,9 +40,10 @@ const EmptyView = (props: Props) => {
         </div>
         <div className="mb-4 w-full px-4 py-3">
           <div className="text-md font-medium">
-            <p>{" "}
-            I&apos;m an AgentKit codebase helper. I can answer questions about the documentation, codebase, Github
-            repository, and more.</p>
+            <p>
+              {" "}
+              I&apos;m an AgentKit codebase helper. I can answer questions about the documentation, codebase, and more.
+            </p>
           </div>
           <div className="mt-2 text-sm leading-loose text-gray-500 dark:text-gray-500">
             <p>Here are some examples:</p>
@@ -54,9 +54,11 @@ const EmptyView = (props: Props) => {
             </ol>
           </div>
           <div className="text-md font-medium">
-            <p>{" "}
-            I can also help you schedule your team&apos;s AgentKit project. Define your backlog, and I will create a
-            schedule for you.</p>
+            <p>
+              {" "}
+              I can also help you schedule your team&apos;s AgentKit project. Define your backlog, and I will create a
+              schedule for you.
+            </p>
           </div>
           <div className="mt-2 text-sm leading-loose text-gray-500 dark:text-gray-500">
             <p>Here is an example:</p>

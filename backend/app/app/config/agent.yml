@@ -1,10 +1,10 @@
 ---
 tools_library: !include tools.yml
 common: # settings shared by agent and all tools (can be overwritten by passing explicitly to constructors)
-  llm: 'gpt-4'
-  fast_llm: 'gpt-3.5-turbo'
-  fast_llm_token_limit: 2500
-  max_token_length: 4000
+  llm: 'gpt-4o'
+  fast_llm: 'gpt-4o'
+  fast_llm_token_limit: 5000
+  max_token_length: 6000
 tools:
   - expert_tool
   - clarify_tool
@@ -37,24 +37,24 @@ action_plans:
     actions:
       - - memory
         - clarify_tool
-  '2':
-    name: ''
-    description: |-
-      Use this plan to fetch Github-related information from the repository of AgentKit, such as commits, issues, pull requests.
-      Always use this action plan when asked about issues, pull requests, or commits - unless there is a specific request to make a visualization.
-    actions:
-      - - memory
-        - sql_tool
-      - - sql_expert_tool
-  '3':
-    name: ''
-    description: |-
-      Make a visualization regarding GitHub information of AgentKit, such as PRs, issues, or commits.
-      **ONLY use this action plan if there is a specific request to make a visualization**
-    actions:
-      - - memory
-        - sql_tool
-      - - visualizer_tool
+  # '2':
+  #   name: ''
+  #   description: |-
+  #     Use this plan to fetch Github-related information from the repository of AgentKit, such as commits, issues, pull requests.
+  #     Always use this action plan when asked about issues, pull requests, or commits - unless there is a specific request to make a visualization.
+  #   actions:
+  #     - - memory
+  #       - sql_tool
+  #     - - sql_expert_tool
+  # '3':
+  #   name: ''
+  #   description: |-
+  #     Make a visualization regarding GitHub information of AgentKit, such as PRs, issues, or commits.
+  #     **ONLY use this action plan if there is a specific request to make a visualization**
+  #   actions:
+  #     - - memory
+  #       - sql_tool
+  #     - - visualizer_tool
   '4':
     name: ''
     description: |-

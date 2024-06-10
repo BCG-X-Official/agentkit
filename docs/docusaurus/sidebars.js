@@ -35,6 +35,11 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'Tutorial',
+      items: ['tutorial/tutorial'],
+    },
+    {
+      type: 'category',
       label: 'How it works',
       items: ['how_it_works/key_concepts', 'how_it_works/backend_flow'],
     },
