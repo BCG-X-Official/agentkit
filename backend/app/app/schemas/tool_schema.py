@@ -31,6 +31,7 @@ class ToolConfig(BaseModel):
     system_context_refinement: Optional[str]
     prompt_inputs: list[PromptInput]
     additional: Optional[Box] = None
+    class_name: Optional[str] = None
 
 
 class SqlToolConfig(ToolConfig):
