@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+from math import log
 import re
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def is_sql_query_safe(sql_string: str) -> bool:
@@ -43,7 +47,7 @@ def is_sql_query_safe(sql_string: str) -> bool:
     ]
 
     # Allowed characters (whitelist)
-    allowed_characters = re.compile(r"^[a-zA-Z0-9\s,.*()_=<>!+-/*]*$")
+    allowed_characters = re.compile(r"^[a-zA-Z0-9\s,.*()_=<>!+-/*%'']*$")
 
     sql_string = sql_string.lower()
 
@@ -57,18 +61,22 @@ def is_sql_query_safe(sql_string: str) -> bool:
 
     # Ensure the SQL string starts with SELECT or WITH
     if not re.match(r"^\s*(select|with)\b", sql_string):
+        logger.info(f"SQL query does not start with SELECT or WITH: {sql_string}")
         return False
 
     # Check for any forbidden keywords in the SQL string
     if any(keyword in sql_string for keyword in forbidden_keywords):
+        logger.info(f"SQL query contains forbidden keywords: {sql_string}")
         return False
 
     # Check for any forbidden patterns in the SQL string
     if any(re.search(pattern, sql_string) for pattern in forbidden_patterns):
+        logger.info(f"SQL query contains forbidden patterns: {sql_string}")
         return False
 
     # Check for allowed characters only (whitelist)
     if not allowed_characters.match(sql_string):
+        logger.info(f"SQL query contains forbidden characters: {sql_string}")
         return False
 
     return True
