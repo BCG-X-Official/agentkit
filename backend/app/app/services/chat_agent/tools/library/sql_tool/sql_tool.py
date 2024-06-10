@@ -17,6 +17,7 @@ from app.schemas.tool_schema import SqlToolConfig, ToolInputSchema
 from app.services.chat_agent.helpers.llm import get_llm
 from app.services.chat_agent.helpers.query_formatting import standard_query_format
 from app.services.chat_agent.tools.ExtendedBaseTool import ExtendedBaseTool
+from app.utils.sql import is_sql_query_safe
 
 logger = logging.getLogger(__name__)
 
@@ -242,6 +243,12 @@ class SQLTool(ExtendedBaseTool):
         """
         try:
             query = await self._parse_query(response)
+            if not is_sql_query_safe(query):
+                return (
+                    False,
+                    [],
+                    "The SQL query contains forbidden keywords (DML, DDL statements)",
+                )
             if sql_tool_db is None:
                 raise ValueError("Database is not initialized")
             results = sql_tool_db.run_no_str(query)
