@@ -180,6 +180,13 @@ class Settings(BaseSettings):
     AGENT_CONFIG_PATH: str
 
     ################################
+    # Ollama configuration
+    ################################
+    OLLAMA_URL: str
+    OLLAMA_DEFAULT_MODEL: str
+    OLLAMA_ENABLED: bool
+
+    ################################
     # Tool specific configuration
     ################################
     SQL_TOOL_DB_ENABLED: bool

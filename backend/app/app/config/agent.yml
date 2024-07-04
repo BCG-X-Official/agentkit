@@ -1,8 +1,8 @@
 ---
 tools_library: !include tools.yml
 common: # settings shared by agent and all tools (can be overwritten by passing explicitly to constructors)
-  llm: 'gpt-4'
-  fast_llm: 'gpt-3.5-turbo'
+  llm: 'llama3:latest'
+  fast_llm: 'llama3:latest'
   fast_llm_token_limit: 2500
   max_token_length: 4000
 tools: # list of all tools available for the agent
