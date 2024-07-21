@@ -17,6 +17,7 @@ from app.schemas.tool_schema import SqlToolConfig, ToolInputSchema
 from app.services.chat_agent.helpers.llm import get_llm
 from app.services.chat_agent.helpers.query_formatting import standard_query_format
 from app.services.chat_agent.tools.ExtendedBaseTool import ExtendedBaseTool
+from app.utils.sql import is_sql_query_safe
 
 logger = logging.getLogger(__name__)
 
@@ -62,25 +63,31 @@ class SQLTool(ExtendedBaseTool):
             description=config.description.format(**{e.name: e.content for e in config.prompt_inputs}),
             prompt_message=config.prompt_message.format(**{e.name: e.content for e in config.prompt_inputs}),
             system_context=config.system_context.format(**{e.name: e.content for e in config.prompt_inputs}),
-            prompt_selection=config.prompt_selection.format(**{e.name: e.content for e in config.prompt_inputs})
-            if config.prompt_selection
-            else None,
-            system_context_selection=config.system_context_selection.format(
-                **{e.name: e.content for e in config.prompt_inputs}
-            )
-            if config.system_context_selection
-            else None,
-            prompt_validation=config.prompt_validation.format(**{e.name: e.content for e in config.prompt_inputs})
-            if config.prompt_validation
-            else None,
-            system_context_validation=config.system_context_validation.format(
-                **{e.name: e.content for e in config.prompt_inputs}
-            )
-            if config.system_context_validation
-            else None,
-            prompt_refinement=config.prompt_refinement.format(**{e.name: e.content for e in config.prompt_inputs})
-            if config.prompt_refinement
-            else None,
+            prompt_selection=(
+                config.prompt_selection.format(**{e.name: e.content for e in config.prompt_inputs})
+                if config.prompt_selection
+                else None
+            ),
+            system_context_selection=(
+                config.system_context_selection.format(**{e.name: e.content for e in config.prompt_inputs})
+                if config.system_context_selection
+                else None
+            ),
+            prompt_validation=(
+                config.prompt_validation.format(**{e.name: e.content for e in config.prompt_inputs})
+                if config.prompt_validation
+                else None
+            ),
+            system_context_validation=(
+                config.system_context_validation.format(**{e.name: e.content for e in config.prompt_inputs})
+                if config.system_context_validation
+                else None
+            ),
+            prompt_refinement=(
+                config.prompt_refinement.format(**{e.name: e.content for e in config.prompt_inputs})
+                if config.prompt_refinement
+                else None
+            ),
             nb_example_rows=config.nb_example_rows,
             validate_empty_results=config.validate_empty_results,
             validate_with_llm=config.validate_with_llm,
@@ -125,7 +132,15 @@ class SQLTool(ExtendedBaseTool):
         run_manager: Optional[AsyncCallbackManagerForToolRun] = None,
         **kwargs: Any,
     ) -> str:
-        """Use the tool asynchronously."""
+        """Use the tool asynchronously.
+
+        DISCLAIMER: Building Q&A systems of SQL databases requires executing model-
+        generated SQL queries. There are inherent risks in doing this. Make sure
+        that your database connection permissions are always scoped as narrowly
+        as possible for your chain/agent's needs. This will mitigate though not
+        eliminate the risks of building a model-driven system. For more on general
+        security best practices, see https://python.langchain.com/v0.1/docs/security/
+        """
         SQLTool.check_init(warning=False)
 
         query = kwargs.get(
@@ -228,6 +243,12 @@ class SQLTool(ExtendedBaseTool):
         """
         try:
             query = await self._parse_query(response)
+            if not is_sql_query_safe(query):
+                return (
+                    False,
+                    [],
+                    "The SQL query contains forbidden keywords (DML, DDL statements)",
+                )
             if sql_tool_db is None:
                 raise ValueError("Database is not initialized")
             results = sql_tool_db.run_no_str(query)
@@ -262,13 +283,15 @@ class SQLTool(ExtendedBaseTool):
                     validation_messages = [
                         SystemMessage(content=self.system_context_validation or ""),
                         HumanMessage(
-                            content=self.prompt_validation.format(
-                                query=response,
-                                result=results_str,
-                                question=question,
+                            content=(
+                                self.prompt_validation.format(
+                                    query=response,
+                                    result=results_str,
+                                    question=question,
+                                )
+                                if self.prompt_validation
+                                else ""
                             )
-                            if self.prompt_validation
-                            else ""
                         ),
                     ]
                     response = await self._agenerate_response(validation_messages)
@@ -321,14 +344,16 @@ class SQLTool(ExtendedBaseTool):
         improvement_messages = [
             SystemMessage(content=self.system_context),
             HumanMessage(
-                content=self.prompt_refinement.format(
-                    previous_answer=response,
-                    complaints=complaints,
-                    table_schemas=schemas,
-                    question=query,
+                content=(
+                    self.prompt_refinement.format(
+                        previous_answer=response,
+                        complaints=complaints,
+                        table_schemas=schemas,
+                        question=query,
+                    )
+                    if self.prompt_refinement
+                    else ""
                 )
-                if self.prompt_refinement
-                else ""
             ),
         ]
         response = await self._agenerate_response(improvement_messages)

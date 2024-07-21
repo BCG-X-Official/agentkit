@@ -1,4 +1,7 @@
 # SQL tool
+
+DISCLAIMER: Building Q&A systems of SQL databases requires executing model-generated SQL queries. There are inherent risks in doing this. Make sure that your database connection permissions are always scoped as narrowly as possible for your chain/agent's needs. This will mitigate though not eliminate the risks of building a model-driven system. For more on general security best practices, see [here](https://python.langchain.com/v0.1/docs/security/).
+
 ## How it works
 The SQL tool currently consists of the following steps:
 1) `_alist_sql_tables`: Find the tables relevant to the user's query and filter the database for only those tables
