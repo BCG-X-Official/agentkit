@@ -1,0 +1,127 @@
+replicaCount: 1
+
+
+image:
+  repository: "yourrepo/agentkitback"
+  pullPolicy: Always #IfNotPresent
+  tag: "latest"
+  annotations: {}
+  args: ["app.main:app", "--workers", "1", "--host", "0.0.0.0", "--port", "80", "--log-level" , "debug"]
+
+
+service:
+  port: 80
+  type: ClusterIP
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: ""
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+
+pgvector:
+  enabled: false
+  image:
+    repository: ankane/pgvector
+    tag: "v0.4.1"
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 5432
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  persistence:
+    enabled: true
+    size: 1Gi
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: ""
+
+
+redis:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: redis
+    tag: "6.0.9"
+    pullPolicy: IfNotPresent
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+dbInit:
+  image:
+    repository: ""
+    tag: "latest"
+    pullPolicy: Always
+
+env:
+  # Set to true to enable LLM cache in redis
+  ENABLE_LLM_CACHE: "false"
+  # Set to true to enable authentication
+  ENABLE_AUTH: "false"
+  # Add the url as in the FE .env file
+  NEXTAUTH_URL: "http://localhost:3000"
+  # Name of the project
+  PROJECT_NAME: "agentkit"
+  # The origins that are allowed to make cross-origin requests to your FastAPI backend.
+  BACKEND_CORS_ORIGINS: '[\"*\"]'
+  # Name of the main application database
+  # Name of the database for Celery scheduled jobs
+  DATABASE_CELERY_NAME: "celery_schedule_jobs"
+  # Port number for the database server
+  DATABASE_PORT: "5432"
+  # Hostname of the Redis server
+  REDIS_HOST: "{releasename}-{chartname}-redis.akit.svc.cluster.local"
+  # Port number for the Redis server
+  REDIS_PORT: "6379"
+  # URL for MinIO storage service
+  MINIO_URL: "storage.localhost"
+  # Bucket name for MinIO storage service
+  MINIO_BUCKET: "fastapi-minio"
+  # Root user for MinIO storage service
+  MINIO_ROOT_USER: "minioadmin"
+  # Set to true to enable the SQL database tool.
+  SQL_TOOL_DB_ENABLED: "true"
+  # Schemas to be included in the SQL tool
+  SQL_TOOL_DB_SCHEMAS: '[\"public\"]'
+  # Path to the SQL tool database information JSON file
+  SQL_TOOL_DB_INFO_PATH: 'app/tool_constants/sql_tool_db_info.json' 
+  # Set to true to overwrite the SQL tool database information on start
+  SQL_TOOL_DB_OVERWRITE_ON_START: "false"
+  # Path to the YAML configuration file for data extraction
+  EXTRACTION_CONFIG_PATH: 'app/config/extraction.yml'
+  # Path to the YAML configuration file for the agent
+  AGENT_CONFIG_PATH: 'app/config/agent.yml'
+  # Set to "true" to enable the PDF tool.
+  PDF_TOOL_ENABLED: "true"
+  # Path to the PDF tool data directory
+  PDF_TOOL_DATA_PATH: 'app/tool_constants/pdf_data'
+  # Name of the database for PDF indexing
+  PDF_TOOL_DATABASE: 'pdf_indexing_1'
+  # Path to the YAML configuration file for PDF extraction
+  PDF_TOOL_EXTRACTION_CONFIG_PATH: 'app/config/extraction.yml'
