@@ -30,6 +30,8 @@ The starter pack is based on the latest technologies for optimal performance, se
 * ⬆️ Docker-compose for simple deployments and DX
 * 🖍 Linting, tests and pre-commit hooks pre-configured
 
+Note: this is a starter kit - for production deployments, we recommend adding enterprise-grade security functionalities. Especially when using LLMs, be aware of known risks like prompt injection ([read more](https://www.ibm.com/topics/prompt-injection)).
+
 ## Quickstart
 For a quick setup of AgentKit, use the steps below, where both the backend app and frontend app are run inside a Docker container. More elaborate setup instructions can be found in the [documentation](https://agentkit.infra.x.bcg.com/docs/introduction).
 
@@ -106,7 +108,7 @@ See [optional feature documentation](docs/docusaurus/docs/advanced/optional_feat
 The project spun of a combination of different templates. One great inspiration is [fastapi-alembic-sqlmodel-async](https://github.com/jonra1993/fastapi-alembic-sqlmodel-async), which provided the foundations for the FastAPI setup. Please check them out!
 
 Great thanks to all the contributors:
-[@kaikun213](https://github.com/kaikun213) [@drivian](https://github.com/drivian) [@ielmansouri](https://github.com/ielmansouri) [@mastersplinter](https://github.com/mastersplinter) [@tanmaygupta9](https://github.com/tanmaygupta9) [@sofglide](https://github.com/sofglide) [@harticode](https://github.com/harticode) [@edenbd](https://github.com/edenbd) [@ben-howt](https://github.com/ben-howt) [@carelschw](https://github.com/carelschw) [@gustafvh](https://github.com/gustafvh) [@casper321](https://github.com/casper321) [@modvinden1](https://github.com/modvinden1) [@valerie-jzr](https://github.com/valerie-jzr) [@ispoljari](https://github.com/ispoljari) [@martinthenext](https://github.com/martinthenext)
+[@kaikun213](https://github.com/kaikun213) [@drivian](https://github.com/drivian) [@ielmansouri](https://github.com/ielmansouri) [@mastersplinter](https://github.com/mastersplinter) [@tanmaygupta9](https://github.com/tanmaygupta9) [@sofglide](https://github.com/sofglide) [@harticode](https://github.com/harticode) [@edenbd](https://github.com/edenbd) [@ben-howt](https://github.com/ben-howt) [@carelschw](https://github.com/carelschw) [@gustafvh](https://github.com/gustafvh) [@casper321](https://github.com/casper321) [@modvinden1](https://github.com/modvinden1) [@valerie-jzr](https://github.com/valerie-jzr) [@ispoljari](https://github.com/ispoljari) [@martinthenext](https://github.com/martinthenext) [@rkdy](https://github.com/rkdy)
 
 Please read `CONTRIBUTING.md` for more details on how to contribute.
 PRs are welcome ❤️
