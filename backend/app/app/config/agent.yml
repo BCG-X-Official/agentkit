@@ -16,54 +16,37 @@ tools: # list of all tools available for the agent
   - chain_tool
   - image_generation_tool
 action_plans: # list of all action plans available for the meta agent
-  '0':
-    name: ''
-    description: Gather new information, summarize and visualize
-    actions: # each sublist is 1 action step, i.e. add tools as subitems if you want to execute in parallel
-      - - sql_tool
-        - entertainer_tool
-      - - expert_tool
-        - visualizer_tool
   '1':
     name: ''
     description: Gather new information and summarize
     actions:
-      - - sql_tool
-        - pdf_tool
+      - - pdf_tool
         - entertainer_tool
       - - expert_tool
   '2':
-    name: ''
-    description: Sufficient information in chat history, visualize
-    actions:
-      - - memory
-        - sql_tool
-      - - visualizer_tool
-  '3':
     name: ''
     description: Sufficient information in chat history, answer question
     actions:
       - - memory
         - expert_tool
-  '4':
+  '3':
     name: ''
     description: Use information from chat history to gather new information, then summarize
     actions:
       - - memory
-        - sql_tool
         - pdf_tool
       - - expert_tool
-  '5':
+  '4':
     name: ''
     description: Clarification for ambiguous questions
     actions:
       - - clarify_tool
-  '6':
+  '5':
     name: 'Nested Chain'
     description: User requests expert advice and asks to consider multiple options
     actions:
       - - chain_tool
-  '7':
+  '6':
     name: ''
     description: Generate an image
     actions:
