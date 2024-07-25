@@ -99,6 +99,12 @@ For a high level overview of the routing flow and connection the UI, please see 
 
 See [optional feature documentation](docs/docusaurus/docs/advanced/optional_features.md) for more detailed info.
 
+## Ollama Integration
+- [Ollama](https://ollama.com/) is an open-source LLM inference server built on top of [llama.cpp](https://github.com/ggerganov/llama.cpp) designed to run small models locally or on a small GPU instance in the cloud. AgentKit can be powered by small language models, like llama 3 or mistral 7B running on an Ollama server locally or in the cloud.
+To get started download Ollama from the link above and install a model, for example llama 3 with the following command: `ollama run llama3`. This will download the weights so they're available on your local server. Then change the `OLLAMA_DEFAULT_MODEL` environment variable to `OLLAMA_DEFAULT_MODEL="llama3"`. Finally, set the `OLLAMA_ENABLED` environment variable to `true`, and AgentKit will run with the model you pulled.
+Note that performance of the app may be impacted by using a smaller model hosted in Ollama, since the models it can run are generally less powerful than GPT-3.5 or GPT-4.
+To change the LLM that powers individual pars of the backend, specify an LLM in the configuration for the tool or agent in `app/config/`. For example, to use llama 3 to power the agent, set `common.llm` to `llama3` in `app/config/agent.yml`.
+- You will want to enable the Ollama integration when you don't have access to OpenAI for your use case. The Ollama code here is meant as a starter template for you to expand on as you experiment with different small models hosted in Ollama. Remember that your performance may very when working with smaller models, so make sure you're evaluating with LangSmith whenever you make changes.
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=BCG-X-Official/agentkit&type=Timeline)](https://star-history.com/#BCG-X-Official/agentkit&Timeline)
