@@ -71,33 +71,19 @@ def get_llm(
                 anthropic_api_key=settings.ANTHROPIC_API_KEY,
                 streaming=True,
             )
+        case "claude-3.5-sonnet":
+            return ChatAnthropic(
+                temperature=0,
+                model_name="claude-3-5-sonnet-20240620",
+                anthropic_api_key=settings.ANTHROPIC_API_KEY,
+                streaming=True,
+            )
         case "claude-3-sonnet":
             return ChatAnthropic(
                 temperature=0,
                 model_name="claude-3-sonnet-20240229",
                 anthropic_api_key=settings.ANTHROPIC_API_KEY,
                 streaming=True,
-            )
-        case "claude-3-haiku":
-            return ChatAnthropic(
-                temperature=0,
-                model_name="claude-3-haiku-20240307",
-                anthropic_api_key=settings.ANTHROPIC_API_KEY,
-                streaming=True,
-            )
-        case "gemini-1.0-pro":
-            return ChatGoogleGenerativeAI(
-                temperature=0,
-                model="gemini-1.0-pro-latest",
-                google_api_key=settings.GOOGLE_API_KEY,
-                streaming=True,
-                convert_system_message_to_human=True,
-                safety_settings={
-                    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-                    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-                    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-                    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-                },
             )
         # If an exact match is not confirmed, this last case will be used if provided
         case _:

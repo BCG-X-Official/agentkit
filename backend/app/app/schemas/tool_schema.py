@@ -11,9 +11,8 @@ LLMType = Literal[
     "azure-4-32k",
     "azure-3.5",
     "claude-3-opus",
+    "claude-3.5-sonnet",
     "claude-3-sonnet",
-    "claude-3-haiku",
-    "gemini-1.0-pro",
 ]
 
 
