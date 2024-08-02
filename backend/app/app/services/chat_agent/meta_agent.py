@@ -37,7 +37,7 @@ def get_conv_token_buffer_memory(
 
     # We use gpt-4 in ConversationTokenBufferMemory to standardize tokenization
     llm = get_llm(
-        'gpt-4',
+        "gpt-4",
         api_key=api_key,
     )
     chat_history = ChatMessageHistory()
