@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str
     OPENAI_ORGANIZATION: Optional[str] = None
     OPENAI_API_BASE: Optional[str] = None
+    ANTHROPIC_API_KEY: Optional[str] = None
+    GOOGLE_API_KEY: Optional[str] = None
     DATABASE_USER: str
     DATABASE_PASSWORD: str
     DATABASE_HOST: str

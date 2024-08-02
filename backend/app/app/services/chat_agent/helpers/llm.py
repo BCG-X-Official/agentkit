@@ -7,6 +7,7 @@ from typing import Optional
 
 import tiktoken
 from langchain.base_language import BaseLanguageModel
+from langchain_anthropic import ChatAnthropic
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
 
 from app.core.config import settings
@@ -56,6 +57,27 @@ def get_llm(
                 model_name="gpt-4",
                 openai_organization=settings.OPENAI_ORGANIZATION,
                 openai_api_key=api_key if api_key is not None else settings.OPENAI_API_KEY,
+                streaming=True,
+            )
+        case "claude-3-opus":
+            return ChatAnthropic(
+                temperature=0,
+                model_name="claude-3-opus-20240229",
+                anthropic_api_key=settings.ANTHROPIC_API_KEY,
+                streaming=True,
+            )
+        case "claude-3.5-sonnet":
+            return ChatAnthropic(
+                temperature=0,
+                model_name="claude-3-5-sonnet-20240620",
+                anthropic_api_key=settings.ANTHROPIC_API_KEY,
+                streaming=True,
+            )
+        case "claude-3-sonnet":
+            return ChatAnthropic(
+                temperature=0,
+                model_name="claude-3-sonnet-20240229",
+                anthropic_api_key=settings.ANTHROPIC_API_KEY,
                 streaming=True,
             )
         # If an exact match is not confirmed, this last case will be used if provided
