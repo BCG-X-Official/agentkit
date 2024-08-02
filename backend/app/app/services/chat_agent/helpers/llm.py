@@ -9,11 +9,6 @@ import tiktoken
 from langchain.base_language import BaseLanguageModel
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
 from langchain_anthropic import ChatAnthropic
-from langchain_google_genai import (
-    ChatGoogleGenerativeAI,
-    HarmBlockThreshold,
-    HarmCategory,
-)
 
 from app.core.config import settings
 from app.schemas.tool_schema import LLMType
