@@ -7,7 +7,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml* ./
-RUN yarn global add pnpm && pnpm i --frozen-lockfile
+RUN yarn global add pnpm && pnpm i --no-frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM base AS builder
