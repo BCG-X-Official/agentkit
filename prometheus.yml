@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'fastapi'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['fastapi_server:9090']
+
+  - job_name: 'nextjs'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['nextjs_server:3000']
+
+  - job_name: 'postgres_exporter'
+    static_configs:
+      - targets: ['postgres_exporter:9187']
