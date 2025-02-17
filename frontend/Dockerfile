@@ -1,13 +1,15 @@
 FROM node:18-alpine AS base
 
-# Install dependencies only when needed
-FROM base AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
+RUN corepack enable && corepack prepare pnpm@8.6.1 --activate
+
+# Install dependencies only when needed
+FROM base AS deps
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml* ./
-RUN yarn global add pnpm && pnpm i --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -27,8 +29,8 @@ COPY . .
 #ARG NEXT_PUBLIC_API_URL
 #ENV NEXT_PUBLIC_API_URL ${NEXT_PUBLIC_API_URL}
 
-RUN yarn run prisma:generate
-RUN yarn run build
+RUN pnpm run prisma:generate
+RUN pnpm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner

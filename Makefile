@@ -61,8 +61,11 @@ run-dev:
 stop-dev:
 	docker compose -f docker-compose-dev.yml down
 
+build-prod:
+	docker compose build
+
 run-prod:
-	docker compose up
+	docker compose up -d
 
 stop-prod:
 	docker compose down

@@ -7,7 +7,8 @@ ENV PYTHONUNBUFFERED=1 \
 WORKDIR /code
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl && \
-    curl -sSL https://install.python-poetry.org | python && \
+    curl -sSL https://install.python-poetry.org | python3 - && \
+    ln -s /opt/poetry/bin/poetry /usr/local/bin/poetry && \
     apt-get remove -y curl && \
     apt-get autoremove -y && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -16,9 +17,12 @@ COPY app/pyproject.toml app/poetry.lock* /code/
 
 FROM base AS builder
 ARG INSTALL_DEV=false
-RUN poetry install --no-root $( [ "$INSTALL_DEV" = "true" ] && echo "--with dev" || echo "--no-dev" )
+RUN poetry install --no-root --without dev && \
+    poetry run alembic --help
 
 FROM base AS final
+ENV PATH="/code/.venv/bin:$PATH"
+
 COPY --from=builder /code /code
 COPY app /code/app
 

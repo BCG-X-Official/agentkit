@@ -71,6 +71,7 @@ tiktoken = "^0.5.2"
 watchfiles = "^0.18.1"
 wheel = "^0.40.0"
 isort = "^5.13.2"
+prometheus-fastapi-instrumentator = "^7.0.2"
 
 [tool.poetry.group.dev]
 optional = true

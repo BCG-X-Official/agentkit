@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
   fastapi_server:
     container_name: fastapi_server
     build: ./backend
     restart: always
-    command: "sh -c 'alembic upgrade head && python app/document_ingestion.py  && uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 9090'"
+    command: "sh -c 'poetry run alembic upgrade head && poetry run python app/document_ingestion.py && poetry run uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 9090'"
     volumes:
       - ./backend/app:/code
     expose:
