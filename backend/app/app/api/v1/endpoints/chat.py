@@ -54,6 +54,7 @@ async def run_cancel(
 
 
 @router.post("/agent", dependencies=[Depends(agent_deps.set_global_tool_context)])
+@trace
 async def agent_chat(
     chat: IChatQuery,
     jwt: Annotated[dict, Depends(get_jwt)],
