@@ -13,8 +13,9 @@ from app.services.chat_agent.helpers.llm import get_llm
 from app.services.chat_agent.router_agent.SimpleRouterAgent import SimpleRouterAgent
 from app.services.chat_agent.tools.tools import get_tools
 from app.utils.config_loader import get_agent_config
+from app.utils.utils import trace
 
-
+@trace
 def get_conv_token_buffer_memory(
     chat_messages: List[AIMessage | HumanMessage],
     api_key: str,
@@ -71,7 +72,7 @@ def get_conv_token_buffer_memory(
 
     return memory
 
-
+@trace
 def create_meta_agent(
     agent_config: AgentConfig,
     get_llm_hook: Callable[[LLMType, Optional[str]], BaseLanguageModel] = get_llm,
