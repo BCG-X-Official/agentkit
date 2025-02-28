@@ -1,0 +1,13 @@
+{{- if .Values.ingress.enabled }}
+1. Get the application URL by running these commands:
+  {{- if contains "ClusterIP" .Values.service.type }}
+  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "backend.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
+  echo "Visit http://127.0.0.1:8080 to use your application"
+  kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:{{ .Values.service.port }}
+  {{- else }}
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "backend.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+  echo "Visit http://$SERVICE_IP to use your application"
+  {{- end }}
+{{- else }}
+1. The application is not externally accessible by default since the ingress is disabled. To enable it, set the ingress.enabled to true and configure the ingress settings in your values.yaml file.
+{{- end }}
