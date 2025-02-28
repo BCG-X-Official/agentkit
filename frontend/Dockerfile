@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base
+FROM node:18-alpine@sha256:b17bf243e453f407ac0acf47d55fe08ae8b5a63ae3c1bd62f474bd0eb1c4c467 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -7,7 +7,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml* ./
-RUN yarn global add pnpm && pnpm i --frozen-lockfile
+RUN yarn global add pnpm && pnpm i --no-frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM base AS builder
