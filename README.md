@@ -1,8 +1,6 @@
-<img src="static/agentkit_logo_color.png" alt="AgentKit logo" style="width:500px;"/>
+# DEPRECATED: This repository has been deprecated. 
 
-[![Lint-Backend](https://github.com/BCG-X-Official/agentkit/actions/workflows/lint-backend.yml/badge.svg?branch=main)](https://github.com/BCG-X-Official/agentkit/actions/workflows/lint-backend.yml?query=branch%3Amain)
-[![Lint-Frontend](https://github.com/BCG-X-Official/agentkit/actions/workflows/lint-frontend.yml/badge.svg?branch=main)](https://github.com/BCG-X-Official/agentkit/actions/workflows/lint-frontend.yml?query=branch%3Amain)
-[![Tests](https://github.com/BCG-X-Official/agentkit/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/BCG-X-Official/agentkit/actions/workflows/tests.yml?query=branch%3Amain)
+<img src="static/agentkit_logo_color.png" alt="AgentKit logo" style="width:500px;"/>
 
 # AgentKit: rapidly build high quality Agent apps
 AgentKit is a LangChain-based starter kit developed by BCG X to build Agent apps. Developers can use AgentKit to
