@@ -1,4 +1,19 @@
-# DEPRECATED: This repository has been deprecated. 
+## Deprecation notice
+
+**This repository has been deprecated and is no longer actively maintained.**
+
+AgentKit was created to help teams get started faster with agent-based applications and to provide a practical foundation for experimentation and delivery. It helped explore and operationalize many of the ideas that have since become much more central to the field, including parallel tool calls, quality gates, and the compositional design of flows.
+
+Since then, the ecosystem has evolved rapidly. New frameworks, templates, and runtime patterns now provide a stronger foundation for building modern agent-based systems. We increasingly see approaches such as iterative CLI execution and modular agent runtimes becoming important directions for the next generation of agents, with projects such as [OpenClaw](https://github.com/openclaw/openclaw) and [NemoClaw](https://github.com/NVIDIA/NemoClaw/tree/main) reflecting some of these trends.
+
+We would like to thank everyone who contributed to AgentKit — from the original creators and maintainers to all colleagues who opened issues, shared feedback, tested ideas in projects, and helped improve the repository over time. AgentKit reflects an important early chapter of work in this space, and we are grateful to everyone who helped shape it.
+
+For new projects, we recommend using more current and actively maintained alternatives, depending on your use case, for example:
+- [Vercel AI SDK Chatbot template](https://vercel.com/templates/ai/chatbot)
+- [Vercel AI templates](https://vercel.com/templates/ai)
+- [FastAPI Full-Stack Template](https://github.com/fastapi/full-stack-fastapi-template)
+
+-------
 
 <img src="static/agentkit_logo_color.png" alt="AgentKit logo" style="width:500px;"/>
 
