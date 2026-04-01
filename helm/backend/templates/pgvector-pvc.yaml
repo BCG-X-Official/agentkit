@@ -1,0 +1,17 @@
+{{- if and .Values.pgvector.enabled .Values.pgvector.persistence.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "backend.fullname" . }}-pgvector
+  labels:
+    {{- include "backend.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.pgvector.persistence.accessModes | join " " | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.pgvector.persistence.size | quote }}
+{{- if .Values.pgvector.persistence.storageClassName }}
+  storageClassName: {{ .Values.pgvector.persistence.storageClassName | quote }}
+{{- end }}
+{{- end }}
